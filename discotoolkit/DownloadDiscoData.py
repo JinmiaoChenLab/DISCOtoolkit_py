@@ -4,7 +4,7 @@ version:
 Author: Mengwei Li
 Date: 2023-04-14 16:33:44
 LastEditors: Mengwei Li
-LastEditTime: 2023-04-15 16:24:26
+LastEditTime: 2023-04-15 17:15:14
 '''
 import requests
 import json
@@ -42,6 +42,8 @@ def download_disco_data(metadata, output_dir = "DISCOtmp"):
                         logging.warning("sample %s download fail" % (s))
                     else:
                         open(output_file, "wb").write(response.content)
+                        if hashlib.md5(open(output_file, "rb").read()).hexdigest() != list(samples["md5"])[i]:
+                            error_sample.append(s)
                 except:
                     error_sample.append(s)
                     logging.warning("sample %s download fail" % (s))
@@ -76,6 +78,8 @@ def download_disco_data(metadata, output_dir = "DISCOtmp"):
                         logging.warning("sample %s download fail" % (s))
                     else:
                         open(output_file, "wb").write(response.content)
+                        if hashlib.md5(open(output_file, "rb").read()).hexdigest() != list(samples["md5"])[i]:
+                            error_sample.append(s)
                 except:
                     error_sample.append(s)
                     logging.warning("sample %s download fail" % (s))
