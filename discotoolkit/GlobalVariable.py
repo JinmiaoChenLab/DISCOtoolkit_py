@@ -12,10 +12,10 @@ logging.basicConfig(level = logging.INFO)
 # dummy = random.randint(0,100)
 
 # Define package-level variable
-response = requests.get("https://www.immunesinglecell.org/api/vishuo/getToolkitUrl")
+response = requests.get("http://www.immunesinglecell.org/api/vishuo/getToolkitUrl")
 
 # response = requests.get(disco_url)
 if response.status_code == 200:
     prefix_disco_url = json.loads(response.text)["url"]
 else:
-    prefix_disco_url = "https://www.immunesinglecell.org/toolkitapi"
+    prefix_disco_url = "http://www.immunesinglecell.org/toolkitapi"
