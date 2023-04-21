@@ -1,0 +1,23 @@
+Metadata-Version: 2.1
+Name: discotoolkit
+Version: 1.0.0.1
+Summary: DISCOtoolkit is an python package that allows users to access data and use the tools provided by the DISCO database.
+Home-page: http://www.immunesinglecell.org/
+Author: Li Mengwei, Rom Uddamvathanak
+Author-email: uddamvathanak_rom@immunol.a-star.edu.sg
+License: UNKNOWN
+Description: 
+            DISCOtoolkit is an python package that allows users to access data and use the tools provided by the DISCO database. It provides the following functions:
+            
+        
+            Filter and download DISCO data based on sample metadata and cell type information
+            
+        CELLiD: cell type annotation
+            
+        scEnrichment: geneset enrichment using DISCO DEGs
+            
+        CellMapper: project data into DISCO atlas
+            
+Platform: UNKNOWN
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown

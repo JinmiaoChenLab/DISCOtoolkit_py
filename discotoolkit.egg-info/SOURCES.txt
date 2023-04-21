@@ -1,0 +1,15 @@
+MANIFEST.in
+README.md
+setup.py
+discotoolkit/CELLiD.py
+discotoolkit/CellMapper.py
+discotoolkit/DiscoClass.py
+discotoolkit/DownloadDiscoData.py
+discotoolkit/GetMetadata.py
+discotoolkit/GlobalVariable.py
+discotoolkit/__init__.py
+discotoolkit.egg-info/PKG-INFO
+discotoolkit.egg-info/SOURCES.txt
+discotoolkit.egg-info/dependency_links.txt
+discotoolkit.egg-info/requires.txt
+discotoolkit.egg-info/top_level.txt
