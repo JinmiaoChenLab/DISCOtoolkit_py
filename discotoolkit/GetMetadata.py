@@ -56,7 +56,7 @@ def get_disco_metadata():
     """
     return metadata, Pandas dataframe
     """
-    metadata = get_json(url = "https://www.immunesinglecell.org/api/vishuo/sample/all", info_msg = "Retrieving metadata from DISCO database",
+    metadata = get_json(url = "http://www.immunesinglecell.org/api/vishuo/sample/all", info_msg = "Retrieving metadata from DISCO database",
              error_msg = "Failed to retrieve metadata. Please try again. If the issue persists, please contact us at li_mengwei@immunol.a-star.edu.sg for assistance.", prefix=False)
     metadata = pd.DataFrame(metadata)
     metadata = metadata[metadata["processStatus"] == "QC pass"]

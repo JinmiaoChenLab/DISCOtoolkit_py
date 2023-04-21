@@ -8,7 +8,7 @@ LastEditTime: 2023-04-15 16:39:07
 '''
 import discotoolkit as dtk
 
-url = "https://www.immunesinglecell.org/toolkitapi//getCellOntology"
+url = "http://www.immunesinglecell.org/toolkitapi//getCellOntology"
 info_msg = "Anything"
 error_msg = "Failed to retrieve ontology Please try again. If the issue persists, please contact us at li_mengwei@immunol.a-star.edu.sg for assistance."
 
