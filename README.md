@@ -16,7 +16,7 @@ DISCOtoolkit is an python package that allows users to access data and use the t
 - CellMapper: project data into DISCO atlas
 
 ``` 
-pip3 install https://github.com/JinmiaoChenLab/DISCOtoolkit_py/archive/main.zip
+pip3 install discotoolkit
 ```
 
 ## Basic Usage
