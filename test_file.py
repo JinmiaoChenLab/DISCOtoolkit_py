@@ -12,7 +12,8 @@ url = "http://www.immunesinglecell.org/toolkitapi//getCellOntology"
 info_msg = "Anything"
 error_msg = "Failed to retrieve ontology Please try again. If the issue persists, please contact us at li_mengwei@immunol.a-star.edu.sg for assistance."
 
-filter = dtk.Filter(cell_type="B cell", sample="AML003_3p")
+# filter = dtk.Filter(cell_type="B cell", sample="AML003_3p")
+filter = dtk.Filter(sample="AML003_3p")
 metadata = dtk.filter_disco_metadata(filter)
 # metadata.sample_metadata.sampleId.iloc[0] = "AML003_3p22"
 # metadata.cell_type_metadata["sample"] = "AML003_3p22"

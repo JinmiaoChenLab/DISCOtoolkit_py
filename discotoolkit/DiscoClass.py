@@ -41,7 +41,8 @@ class Filter:
         else:
             return var
 
-class FilterData:
+class FilterData:    
+
     """
     Wrapper class on top of the Filter object to get dataset's summary such as cell count and sample count and the metadata
     """
