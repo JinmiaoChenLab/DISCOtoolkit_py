@@ -1,5 +1,9 @@
 from setuptools import setup, find_packages
 
+# Read the contents of the requirements.txt file
+with open("requirements.txt", "r") as f:
+    requirements = f.read().splitlines()
+
 setup(
     name='discotoolkit',
     version='1.0.0.1',
@@ -8,11 +12,8 @@ setup(
     author_email='uddamvathanak_rom@immunol.a-star.edu.sg',
     description='DISCOtoolkit is an python package that allows users to access data and use the tools provided by the DISCO database.',
     packages=find_packages(include=["discotoolkit", "discotoolkit.*"]),
-    install_requires=[
-        'numpy',
-        'pandas',
-    ],
-    python_requires = '>=3.8',
+    install_requires=requirements,
+    python_requires = '>=3.8.10',
     include_package_data=True,
     long_description="""
     DISCOtoolkit is an python package that allows users to access data and use the tools provided by the DISCO database. It provides the following functions

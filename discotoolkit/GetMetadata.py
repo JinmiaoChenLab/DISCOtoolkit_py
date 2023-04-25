@@ -1,42 +1,65 @@
+"""
+Get metadata class for the filtered and non filtered dataset
+"""
+
+# import libraries
 import requests
 import json
 import pandas as pd
 import re
 
+# import variable and class from other script
 from .GlobalVariable import logging, prefix_disco_url
 from .DiscoClass import FilterData, Filter
 
-
+# get the json data from URL
 def get_json(url, info_msg, error_msg, prefix = True):
+    """
+    url         String;
+    info_msg    String:
+    error_msg   String;
+    prefix      Bool, default True;
+    
+    return JSON data
+    """
+    
+    # giving log message to the user
     logging.info(info_msg)
 
+    # condition for adding prefix
     if prefix == False:
         response = requests.get(url)
     else:
         response = requests.get(prefix_disco_url + "/" + url)
     
-    # print(prefix_disco_url + "/" + url)
+    # if the loading of JSON is successful, we get the text
     if response.status_code == 200:
         data = json.loads(response.text)
-        # print(data)
-        return data
+        return data # return json data Dictionary datatype in python
     else:
+
+        # print informative message to the user
         logging.error(error_msg)
-        # print("Failed to retrieve ontology Please try again. If the issue persists, please contact us at li_mengwei@immunol.a-star.edu.sg for assistance.")
 
 # Get cell type information of sample
 def get_sample_ct_info():
     temp = get_json(url = "/getSampleCtInfo", info_msg = "Retrieving cell type information of each sample from DISCO database",
                     error_msg = "Failed to retrieve cell type information. Please try again. If the issue persists, please contact us at li_mengwei@immunol.a-star.edu.sg for assistance.")
-    return pd.DataFrame(temp)
+    return pd.DataFrame(temp) # return Dataframe of the JSON data
 
-
-
+# find the celltype within the disco dataset
 def find_celltype(term = "", cell_ontology = None):
+    """
+    Cell_ontology JSON data;
+
+    return list of celltype
+    """
+
+    # when the user do not have cell ontology, we get the default one from disco database
     if cell_ontology is None:
         cell_ontology = get_json(url = "/getCellOntology", info_msg = "Retrieving ontology from DISCO database",
         error_msg = "Failed to retrieve ontology Please try again. If the issue persists, please contact us at li_mengwei@immunol.a-star.edu.sg for assistance.")
-    cell_type = pd.DataFrame(cell_ontology)["cell_name"]
+    cell_type = pd.DataFrame(cell_ontology)["cell_name"] # convert to dataframe
 
     # convert term to lower term for matching. sthe same apply for the cell_type
     term = term.lower()

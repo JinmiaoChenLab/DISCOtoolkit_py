@@ -1,3 +1,9 @@
+"""
+Global variable file to import for the subsequent script.
+
+Main purpose is for the logging to be imported to other script and getting the url
+"""
+
 import requests
 import json
 import logging

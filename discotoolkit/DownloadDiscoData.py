@@ -6,6 +6,8 @@ Date: 2023-04-14 16:33:44
 LastEditors: Mengwei Li
 LastEditTime: 2023-04-16 12:14:48
 '''
+
+# import libraries
 import requests
 import json
 import pandas as pd
@@ -14,6 +16,7 @@ import os
 import hashlib
 import requests
 
+# import variable and class from other script
 from .GlobalVariable import logging, prefix_disco_url
 from .DiscoClass import FilterData, Filter
 from .GetMetadata import check_in_list
