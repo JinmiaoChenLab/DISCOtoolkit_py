@@ -214,7 +214,7 @@ def filter_disco_metadata(filter : Filter = Filter()):
     # remove the unnecessary fields from the metadata and only keep the below defined columns
     retain_field = ["sampleId", "projectId", "sampleType", "anatomicalSite", "disease",
                    "tissue", "platform", "ageGroup", "age", "gender", "cellSorting",
-                   "diseaseSubtype", "diseaseStage", "treatment", "md5"]
+                   "diseaseSubtype", "diseaseStage", "treatment", "md5h5ad"]
     
     # subset to the retained field
     metadata = metadata[retain_field]

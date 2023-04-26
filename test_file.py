@@ -15,6 +15,7 @@ error_msg = "Failed to retrieve ontology Please try again. If the issue persists
 # filter = dtk.Filter(cell_type="B cell", sample="AML003_3p")
 filter = dtk.Filter(sample="AML003_3p")
 metadata = dtk.filter_disco_metadata(filter)
+# print(metadata.sample_metadata.head(5))
 # metadata.sample_metadata.sampleId.iloc[0] = "AML003_3p22"
 # metadata.cell_type_metadata["sample"] = "AML003_3p22"
 a = dtk.download_disco_data(metadata)
