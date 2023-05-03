@@ -13,6 +13,7 @@ import logging
 # logger = logging.StreamHandler()
 # logger.setLevel(0)
 logging.basicConfig(level = logging.INFO)
+timeout = 600 # timeout for request in second unit
 
 # Define package-level variable
 response = requests.get("http://www.immunesinglecell.org/api/vishuo/getToolkitUrl")
