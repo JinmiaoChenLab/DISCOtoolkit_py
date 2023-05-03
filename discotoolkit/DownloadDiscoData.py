@@ -69,8 +69,8 @@ def download_disco_data(metadata, output_dir : str = "DISCOtmp"):
                         # write the file to directory
                         open(output_file, "wb").write(response.content)
 
-                        print(hashlib.md5(open(output_file, "rb").read()).hexdigest())
-                        print(list(samples["md5h5ad"])[i])
+                        # print(hashlib.md5(open(output_file, "rb").read()).hexdigest())
+                        # print(list(samples["md5h5ad"])[i])
 
                         # condition for another error
                         if hashlib.md5(open(output_file, "rb").read()).hexdigest() != list(samples["md5h5ad"])[i]:
@@ -107,7 +107,7 @@ def download_disco_data(metadata, output_dir : str = "DISCOtmp"):
             
             # checking for file and ignore if it is already exist
             if (os.path.exists(output_file)) and \
-            hashlib.md5(open(output_file, "rb").read()).hexdigest() == list(samples["md5h5ad"]):
+            hashlib.md5(open(output_file, "rb").read()).hexdigest() == list(samples["h5adMd5"]):
                 logging.info(" %s has been downloaded before. Ignore ..." % (s)) # give message to the user
             else:
                 logging.info("Downloading data of %s" % (s)) # give message to the user
@@ -121,7 +121,7 @@ def download_disco_data(metadata, output_dir : str = "DISCOtmp"):
                         open(output_file, "wb").write(response.content)
                         
                         # condition for another error
-                        if hashlib.md5(open(output_file, "rb").read()).hexdigest() != list(samples["md5h5ad"])[i]:
+                        if hashlib.md5(open(output_file, "rb").read()).hexdigest() != list(samples["h5adMd5"])[i]:
                             error_sample.append(s)
                             os.remove(output_file)
                             logging.warning("sample %s download fail" % (s)) # give message to the user

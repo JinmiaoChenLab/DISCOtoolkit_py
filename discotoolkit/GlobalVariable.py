@@ -14,6 +14,8 @@ import logging
 # logger.setLevel(0)
 logging.basicConfig(level = logging.INFO)
 
+timeout = 600
+
 # Define package-level variable
 response = requests.get("http://www.immunesinglecell.org/api/vishuo/getToolkitUrl")
 
