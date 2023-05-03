@@ -17,7 +17,7 @@ import hashlib
 import requests
 
 # import variable and class from other script
-from .GlobalVariable import logging, prefix_disco_url, timeout
+from .GlobalVariable import logging, prefix_disco_url
 from .DiscoClass import FilterData, Filter
 from .GetMetadata import check_in_list
 
@@ -59,7 +59,7 @@ def download_disco_data(metadata, output_dir : str = "DISCOtmp"):
 
                 try:
                     # try to download the data as requested
-                    response = requests.get(url=prefix_disco_url + "getH5adBySample?sample=" + s, timeout = timeout)
+                    response = requests.get(url=prefix_disco_url + "getH5adBySample?sample=" + s)
 
                     # condition for error in downloading the samples
                     if response.status_code == 404:
@@ -68,6 +68,9 @@ def download_disco_data(metadata, output_dir : str = "DISCOtmp"):
                     else:
                         # write the file to directory
                         open(output_file, "wb").write(response.content)
+
+                        print(hashlib.md5(open(output_file, "rb").read()).hexdigest())
+                        print(list(samples["md5h5ad"])[i])
 
                         # condition for another error
                         if hashlib.md5(open(output_file, "rb").read()).hexdigest() != list(samples["md5h5ad"])[i]:
@@ -104,27 +107,27 @@ def download_disco_data(metadata, output_dir : str = "DISCOtmp"):
             
             # checking for file and ignore if it is already exist
             if (os.path.exists(output_file)) and \
-            hashlib.md5(open(output_file, "rb").read()).hexdigest() == list(samples["h5adMd5"])[i]:
+            hashlib.md5(open(output_file, "rb").read()).hexdigest() == list(samples["md5h5ad"]):
                 logging.info(" %s has been downloaded before. Ignore ..." % (s)) # give message to the user
             else:
                 logging.info("Downloading data of %s" % (s)) # give message to the user
                 try:
                     # get the data from the server
-                    response = requests.get(url=prefix_disco_url + "getH5adBySampleCt?sample=" + s, timeout = timeout)
+                    response = requests.get(url=prefix_disco_url + "getH5adBySampleCt?sample=" + s)
                     if response.status_code == 404:
                         error_sample.append(s) # append error samples
-                        logging.warning("sample %s download network error" % (s)) # give message to the user
+                        logging.warning("sample %s download fail 1" % (s)) # give message to the user
                     else:
                         open(output_file, "wb").write(response.content)
-
+                        
                         # condition for another error
-                        if hashlib.md5(open(output_file, "rb").read()).hexdigest() != list(samples["h5adMd5"])[i]:
+                        if hashlib.md5(open(output_file, "rb").read()).hexdigest() != list(samples["md5h5ad"])[i]:
                             error_sample.append(s)
                             os.remove(output_file)
-                            logging.warning("sample %s md5 check fail" % (s)) # give message to the user
+                            logging.warning("sample %s download fail" % (s)) # give message to the user
                 except:
                     error_sample.append(s)
-                    logging.warning("sample %s download fail unexpectedly" % (s)) # give message to the user
+                    logging.warning("sample %s download fail" % (s)) # give message to the user
         
         # similarly, record the error samples and return to the variable
         if len(error_sample) > 0:
