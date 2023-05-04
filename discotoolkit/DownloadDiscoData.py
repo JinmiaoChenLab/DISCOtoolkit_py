@@ -69,9 +69,6 @@ def download_disco_data(metadata, output_dir : str = "DISCOtmp"):
                         # write the file to directory
                         open(output_file, "wb").write(response.content)
 
-                        # print(hashlib.md5(open(output_file, "rb").read()).hexdigest())
-                        # print(list(samples["md5h5ad"])[i])
-
                         # condition for another error
                         if hashlib.md5(open(output_file, "rb").read()).hexdigest() != list(samples["md5h5ad"])[i]:
                             error_sample.append(s)
