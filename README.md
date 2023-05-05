@@ -15,6 +15,12 @@ DISCOtoolkit is an python package that allows users to access data and use the t
 - scEnrichment: geneset enrichment using DISCO DEGs
 - CellMapper: project data into DISCO atlas
 
+Dependency Requirements:
+- Numpy 1.21.6
+- Pandas 1.4.2
+- Scanpy 1.9.3
+
+Installation using pip:
 ``` 
 pip3 install discotoolkit
 ```
@@ -23,3 +29,4 @@ pip3 install discotoolkit
 
 ### [Filter and download DISCO data](https://github.com/JinmiaoChenLab/DISCOtoolkit_py/blob/main/download_data.ipynb)
 
+### [Cell Type Annotation using CELLiD](https://github.com/JinmiaoChenLab/DISCOtoolkit_py/blob/main/CELLiD_celltype_annotation.ipynb)

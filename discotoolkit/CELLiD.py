@@ -16,6 +16,9 @@ from .GlobalVariable import logging, prefix_disco_url, timeout
 from .DiscoClass import FilterData, Filter
 from .GetMetadata import check_in_list
 
+"""
+CELLiD cell type annotation function block.
+"""
 # get the total atlas from DISCO website for the user to select which atlas to use
 def get_atlas(ref_data = None, ref_path = None):
 
@@ -162,6 +165,49 @@ def CELLiD_cluster(rna, ref_data : pd.DataFrame = None, ref_deg : pd.DataFrame =
         res = pd.DataFrame(res, columns =['cell_type', 'atlas', "score", "input_index"])
         return res  # return list in the format cell_type, atlas, score, input_index
 
+    # get a data in the format of cell_type, atlas, score, input_index
     predicted_cell = [second_correlation(y, ref_data, rna, ct) for y in range(rna.shape[1])]
 
     return pd.concat(predicted_cell)  # return pandas dataframe in the format cell_type, atlas, score, input_index
+
+"""
+Geneset enrichment analysis using DISCO data
+"""
+
+def CELLiD_enrichment(input, reference = None, ref_path : str = None, ncores = 10):
+    # check input data
+    if not(isinstance(input, pd.DataFrame)):
+        logging.error("The input must be a dataframe")
+    if input.shape[1] > 2:
+        logging.error("The input must be greater one or two columns")
+    if input.shape[1] == 2:
+        input.columns = ["gene", "fc"]
+    else:
+        input.columns = ["gene"]
+
+    # if the user does not provide reference geneset list
+    if reference is None:
+        # check for the data path
+        if ref_path is None:
+            ref_path = "DISCOtmp"
+
+        # if the path does not exist, we create a default directory
+        if not os.path.exists(ref_path):
+            os.mkdir(ref_path)
+        
+        # downloading the geneset data from disco database
+        response = requests.get(url=prefix_disco_url +"/getGeneSet", timeout=timeout)
+        open(ref_path + "/ref_geneset.pkl", "wb").write(response.content)
+
+        reference = pd.read_pickle(ref_path + "/ref_geneset.pkl", compression = {'method':'gzip','compresslevel':6})
+
+    reference.name = reference.name + " in " + reference.atlas
+
+    print(reference.name)
+        
+
+
+
+
+
+    return None
