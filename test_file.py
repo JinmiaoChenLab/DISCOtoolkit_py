@@ -31,4 +31,6 @@ import scanpy as sc
 
 # print(dt.CELLiD_cluster(rna = temp, atlas = ["adipose"], n_predict = 1).head())
 
-print(dt.CELLiD_enrichment())
+test_df = pd.DataFrame({"gene": ["CD68", "CD8"], "fc": [2.5, 1.0]})
+
+print(dt.CELLiD_enrichment(test_df))

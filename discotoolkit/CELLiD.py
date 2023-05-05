@@ -9,12 +9,14 @@ import os
 import hashlib
 import requests
 from scipy import stats
-from scipy.sparse import csr_matrix
+from scipy.stats import fisher_exact
 
 # import variable and class from other script
 from .GlobalVariable import logging, prefix_disco_url, timeout
 from .DiscoClass import FilterData, Filter
 from .GetMetadata import check_in_list
+
+pd.options.mode.chained_assignment = None
 
 """
 CELLiD cell type annotation function block.
@@ -175,19 +177,30 @@ Geneset enrichment analysis using DISCO data
 """
 
 def CELLiD_enrichment(input, reference = None, ref_path : str = None, ncores = 10):
+
     # check input data
+    # check if the input type is a DataFrame
     if not(isinstance(input, pd.DataFrame)):
         logging.error("The input must be a dataframe")
+
+    # check if the user provide more than the needed column which are gene and fc
     if input.shape[1] > 2:
         logging.error("The input must be greater one or two columns")
+
+    # in case the naming is correct, we will set it into gene and fc for our convenient
     if input.shape[1] == 2:
+        input_shape = 2
         input.columns = ["gene", "fc"]
+    
+    # else we can just take a gene list for the enrichment
     else:
+        input_shape = 1
         input.columns = ["gene"]
 
     # if the user does not provide reference geneset list
     if reference is None:
-        # check for the data path
+
+        # check for the data path if it is provided by the user
         if ref_path is None:
             ref_path = "DISCOtmp"
 
@@ -196,18 +209,91 @@ def CELLiD_enrichment(input, reference = None, ref_path : str = None, ncores = 1
             os.mkdir(ref_path)
         
         # downloading the geneset data from disco database
-        response = requests.get(url=prefix_disco_url +"/getGeneSet", timeout=timeout)
+        response = requests.get(url=prefix_disco_url +"/getGeneSetPkl", timeout=timeout)
         open(ref_path + "/ref_geneset.pkl", "wb").write(response.content)
 
+        # read the data into pandas dataframe for subsequent analysis
         reference = pd.read_pickle(ref_path + "/ref_geneset.pkl", compression = {'method':'gzip','compresslevel':6})
 
-    reference.name = reference.name + " in " + reference.atlas
+    # rename the name data to include the reference atlas
+    reference["name"] = reference["name"] + " in " + reference["atlas"]
 
-    print(reference.name)
+    # condition when the user provide the fold change for the enrichment analysis
+    if input_shape == 2:
+        input["fc"] == 2 ** input["fc"] # 2 to the power of fc
+        input.set_index(["gene"], inplace=True) # set index to the gene
+        input["gene"] = input.index
+
+        # print(input["gene"])
+        # print(reference["gene"])
+        input = input.loc[np.intersect1d(reference["gene"], input["gene"])] # only get the common genes for comparison
+
+    # else we only look at the ranked gene list
+    else:
+        input["gene"] = input["gene"].str.upper() # convert all the gene to upper string as the reference gene name is in uppercase
+        input = input[input["gene"].isin(reference["gene"])] # get only the common gene by comparing to the reference data
+
+    # get only the unique gene set
+    unique_names = reference["name"].unique()
+    results = []
+
+    # now run the enrichment analysis
+    logging.info("Comparing the ranked gene list to reference gene sets...")
+
+    n_counter = 0
+    for unique_name in unique_names:
+        res = process_unique_name(unique_name, input, reference, input_shape)
+        if res is not None:
+            results.append(res)
+            n_counter += 1
+            print(n_counter)
         
+        if n_counter == 2:
+            break
 
+    # concatenate the result into the dataframe to the user
+    if results:
+        res_df = pd.concat(results, axis=1).transpose()
+        res_df["pval"] = res_df["pval"].astype(float).round(3)
+        res_df["or"] = res_df["or"].astype(float).round(3)
+        res_df = res_df.sort_values(by=["pval", "or"], ascending=[True, False]).head(min(50, len(results)))
+        return res_df
+    else:
+        return None
 
+# apply function to the dataframe
+def process_unique_name(unique_name, input, reference, input_shape):
+    atlas = re.search(" in (.*?$)", unique_name).group(1) # getting the atlas string base on the last word in reference name
+    reference_filter = reference[reference["name"] == unique_name] # subset the reference data
+    reference_full = reference[reference["atlas"] == atlas] # full reference to the atlas
+    reference_filter.set_index(["gene"], inplace = True) # set gene as the index
+    reference_filter.loc[:, "gene"] = np.array(reference_filter.index) # adding this line so we can still subset based on the gene value
+    input_filter = input[input["gene"].isin(reference_full["gene"])] # subset the input genes
 
+    # condition for no passed gene set
+    if input_filter.empty:
+        return None
+    
+    # different computation to either include the fold change in the fisher exact test
+    if input_shape == 2:
+        a = (reference_filter.loc[reference_filter["gene"].isin(input_filter["gene"])].iloc[:, 0] * input_filter.loc[input_filter["gene"].isin(reference_filter["gene"]), "fc"]).sum() + 1
+        b = input_filter.loc[~input_filter["gene"].isin(reference_filter["gene"]), "fc"].sum() + 1
+        c = reference_filter.loc[~reference_filter["gene"].isin(input_filter["gene"])].iloc[:, 0].sum() + 1
+        d = len(set(reference_full["gene"])) - len(set(reference_filter["gene"]).union(input_filter["gene"]))
+    else:
+        a = len(reference_filter.loc[reference_filter["gene"].isin(input_filter["gene"])]) + 1
+        b = len(input_filter.loc[~input_filter["gene"].isin(reference_filter["gene"])]) + 1
+        c = len(reference_filter.loc[~reference_filter["gene"].isin(input_filter["gene"])]) + 1
+        d = len(set(reference_full["gene"])) - (a + b + c)
 
+    # get both value from the fisher exact test
+    odds_ratio, p_value = stats.fisher_exact(np.array([[a, b], [c, d]]))
 
-    return None
+    # only get the significant p_value
+    # we can make changes to the p_value as in like we allow the user to specify it so that they have more control on the result they can obtain
+    if p_value < 0.01:
+        return pd.Series({"pval": p_value, "or": odds_ratio, "name": unique_name,
+                        "gene": ",".join(reference_filter.loc[reference_filter["gene"].isin(input_filter["gene"]), "gene"]),
+                        "background": len(set(reference_full["gene"])), "overlap": len(reference_filter.loc[reference_filter["gene"].isin(input_filter["gene"])]), "geneset": len(reference_filter)})
+    else:
+        return None
