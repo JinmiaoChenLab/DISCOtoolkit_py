@@ -2,21 +2,23 @@
 import requests
 import json
 import pandas as pd
-from pandarallel import pandarallel
+
 import numpy as np
 import re
 import os
 import hashlib
 import requests
 from scipy import stats
-from scipy.stats import fisher_exact
+from fast_fisher import fast_fisher_exact, odds_ratio
+from joblib import Parallel, delayed # multiprocessing library
+from pandarallel import pandarallel # multiprocessing library
+
+pd.options.mode.chained_assignment = None
 
 # import variable and class from other script
 from .GlobalVariable import logging, prefix_disco_url, timeout
 from .DiscoClass import FilterData, Filter
 from .GetMetadata import check_in_list
-
-pd.options.mode.chained_assignment = None
 
 """
 CELLiD cell type annotation function block.
@@ -159,7 +161,7 @@ def CELLiD_cluster(rna, ref_data : pd.DataFrame = None, ref_deg : pd.DataFrame =
         g = set.intersection(set(ref.index), g)
         ref = ref.loc[list(g)]
         input = rna.loc[list(g), i]
-        predict = ref.parallel_apply(lambda x: stats.spearmanr(np.asarray(x), np.asarray(input))[0], result_type = "reduce", axis = 0)
+        predict = ref.apply(lambda x: stats.spearmanr(np.asarray(x), np.asarray(input))[0], result_type = "reduce", axis = 0)
         predict = pd.DataFrame(predict)
         predict.columns = ["cor"]
         predict.sort_values(["cor"], ascending = False, inplace = True)
@@ -168,7 +170,9 @@ def CELLiD_cluster(rna, ref_data : pd.DataFrame = None, ref_deg : pd.DataFrame =
         return res  # return list in the format cell_type, atlas, score, input_index
 
     # get a data in the format of cell_type, atlas, score, input_index
-    predicted_cell = [second_correlation(y, ref_data, rna, ct) for y in range(rna.shape[1])]
+    # predicted_cell = [second_correlation(y, ref_data, rna, ct) for y in range(rna.shape[1])]
+    predicted_cell = Parallel(n_jobs=ncores, batch_size=32, verbose = 2)(delayed(second_correlation)(y, ref_data, rna, ct) for y in range(rna.shape[1]))
+    # results = Parallel(n_jobs=ncores, batch_size=32, verbose = 2)(delayed(process_unique_name)(unique_name, input, reference, input_shape) for unique_name in unique_names)
 
     return pd.concat(predicted_cell)  # return pandas dataframe in the format cell_type, atlas, score, input_index
 
@@ -233,23 +237,57 @@ def CELLiD_enrichment(input, reference = None, ref_path : str = None, ncores = 1
         input["gene"] = input["gene"].str.upper() # convert all the gene to upper string as the reference gene name is in uppercase
         input = input[input["gene"].isin(reference["gene"])] # get only the common gene by comparing to the reference data
 
-    # get only the unique gene set
-    unique_names = reference["name"].unique()
-    results = []
+    # filter to get only the geneset that contain the input genes from the user
+    unique_names = reference[reference["gene"].isin(input["gene"])]["name"].unique()
 
     # now run the enrichment analysis
     logging.info("Comparing the ranked gene list to reference gene sets...")
 
-    n_counter = 0
-    for unique_name in unique_names:
-        res = process_unique_name(unique_name, input, reference, input_shape)
-        if res is not None:
-            results.append(res)
-            n_counter += 1
-            print(n_counter)
+    # compile the regular expression pattern
+    pattern = re.compile(r" in (.*?$)")
+
+    # apply function to the dataframe
+    def process_unique_name(unique_name, input, reference, input_shape):
+        # use the compiled pattern to search for matches
+        atlas = pattern.search(unique_name).group(1) # getting the atlas string base on the last word in reference name
+        reference_filter = reference[reference["name"] == unique_name].copy() # subset the reference data
+        reference_full = reference[reference["atlas"] == atlas].copy() # full reference to the atlas
+        reference_filter = reference_filter.set_index(["gene"]).assign(gene = lambda df: df.index) # set gene as the index
+        input_filter = input[input["gene"].isin(reference_full["gene"])] # subset the input genes
+
+        # condition for no passed gene set
+        if input_filter.empty:
+            return None
         
-        if n_counter == 2:
-            break
+        # different computation to either include the fold change in the fisher exact test
+        if input_shape == 2:
+            a = (reference_filter.loc[reference_filter["gene"].isin(input_filter["gene"])].iloc[:, 0] * input_filter.loc[input_filter["gene"].isin(reference_filter["gene"]), "fc"]).sum() + 1
+            b = input_filter.loc[~input_filter["gene"].isin(reference_filter["gene"]), "fc"].sum() + 1
+            c = reference_filter.loc[~reference_filter["gene"].isin(input_filter["gene"])].iloc[:, 0].sum() + 1
+            d = len(set(reference_full["gene"])) - len(set(reference_filter["gene"]).union(input_filter["gene"]))
+        else:
+            a = len(reference_filter.loc[reference_filter["gene"].isin(input_filter["gene"])]) + 1
+            b = len(input_filter.loc[~input_filter["gene"].isin(reference_filter["gene"])]) + 1
+            c = len(reference_filter.loc[~reference_filter["gene"].isin(input_filter["gene"])]) + 1
+            d = len(set(reference_full["gene"])) - (a + b + c)
+
+        # get both value from the fisher exact test
+        # odds_ratio, p_value = stats.fisher_exact(np.array([[a, b], [c, d]]))
+        p_value = fast_fisher_exact(a, b, c, d, alternative='two-sided')
+        odds = odds_ratio(a, b, c, d)
+
+        # only get the significant p_value
+        # we can make changes to the p_value as in like we allow the user to specify it so that they have more control on the result they can obtain
+        if p_value < 0.01:
+            return pd.Series({"pval": p_value, "or": odds, "name": unique_name,
+                            "gene": ",".join(reference_filter.loc[reference_filter["gene"].isin(input_filter["gene"]), "gene"]),
+                            "background": len(set(reference_full["gene"])), "overlap": len(reference_filter.loc[reference_filter["gene"].isin(input_filter["gene"])]), "geneset": len(reference_filter)})
+        else:
+            return None
+
+    # using joblib to apply multiprocessing
+    results = Parallel(n_jobs=ncores, batch_size=32, verbose = 2)(delayed(process_unique_name)(unique_name, input, reference, input_shape) for unique_name in unique_names)
+    results = [res for res in results if res is not None]
 
     # concatenate the result into the dataframe to the user
     if results:
@@ -261,39 +299,5 @@ def CELLiD_enrichment(input, reference = None, ref_path : str = None, ncores = 1
     else:
         return None
 
-# apply function to the dataframe
-def process_unique_name(unique_name, input, reference, input_shape):
-    atlas = re.search(" in (.*?$)", unique_name).group(1) # getting the atlas string base on the last word in reference name
-    reference_filter = reference[reference["name"] == unique_name] # subset the reference data
-    reference_full = reference[reference["atlas"] == atlas] # full reference to the atlas
-    reference_filter.set_index(["gene"], inplace = True) # set gene as the index
-    reference_filter.loc[:, "gene"] = np.array(reference_filter.index) # adding this line so we can still subset based on the gene value
-    input_filter = input[input["gene"].isin(reference_full["gene"])] # subset the input genes
 
-    # condition for no passed gene set
-    if input_filter.empty:
-        return None
     
-    # different computation to either include the fold change in the fisher exact test
-    if input_shape == 2:
-        a = (reference_filter.loc[reference_filter["gene"].isin(input_filter["gene"])].iloc[:, 0] * input_filter.loc[input_filter["gene"].isin(reference_filter["gene"]), "fc"]).sum() + 1
-        b = input_filter.loc[~input_filter["gene"].isin(reference_filter["gene"]), "fc"].sum() + 1
-        c = reference_filter.loc[~reference_filter["gene"].isin(input_filter["gene"])].iloc[:, 0].sum() + 1
-        d = len(set(reference_full["gene"])) - len(set(reference_filter["gene"]).union(input_filter["gene"]))
-    else:
-        a = len(reference_filter.loc[reference_filter["gene"].isin(input_filter["gene"])]) + 1
-        b = len(input_filter.loc[~input_filter["gene"].isin(reference_filter["gene"])]) + 1
-        c = len(reference_filter.loc[~reference_filter["gene"].isin(input_filter["gene"])]) + 1
-        d = len(set(reference_full["gene"])) - (a + b + c)
-
-    # get both value from the fisher exact test
-    odds_ratio, p_value = stats.fisher_exact(np.array([[a, b], [c, d]]))
-
-    # only get the significant p_value
-    # we can make changes to the p_value as in like we allow the user to specify it so that they have more control on the result they can obtain
-    if p_value < 0.01:
-        return pd.Series({"pval": p_value, "or": odds_ratio, "name": unique_name,
-                        "gene": ",".join(reference_filter.loc[reference_filter["gene"].isin(input_filter["gene"]), "gene"]),
-                        "background": len(set(reference_full["gene"])), "overlap": len(reference_filter.loc[reference_filter["gene"].isin(input_filter["gene"])]), "geneset": len(reference_filter)})
-    else:
-        return None

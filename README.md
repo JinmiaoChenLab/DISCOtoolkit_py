@@ -19,6 +19,7 @@ Dependency Requirements:
 - Numpy 1.21.6
 - Pandas 1.4.2
 - Scanpy 1.9.3
+- Scipy 1.8.0
 
 Installation using pip:
 ``` 
@@ -26,7 +27,10 @@ pip3 install discotoolkit
 ```
 
 ## Basic Usage
+Example in Jupyter notebook
 
 ### [Filter and download DISCO data](https://github.com/JinmiaoChenLab/DISCOtoolkit_py/blob/main/download_data.ipynb)
 
 ### [Cell Type Annotation using CELLiD](https://github.com/JinmiaoChenLab/DISCOtoolkit_py/blob/main/CELLiD_celltype_annotation.ipynb)
+
+### [scEnrichment](https://github.com/JinmiaoChenLab/DISCOtoolkit_py/blob/main/scEnrichment.ipynb)

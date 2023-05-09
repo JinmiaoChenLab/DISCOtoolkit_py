@@ -11,6 +11,8 @@ import numpy as np
 import pandas as pd
 import scanpy as sc
 
+pd.options.mode.chained_assignment = None
+
 # url = "http://www.immunesinglecell.org/toolkitapi//getCellOntology"
 # info_msg = "Anything"
 # error_msg = "Failed to retrieve ontology Please try again. If the issue persists, please contact us at li_mengwei@immunol.a-star.edu.sg for assistance."
@@ -31,6 +33,6 @@ import scanpy as sc
 
 # print(dt.CELLiD_cluster(rna = temp, atlas = ["adipose"], n_predict = 1).head())
 
-test_df = pd.DataFrame({"gene": ["CD68", "CD8"], "fc": [2.5, 1.0]})
+test_df = pd.DataFrame({"gene": ["CD68", "CD8A", "IGKC"], "fc": [2.5, 1.0, 1.0]})
 
 print(dt.CELLiD_enrichment(test_df))
