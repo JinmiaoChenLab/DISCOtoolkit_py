@@ -25,7 +25,7 @@ Dependency Requirements:
 
 Installation using pip:
 ``` 
-pip3 install discotoolkit
+pip install discotoolkit
 ```
 
 ## Basic Usage

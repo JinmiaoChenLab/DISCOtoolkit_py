@@ -21,7 +21,6 @@ setup(
     Filter and download DISCO data based on sample metadata and cell type information
     \nCELLiD: cell type annotation
     \nscEnrichment: geneset enrichment using DISCO DEGs
-    \nCellMapper: project data into DISCO atlas
     """,
     long_description_content_type = 'text/markdown',
 )

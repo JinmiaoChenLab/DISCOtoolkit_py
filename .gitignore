@@ -1,3 +1,6 @@
 *.h5ad
 *.pkl
 *.csv
+dist/
+discotoolkit.egg-info/
+build/

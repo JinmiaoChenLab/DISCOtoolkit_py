@@ -1,2 +1,6 @@
-numpy
-pandas
+pandas>=1.4.2
+numpy>=1.21.6
+scanpy>=1.9.3
+scipy>=1.10.1
+joblib>=1.1.0
+pandarallel>=1.6.5
