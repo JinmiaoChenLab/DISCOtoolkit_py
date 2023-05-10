@@ -136,42 +136,54 @@ def CELLiD_cluster(rna, ref_data : pd.DataFrame = None, ref_deg : pd.DataFrame =
     # nested apply function to compute correlation for each cell type between the user and reference database
     def each_ref_correlation(input, ref_data):
         input = list(input)
-        res = ref_data.parallel_apply(basic_correlation, result_type = "reduce", axis = 0, input = input)
+        res = ref_data.parallel_apply(basic_correlation, input = input, axis = 0)
         return res
 
     # apply the correlation to all the columns in user data
     def basic_correlation(ref, input):
         predicted = stats.spearmanr(
-            np.asarray(ref), np.asarray(input)
+            np.asarray(ref), np.asarray(input), alternative = "two-sided",
         )
         return predicted[0]
-    
+  
     # get the predicted correlation as in pandas DataFrame
     predicted_cell = rna.apply(each_ref_correlation, result_type = "expand", axis = 0, ref_data = ref_data)
     predicted_cell = pd.DataFrame(predicted_cell)
 
+    # set the index to be the celltype based on the reference_data
+    predicted_cell.index = ref_data.columns
+
     # convert the predicted cell which has the index as the celltype and the columns as the cluster with value of the correlation score into dataframe
     # select only the top 5 and get the index
-    ct = pd.DataFrame(predicted_cell.parallel_apply(lambda x: [index for index, each in enumerate(x.rank()) if each <= 5], axis = 0, result_type = "expand"))
+    # define a function to apply to each column of the dataframe
+    def get_top_5_indices(col):
+        # get the indices of the top 5 values in the column
+        indices = np.where(col.rank(method='min', ascending=False) <= 5)[0]
+        # convert to numeric and return
+        return pd.Series(indices).astype('int')
+    
+    ct = predicted_cell.apply(get_top_5_indices)
+
+    # ct = pd.DataFrame(predicted_cell.parallel_apply(lambda x: [index for index, each in enumerate(x.rank()) if each <= 5], axis = 0, result_type = "expand"))
 
     # compute the correleration based on the genes set that is intersection between the user data and reference dataset
     def second_correlation(i, ref_data, rna, ct):
-        ref = ref_data.iloc[:,ct[i]]
-        g = set(ref_deg.iloc[check_in_list(ref_deg["group"], ref.columns)]["gene"])
+        ref = ref_data.iloc[:,ct[i]].copy()
+        g = set(ref_deg.iloc[check_in_list(ref_deg["group"], ref.columns)].copy()["gene"])
         g = set.intersection(set(ref.index), g)
-        ref = ref.loc[list(g)]
-        input = rna.loc[list(g), i]
-        predict = ref.apply(lambda x: stats.spearmanr(np.asarray(x), np.asarray(input))[0], result_type = "reduce", axis = 0)
+        ref = ref.loc[list(g)].copy()
+        input = rna.loc[list(g), i].copy()
+        predict = ref.apply(lambda i: np.round(stats.spearmanr(pd.to_numeric(i), pd.to_numeric(input), nan_policy='omit')[0], 3))
         predict = pd.DataFrame(predict)
         predict.columns = ["cor"]
-        predict.sort_values(["cor"], ascending = False, inplace = True)
+        predict = predict.sort_values(["cor"], ascending = False)
         res = [[each.split("--")[0], each.split("--")[1], predict["cor"][index], i] for index, each in enumerate(predict.index) if index < n_predict]
         res = pd.DataFrame(res, columns =['cell_type', 'atlas', "score", "input_index"])
         return res  # return list in the format cell_type, atlas, score, input_index
 
     # get a data in the format of cell_type, atlas, score, input_index
     # predicted_cell = [second_correlation(y, ref_data, rna, ct) for y in range(rna.shape[1])]
-    predicted_cell = Parallel(n_jobs=ncores, batch_size=32, verbose = 2)(delayed(second_correlation)(y, ref_data, rna, ct) for y in range(rna.shape[1]))
+    predicted_cell = Parallel(n_jobs=ncores, batch_size=32, verbose = 2)(delayed(second_correlation)(int(y), ref_data, rna, ct) for y in range(rna.shape[1]))
     # results = Parallel(n_jobs=ncores, batch_size=32, verbose = 2)(delayed(process_unique_name)(unique_name, input, reference, input_shape) for unique_name in unique_names)
 
     return pd.concat(predicted_cell)  # return pandas dataframe in the format cell_type, atlas, score, input_index
@@ -298,6 +310,4 @@ def CELLiD_enrichment(input, reference = None, ref_path : str = None, ncores = 1
         return res_df
     else:
         return None
-
-
     
