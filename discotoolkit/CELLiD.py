@@ -142,7 +142,7 @@ def CELLiD_cluster(rna, ref_data : pd.DataFrame = None, ref_deg : pd.DataFrame =
     # apply the correlation to all the columns in user data
     def basic_correlation(ref, input):
         predicted = stats.spearmanr(
-            np.asarray(ref), np.asarray(input), alternative = "two-sided",
+            np.asarray(ref), np.asarray(input), alternative = "two-sided", nan_policy='omit'
         )
         return predicted[0]
   
@@ -182,11 +182,29 @@ def CELLiD_cluster(rna, ref_data : pd.DataFrame = None, ref_deg : pd.DataFrame =
         return res  # return list in the format cell_type, atlas, score, input_index
 
     # get a data in the format of cell_type, atlas, score, input_index
-    # predicted_cell = [second_correlation(y, ref_data, rna, ct) for y in range(rna.shape[1])]
     predicted_cell = Parallel(n_jobs=ncores, batch_size=32, verbose = 2)(delayed(second_correlation)(int(y), ref_data, rna, ct) for y in range(rna.shape[1]))
-    # results = Parallel(n_jobs=ncores, batch_size=32, verbose = 2)(delayed(process_unique_name)(unique_name, input, reference, input_shape) for unique_name in unique_names)
 
-    return pd.concat(predicted_cell)  # return pandas dataframe in the format cell_type, atlas, score, input_index
+    # first concatenate in row wise manner
+    predicted_cell = pd.concat(predicted_cell)
+
+    pivot = pd.pivot_table(predicted_cell, index='input_index', columns=predicted_cell.groupby('input_index').cumcount()+1, 
+                       values=['cell_type', 'atlas', 'score'], aggfunc='first')
+
+    pivot = pivot[["cell_type", "atlas", "score"]] 
+
+    # flatten multi-level column index
+    pivot.columns = ['_'.join(map(str, col)).strip() for col in pivot.columns.values]
+
+    # rename columns
+    column_names = {}
+    for i in range(n_predict):
+        column_names[f'cell_type_{i+1}'] = f'predicted_cell_type_{i+1}'
+        column_names[f'atlas_{i+1}'] = f'source_atlas_{i+1}'
+        column_names[f'score_{i+1}'] = f'score_{i+1}'
+        
+    pivot = pivot.rename(columns=column_names)
+
+    return pivot# return pandas dataframe in the format the same original R package
 
 """
 Geneset enrichment analysis using DISCO data
