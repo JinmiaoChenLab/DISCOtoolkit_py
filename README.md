@@ -20,6 +20,8 @@ Dependency Requirements:
 - Pandas 1.4.2
 - Scanpy 1.9.3
 - Scipy 1.8.0
+- joblib 1.1.0
+- pandarallel 1.6.5
 
 Installation using pip:
 ``` 
