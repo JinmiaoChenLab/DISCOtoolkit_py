@@ -3,3 +3,4 @@
 *.csv
 dist/
 discotoolkit.egg-info/
+site/

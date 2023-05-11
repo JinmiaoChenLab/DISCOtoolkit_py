@@ -1,5 +1,4 @@
 site_name: DISCOtoolkit
-repo: https://github.com/JinmiaoChenLab/DISCOtoolkit_py
 
 nav:
   - Home: index.md
@@ -13,7 +12,8 @@ plugins:
 
 theme:
   name: material
-  logo: 'LOGO_WITH_title.745f2743.svg'  # Customize with your own logo if desired
+  favicon: assets/images/Discologo_1.png
+  logo: assets/images/LOGO_WITH_title.745f2743.svg  # Customize to our own logo
   palette:
     # Palette toggle for light mode
     - scheme: default
@@ -33,3 +33,4 @@ extra:
   social:
     - icon: material/github
       link: 'https://github.com/JinmiaoChenLab/DISCOtoolkit_py'
+  
