@@ -12,7 +12,7 @@
         <link rel="prev" href="../CELLiD_celltype_annotation/">
       
       
-      <link rel="icon" href="../assets/images/favicon.png">
+      <link rel="icon" href="../assets/images/Discologo_1.png">
       <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.11">
     
     
@@ -68,6 +68,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#example-of-using-enrichment-analysis-based-on-scenrichment" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -82,7 +87,7 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href=".." title="DISCOtoolkit" class="md-header__button md-logo" aria-label="DISCOtoolkit" data-md-component="logo">
       
-  <img src="../LOGO_WITH_title.745f2743.svg" alt="logo">
+  <img src="../assets/images/LOGO_WITH_title.745f2743.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -160,7 +165,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href=".." title="DISCOtoolkit" class="md-nav__button md-logo" aria-label="DISCOtoolkit" data-md-component="logo">
       
-  <img src="../LOGO_WITH_title.745f2743.svg" alt="logo">
+  <img src="../assets/images/LOGO_WITH_title.745f2743.svg" alt="logo">
 
     </a>
     DISCOtoolkit
@@ -228,9 +233,38 @@
       
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          scEnrichment
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         scEnrichment
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#example-of-using-enrichment-analysis-based-on-scenrichment" class="md-nav__link">
+    Example of using enrichment analysis based on scEnrichment
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -253,6 +287,21 @@
   
   
   
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#example-of-using-enrichment-analysis-based-on-scenrichment" class="md-nav__link">
+    Example of using enrichment analysis based on scEnrichment
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -1299,7 +1348,24 @@ Licensed under the Apache License, Version 2.0.
     }
     init_mathjax();
     </script>
-    <!-- End of mathjax configuration --><div class="jupyter-wrapper"><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+    <!-- End of mathjax configuration --><div class="jupyter-wrapper">
+<div id="cell-id=eb3d38f0" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="example-of-using-enrichment-analysis-based-on-scenrichment">Example of using enrichment analysis based on scEnrichment<a class="anchor-link" href="#example-of-using-enrichment-analysis-based-on-scenrichment">&#182;</a></h2><p>In this tutorial, we will provide a quick guideline for applying scEnrichment of discotoolkit on DEGs.
+Steps:</p>
+<ul>
+<li>First, we load <a href="https://www.nature.com/articles/s41422-019-0195-y">DEGs</a> from Example 1 from <a href="http://www.immunesinglecell.org/">DISCO</a> website.</li>
+<li>Finally, convert the string into Pandas DataFrame as the input for <code>dt.CELLiD_enrichment</code> and run the function to obtain enrichment analysis.</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div id="cell-id=ea0bd44c-44a6-4761-af8b-115838fb99df" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -1773,9 +1839,9 @@ deg_df.head()
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
 <pre>INFO:root:Comparing the ranked gene list to reference gene sets...
 [Parallel(n_jobs=10)]: Using backend LokyBackend with 10 concurrent workers.
-[Parallel(n_jobs=10)]: Done 1364 tasks      | elapsed:  1.0min
-[Parallel(n_jobs=10)]: Done 3942 tasks      | elapsed:  3.3min
-[Parallel(n_jobs=10)]: Done 3999 out of 3999 | elapsed:  4.3min finished
+[Parallel(n_jobs=10)]: Done 1364 tasks      | elapsed:  1.1min
+[Parallel(n_jobs=10)]: Done 3942 tasks      | elapsed:  3.4min
+[Parallel(n_jobs=10)]: Done 3999 out of 3999 | elapsed:  4.4min finished
 </pre>
 </div>
 </div>

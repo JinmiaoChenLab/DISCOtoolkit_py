@@ -14,7 +14,7 @@
       
         <link rel="next" href="../CELLiD_celltype_annotation/">
       
-      <link rel="icon" href="../assets/images/favicon.png">
+      <link rel="icon" href="../assets/images/Discologo_1.png">
       <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.11">
     
     
@@ -70,6 +70,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#example-of-filtering-and-download-data-using-discotoolkit" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -84,7 +89,7 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href=".." title="DISCOtoolkit" class="md-header__button md-logo" aria-label="DISCOtoolkit" data-md-component="logo">
       
-  <img src="../LOGO_WITH_title.745f2743.svg" alt="logo">
+  <img src="../assets/images/LOGO_WITH_title.745f2743.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -162,7 +167,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href=".." title="DISCOtoolkit" class="md-nav__button md-logo" aria-label="DISCOtoolkit" data-md-component="logo">
       
-  <img src="../LOGO_WITH_title.745f2743.svg" alt="logo">
+  <img src="../assets/images/LOGO_WITH_title.745f2743.svg" alt="logo">
 
     </a>
     DISCOtoolkit
@@ -200,9 +205,38 @@
       
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Download Data
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         Download Data
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#example-of-filtering-and-download-data-using-discotoolkit" class="md-nav__link">
+    Example of filtering and download data using DISCOtoolkit
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -255,6 +289,21 @@
   
   
   
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#example-of-filtering-and-download-data-using-discotoolkit" class="md-nav__link">
+    Example of filtering and download data using DISCOtoolkit
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -1301,7 +1350,37 @@ Licensed under the Apache License, Version 2.0.
     }
     init_mathjax();
     </script>
-    <!-- End of mathjax configuration --><div class="jupyter-wrapper"><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+    <!-- End of mathjax configuration --><div class="jupyter-wrapper">
+<div id="cell-id=a1d9b1a6" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="example-of-filtering-and-download-data-using-discotoolkit">Example of filtering and download data using DISCOtoolkit<a class="anchor-link" href="#example-of-filtering-and-download-data-using-discotoolkit">&#182;</a></h2>
+</div>
+</div>
+</div>
+</div>
+<div id="cell-id=cfdcaaf1" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>We recommend the user visit our <a href="http://www.immunesinglecell.org/">DISCO</a> website and filter the sample based on the metadata provided in the website</p>
+<p>In this tutorial, we will provide a quick guideline for downloading the data using discotoolkit.
+Steps:</p>
+<ul>
+<li>Visit website to find sample or cell type of interest</li>
+<li>Using <code>dt.filter_disco_metadata</code> function to filter from the database</li>
+<li>Using <code>dt.download_disco_data</code> function to download data in <code>h5ad</code> extention based on the filtered sample.</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div id="cell-id=ea0bd44c-44a6-4761-af8b-115838fb99df" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -1322,9 +1401,11 @@ Licensed under the Apache License, Version 2.0.
                     </div>
                 </clipboard-copy>
             </div>
-            <div class="highlight-ipynb hl-python "><pre><span></span><span class="kn">import</span> <span class="nn">discotoolkit</span> <span class="k">as</span> <span class="nn">dt</span>
+            <div class="highlight-ipynb hl-python "><pre><span></span><span class="c1"># first import the installed package</span>
+<span class="kn">import</span> <span class="nn">discotoolkit</span> <span class="k">as</span> <span class="nn">dt</span>
 </pre></div>
-<div id="cell-1" class="clipboard-copy-txt">import discotoolkit as dt</div>
+<div id="cell-1" class="clipboard-copy-txt"># first import the installed package
+import discotoolkit as dt</div>
         
         </div>
     </div>
@@ -1332,6 +1413,18 @@ Licensed under the Apache License, Version 2.0.
 </div>
 </div>
 
+</div>
+</div>
+<div id="cell-id=638e2e74" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>For this example, we wanted to download LYVE1 macrophage from lung tissue as our cell type of interest. We subset only the highly confidence cell type prediction based on our manual annotation and the minimum 300 cell per sample. Notice that we specify include_cell_type_chidren as true to include all sub celltype if applicable.</p>
+
+</div>
+</div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div id="cell-id=4ae4b2e6-40b9-4f85-ac23-71352bf9ccd9" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
@@ -1354,7 +1447,8 @@ Licensed under the Apache License, Version 2.0.
                     </div>
                 </clipboard-copy>
             </div>
-            <div class="highlight-ipynb hl-python "><pre><span></span><span class="nb">filter</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">Filter</span><span class="p">(</span>
+            <div class="highlight-ipynb hl-python "><pre><span></span><span class="c1"># filtering the sample based on the metadata</span>
+<span class="nb">filter</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">Filter</span><span class="p">(</span>
     <span class="n">sample</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">project</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">tissue</span> <span class="o">=</span> <span class="s2">&quot;lung&quot;</span><span class="p">,</span>
@@ -1366,7 +1460,8 @@ Licensed under the Apache License, Version 2.0.
     <span class="n">min_cell_per_sample</span> <span class="o">=</span> <span class="mi">300</span>
 <span class="p">)</span>
 </pre></div>
-<div id="cell-2" class="clipboard-copy-txt">filter = dt.Filter(
+<div id="cell-2" class="clipboard-copy-txt"># filtering the sample based on the metadata
+filter = dt.Filter(
     sample = None,
     project = None,
     tissue = "lung",
@@ -1406,9 +1501,11 @@ Licensed under the Apache License, Version 2.0.
                     </div>
                 </clipboard-copy>
             </div>
-            <div class="highlight-ipynb hl-python "><pre><span></span><span class="n">metadata</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">filter_disco_metadata</span><span class="p">(</span><span class="nb">filter</span><span class="p">)</span>
+            <div class="highlight-ipynb hl-python "><pre><span></span><span class="c1"># apply the filter of interest</span>
+<span class="n">metadata</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">filter_disco_metadata</span><span class="p">(</span><span class="nb">filter</span><span class="p">)</span>
 </pre></div>
-<div id="cell-3" class="clipboard-copy-txt">metadata = dt.filter_disco_metadata(filter)</div>
+<div id="cell-3" class="clipboard-copy-txt"># apply the filter of interest
+metadata = dt.filter_disco_metadata(filter)</div>
         
         </div>
     </div>
@@ -1442,6 +1539,18 @@ INFO:root:8 samples and 3863 cells were found
 </div>
 
 </div>
+</div>
+<div id="cell-id=c37d2131" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>After applying the filter to the database, now we can download the dataset into <code>disco_data</code> directory</p>
+
+</div>
+</div>
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div id="cell-id=318f7ff1-5658-46ae-8803-fb534d3dfa54" class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
@@ -1463,9 +1572,11 @@ INFO:root:8 samples and 3863 cells were found
                     </div>
                 </clipboard-copy>
             </div>
-            <div class="highlight-ipynb hl-python "><pre><span></span><span class="n">download_log</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">download_disco_data</span><span class="p">(</span><span class="n">metadata</span><span class="p">,</span> <span class="n">output_dir</span> <span class="o">=</span> <span class="s2">&quot;disco_data&quot;</span><span class="p">)</span>
+            <div class="highlight-ipynb hl-python "><pre><span></span><span class="c1"># download data to the local directory</span>
+<span class="n">download_log</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">download_disco_data</span><span class="p">(</span><span class="n">metadata</span><span class="p">,</span> <span class="n">output_dir</span> <span class="o">=</span> <span class="s2">&quot;disco_data&quot;</span><span class="p">)</span>
 </pre></div>
-<div id="cell-4" class="clipboard-copy-txt">download_log = dt.download_disco_data(metadata, output_dir = "disco_data")</div>
+<div id="cell-4" class="clipboard-copy-txt"># download data to the local directory
+download_log = dt.download_disco_data(metadata, output_dir = "disco_data")</div>
         
         </div>
     </div>

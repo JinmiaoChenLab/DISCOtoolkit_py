@@ -14,7 +14,7 @@
       
         <link rel="next" href="../scEnrichment/">
       
-      <link rel="icon" href="../assets/images/favicon.png">
+      <link rel="icon" href="../assets/images/Discologo_1.png">
       <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.11">
     
     
@@ -84,7 +84,7 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href=".." title="DISCOtoolkit" class="md-header__button md-logo" aria-label="DISCOtoolkit" data-md-component="logo">
       
-  <img src="../LOGO_WITH_title.745f2743.svg" alt="logo">
+  <img src="../assets/images/LOGO_WITH_title.745f2743.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -162,7 +162,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href=".." title="DISCOtoolkit" class="md-nav__button md-logo" aria-label="DISCOtoolkit" data-md-component="logo">
       
-  <img src="../LOGO_WITH_title.745f2743.svg" alt="logo">
+  <img src="../assets/images/LOGO_WITH_title.745f2743.svg" alt="logo">
 
     </a>
     DISCOtoolkit
@@ -1422,7 +1422,7 @@ dt.download_disco_data(metadata) </div>
 INFO:root:Filtering sample
 INFO:root:Retrieving cell type information of each sample from DISCO database
 INFO:root:1 samples and 6086 cells were found
-INFO:root: AML003_3p has been downloaded before. Ignore ...
+INFO:root:Downloading data of AML003_3p
 </pre>
 </div>
 </div>
@@ -1476,8 +1476,18 @@ print(dt.get_atlas())</div>
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>INFO:root:Downloading reference dataset...
+</pre>
+</div>
+</div>
+<div class="jp-OutputArea-child">
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>[&#39;breast_milk&#39;, &#39;eye&#39;, &#39;intestine&#39;, &#39;breast&#39;, &#39;adipose&#39;, &#39;tonsil&#39;, &#39;adrenal_gland&#39;, &#39;pancreas&#39;, &#39;liver&#39;, &#39;kidney&#39;, &#39;skeletal_muscle&#39;, &#39;skin&#39;, &#39;fibroblast&#39;, &#39;blood&#39;, &#39;bladder&#39;, &#39;gingiva&#39;, &#39;testis&#39;, &#39;lung&#39;, &#39;PDAC&#39;, &#39;ovary&#39;, &#39;stomach&#39;, &#39;heart&#39;, &#39;thymus&#39;, &#39;ovarian_cancer&#39;, &#39;brain&#39;, &#39;bone_marrow&#39;, &#39;placenta&#39;]
+<pre>[&#39;liver&#39;, &#39;brain&#39;, &#39;bladder&#39;, &#39;placenta&#39;, &#39;stomach&#39;, &#39;bone_marrow&#39;, &#39;thymus&#39;, &#39;pancreas&#39;, &#39;PDAC&#39;, &#39;adipose&#39;, &#39;blood&#39;, &#39;testis&#39;, &#39;eye&#39;, &#39;tonsil&#39;, &#39;skeletal_muscle&#39;, &#39;adrenal_gland&#39;, &#39;ovarian_cancer&#39;, &#39;skin&#39;, &#39;gingiva&#39;, &#39;lung&#39;, &#39;heart&#39;, &#39;breast&#39;, &#39;fibroblast&#39;, &#39;breast_milk&#39;, &#39;intestine&#39;, &#39;kidney&#39;, &#39;ovary&#39;]
 </pre>
 </div>
 </div>
@@ -1784,9 +1794,10 @@ INFO: Pandarallel will use Memory file system to transfer data between the main 
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>[Parallel(n_jobs=10)]: Using backend LokyBackend with 10 concurrent workers.
-[Parallel(n_jobs=10)]: Done   7 out of  17 | elapsed:    4.9s remaining:    6.9s
-[Parallel(n_jobs=10)]: Done  17 out of  17 | elapsed:    7.2s finished
+<pre>INFO:root:Downloading deg dataset...
+[Parallel(n_jobs=10)]: Using backend LokyBackend with 10 concurrent workers.
+[Parallel(n_jobs=10)]: Done   7 out of  17 | elapsed:    5.4s remaining:    7.8s
+[Parallel(n_jobs=10)]: Done  17 out of  17 | elapsed:    7.6s finished
 </pre>
 </div>
 </div>
