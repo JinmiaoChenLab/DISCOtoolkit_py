@@ -1,0 +1,35 @@
+site_name: DISCOtoolkit
+repo: https://github.com/JinmiaoChenLab/DISCOtoolkit_py
+
+nav:
+  - Home: index.md
+  - Download Data: download_data.ipynb
+  - Cell Type Annotation: CELLiD_celltype_annotation.ipynb
+  - scEnrichment: scEnrichment.ipynb
+
+plugins:
+  - mkdocs-jupyter:
+      include_source: True
+
+theme:
+  name: material
+  logo: 'LOGO_WITH_title.745f2743.svg'  # Customize with your own logo if desired
+  palette:
+    # Palette toggle for light mode
+    - scheme: default
+      primary: white
+      toggle:
+        icon: material/brightness-7 
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - scheme: slate
+      primary: blue grey
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+extra:
+  social:
+    - icon: material/github
+      link: 'https://github.com/JinmiaoChenLab/DISCOtoolkit_py'
