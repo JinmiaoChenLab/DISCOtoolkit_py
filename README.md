@@ -6,7 +6,7 @@
  * @LastEditors: Mengwei Li
  * @LastEditTime: 2023-04-16 21:22:03
 -->
-# DISCOtoolkit 1.0.1
+# DISCOtoolkit 1.0.4
 
 DISCOtoolkit is an python package that allows users to access data and use the tools provided by the [DISCO database](https://www.immunesinglecell.org/). It provides the following functions:
 
@@ -23,13 +23,26 @@ Dependency Requirements:
 - joblib 1.1.0
 - pandarallel 1.6.5
 
+## Installation guide:
+
+we recommend to install miniconda first and install discotoolkit in virtual env
+
+```
+conda create --name disco python=3.8
+conda install pip
+conda install ipykernel
+python -m ipykernel install --user --name disco --display-name "disco"
+```
+
 Installation using pip:
 ``` 
-pip install discotoolkit
+python -m pip install discotoolkit
 ```
 
 ## Basic Usage
-Example in Jupyter notebook
+Example in Jupyter notebook.
+
+<em>please select disco as the kernel for running the jupyter notebook</em>
 
 ### [Filter and download DISCO data](https://github.com/JinmiaoChenLab/DISCOtoolkit_py/blob/main/download_data.ipynb)
 
