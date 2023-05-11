@@ -33,6 +33,6 @@ pd.options.mode.chained_assignment = None
 
 # print(dt.CELLiD_cluster(rna = temp, atlas = ["adipose"], n_predict = 1).head())
 
-test_df = pd.DataFrame({"gene": ["CD68", "CD8A", "IGKC"], "fc": [2.5, 1.1, 1.0]})
+# test_df = pd.DataFrame({"gene": ["CD68", "CD8A", "IGKC"], "fc": [2.5, 1.1, 1.0]})
 
-print(dt.CELLiD_enrichment(test_df))
+# print(dt.CELLiD_enrichment(test_df))
