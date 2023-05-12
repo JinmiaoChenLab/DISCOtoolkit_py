@@ -5,5 +5,7 @@ dist/
 discotoolkit.egg-info/
 site/
 DISCOtmp/
+docs/disco_data
+docs/DISCOtmp
 disco_data/
 test_file.py
