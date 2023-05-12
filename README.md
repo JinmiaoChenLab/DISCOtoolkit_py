@@ -6,9 +6,11 @@
  * @LastEditors: Mengwei Li
  * @LastEditTime: 2023-04-16 21:22:03
 -->
+[![Documentation Status](https://readthedocs.org/projects/discotoolkit-py/badge/?version=latest)](https://discotoolkit-py.readthedocs.io/en/latest/?badge=latest)
+
 # DISCOtoolkit 1.0.5
 
-DISCOtoolkit is an python package that allows users to access data and use the tools provided by the [DISCO database](https://www.immunesinglecell.org/). Read the documentation [DISCOtoolkit](https://jinmiaochenlab.github.io/DISCOtoolkit_py/). It provides the following functions:
+DISCOtoolkit is an python package that allows users to access data and use the tools provided by the [DISCO database](https://www.immunesinglecell.org/). Read the documentation [DISCOtoolkit](https://discotoolkit-py.readthedocs.io/en/latest/). It provides the following functions:
 
 - Filter and download DISCO data based on sample metadata and cell type information
 - CELLiD: cell type annotation
@@ -36,7 +38,7 @@ python -m ipykernel install --user --name disco --display-name "disco"
 
 Installation using pip:
 ``` 
-python -m pip install discotoolkit
+python -m pip install discotoolkit # adding -U for installing the latest version
 ```
 
 ## Basic Usage
@@ -56,3 +58,5 @@ Example in Jupyter notebook.
 ## Follow us on our social media!
 - [HSCRM2](https://twitter.com/HSCRM2)
 - [JinmiaoChenLab Github repo](https://github.com/JinmiaoChenLab)
+
+## Debugging:
