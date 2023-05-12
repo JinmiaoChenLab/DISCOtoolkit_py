@@ -48,6 +48,7 @@ def download_disco_data(metadata, output_dir : str = "DISCOtmp"):
         # iterate through all the samples
         for i in range(len(samples)):
             s = list(samples["sampleId"])[i]
+            p = list(samples["projectId"])[i]
             output_file = "%s/%s.h5ad" % (output_dir, s) # getting the name of the file
 
             # condition if the file has been downloaded before
@@ -59,7 +60,7 @@ def download_disco_data(metadata, output_dir : str = "DISCOtmp"):
 
                 try:
                     # try to download the data as requested
-                    response = requests.get(url=prefix_disco_url + "getH5adBySample?sample=" + s)
+                    response = requests.get(url=prefix_disco_url + "getH5adBySample?project="+ p +"&sample=" + s)
 
                     # condition for error in downloading the samples
                     if response.status_code == 404:
@@ -81,7 +82,7 @@ def download_disco_data(metadata, output_dir : str = "DISCOtmp"):
         
         # if there are error samples, we set all the attribute for FilterData object to the error samples and return the object in FilterData object
         if len(error_sample) > 0:
-            metadata.sample_metadata.set_index("sampleId", inplace = True)
+            metadata.sample_metadata = metadata.sample_metadata.set_index("sampleId") # change from inplace to this to increase efficiency
             metadata.sample_metadata = metadata.sample_metadata.loc[error_sample]
             metadata.cell_type_metadata = metadata.cell_type_metadata.iloc[check_in_list(metadata.cell_type_metadata["sampleId"], error_sample)]
             metadata.cell_count = metadata.cell_type_metadata["cellNumber"].sum()
@@ -90,6 +91,7 @@ def download_disco_data(metadata, output_dir : str = "DISCOtmp"):
         
     else:
         # get the dataframe for the metadata
+        metadata.sample_metadata = metadata.sample_metadata.set_index("sampleId")
         samples = metadata.cell_type_metadata
         concat_func = lambda x,y: x + "_" + str(y)
 
@@ -100,6 +102,8 @@ def download_disco_data(metadata, output_dir : str = "DISCOtmp"):
         # similarly, iterative through all the sample for downloading
         for i in range(len(samples)):
             s = list(samples["sampleId"])[i]
+            sub_s = s.replace("_" + str(list(samples["cluster"])[i]) , "") # adding handler for celltype specific to get the data
+            p = metadata.sample_metadata.loc[sub_s]["projectId"]
             output_file = "%s/%s.h5ad" % (output_dir, s)
             
             # checking for file and ignore if it is already exist
@@ -110,7 +114,7 @@ def download_disco_data(metadata, output_dir : str = "DISCOtmp"):
                 logging.info("Downloading data of %s" % (s)) # give message to the user
                 try:
                     # get the data from the server
-                    response = requests.get(url=prefix_disco_url + "getH5adBySampleCt?sample=" + s)
+                    response = requests.get(url=prefix_disco_url + "getH5adBySampleCt?project="+ p +"&sample=" + s)
                     if response.status_code == 404:
                         error_sample.append(s) # append error samples
                         logging.warning("sample %s download fail 1" % (s)) # give message to the user

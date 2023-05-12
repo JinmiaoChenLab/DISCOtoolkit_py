@@ -4,3 +4,5 @@
 dist/
 discotoolkit.egg-info/
 site/
+DISCOtmp/
+disco_data/

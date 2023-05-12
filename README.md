@@ -44,11 +44,11 @@ Example in Jupyter notebook.
 
 <em>please select disco as the kernel for running the jupyter notebook</em>
 
-### [Filter and download DISCO data](https://github.com/JinmiaoChenLab/DISCOtoolkit_py/blob/main/download_data.ipynb)
+### [Filter and download DISCO data](https://github.com/JinmiaoChenLab/DISCOtoolkit_py/blob/main/docs/download_data.ipynb)
 
-### [Cell Type Annotation using CELLiD](https://github.com/JinmiaoChenLab/DISCOtoolkit_py/blob/main/CELLiD_celltype_annotation.ipynb)
+### [Cell Type Annotation using CELLiD](https://github.com/JinmiaoChenLab/DISCOtoolkit_py/blob/main/docs/CELLiD_celltype_annotation.ipynb)
 
-### [scEnrichment](https://github.com/JinmiaoChenLab/DISCOtoolkit_py/blob/main/scEnrichment.ipynb)
+### [scEnrichment](https://github.com/JinmiaoChenLab/DISCOtoolkit_py/blob/main/docs/scEnrichment.ipynb)
 
 ## Citation
 1. [Li, Mengwei, et al. "DISCO: a database of Deeply Integrated human Single-Cell Omics data." Nucleic acids research 50.D1 (2022): D596-D602.](https://academic.oup.com/nar/article/50/D1/D596/6430491)

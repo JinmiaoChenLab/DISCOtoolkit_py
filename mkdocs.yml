@@ -2,13 +2,18 @@ site_name: DISCOtoolkit
 
 nav:
   - Home: index.md
-  - Download Data: download_data.ipynb
-  - Cell Type Annotation: CELLiD_celltype_annotation.ipynb
-  - scEnrichment: scEnrichment.ipynb
+  - Tutorial:
+    - Download Data: download_data.ipynb
+    - Cell Type Annotation: CELLiD_celltype_annotation.ipynb
+    - scEnrichment: scEnrichment.ipynb
 
 plugins:
   - mkdocs-jupyter:
       include_source: True
+      include_requirejs: true
+      remove_tag_config:
+        remove_input_tags:
+          - hide_code
 
 theme:
   name: material
