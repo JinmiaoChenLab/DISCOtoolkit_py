@@ -69,7 +69,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#example-of-using-enrichment-analysis-based-on-scenrichment" class="md-skip">
+        <a href="#scenrichment" class="md-skip">
           Skip to content
         </a>
       
@@ -194,6 +194,35 @@
 
   
   
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          Tutorial
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Tutorial
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
   
     <li class="md-nav__item">
       <a href="../download_data/" class="md-nav__link">
@@ -202,26 +231,24 @@
     </li>
   
 
-    
-      
-      
-      
-
+            
+          
+            
+              
   
   
   
     <li class="md-nav__item">
       <a href="../CELLiD_celltype_annotation/" class="md-nav__link">
-        Cell Type Annotation
+        Cell Type annotation using CELLiD
       </a>
     </li>
   
 
-    
-      
-      
-      
-
+            
+          
+            
+              
   
   
     
@@ -232,40 +259,20 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          scEnrichment
-          <span class="md-nav__icon md-icon"></span>
-        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         scEnrichment
       </a>
       
-        
+    </li>
+  
 
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#example-of-using-enrichment-analysis-based-on-scenrichment" class="md-nav__link">
-    Example of using enrichment analysis based on scEnrichment
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
+            
+          
+        </ul>
+      </nav>
     </li>
   
 
@@ -287,21 +294,8 @@
   
   
   
+    
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#example-of-using-enrichment-analysis-based-on-scenrichment" class="md-nav__link">
-    Example of using enrichment analysis based on scEnrichment
-  </a>
-  
-</li>
-      
-    </ul>
   
 </nav>
                   </div>
@@ -315,8 +309,6 @@
                 
                   
 
-
-  <h1>scEnrichment</h1>
 
 <script>
 (function (global, factory) {
@@ -478,7 +470,7 @@
           notice.hidden = true
         }, 1000)
       })
-</script>
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
 
@@ -1355,12 +1347,11 @@ Licensed under the Apache License, Version 2.0.
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="example-of-using-enrichment-analysis-based-on-scenrichment">Example of using enrichment analysis based on scEnrichment<a class="anchor-link" href="#example-of-using-enrichment-analysis-based-on-scenrichment">&#182;</a></h2><p>In this tutorial, we will provide a quick guideline for applying scEnrichment of discotoolkit on DEGs.
-Steps:</p>
-<ul>
-<li>First, we load <a href="https://www.nature.com/articles/s41422-019-0195-y">DEGs</a> from Example 1 from <a href="http://www.immunesinglecell.org/">DISCO</a> website.</li>
-<li>Finally, convert the string into Pandas DataFrame as the input for <code>dt.CELLiD_enrichment</code> and run the function to obtain enrichment analysis.</li>
-</ul>
+<h1 id="scenrichment">scEnrichment<a class="anchor-link" href="#scenrichment">&#182;</a></h1><p>In this tutorial, we will provide a quick guideline for applying the scEnrichment feature of discotoolkit on DEGs (Differentially Expressed Genes). Follow these steps:</p>
+<ol>
+<li>First, we load the DEGs from Example 1, available on the <a href="http://www.immunesinglecell.org/">DISCO</a> website.</li>
+<li>Finally, we convert the retrieved data into a Pandas DataFrame, which will serve as the input for the <code>dt.CELLiD_enrichment</code> function. By running this function, we can obtain the desired enrichment analysis.</li>
+</ol>
 
 </div>
 </div>
@@ -1414,13 +1405,14 @@ import io
 
 </div>
 </div>
-<div id="cell-id=789b08db" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div id="cell-id=d3b7c407" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>For the sake of the tutorial, we will first download a sample in h5ad file using the download data funciton and then apply the discotoolkit CELLiD annotation function</p>
+<p>The user can input either a gene list or a gene list with log fold change as the input to the <code>dt.CELLiD_enrichment</code> function.</p>
+<p>Example of the DEGs:</p>
 
 </div>
 </div>
@@ -1794,6 +1786,18 @@ deg_df.head()
 </div>
 
 </div>
+</div>
+<div id="cell-id=4cc90757" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Now that we have our data ready, we can proceed to run the function.</p>
+
+</div>
+</div>
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div id="cell-id=be892376" class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
@@ -1815,9 +1819,11 @@ deg_df.head()
                     </div>
                 </clipboard-copy>
             </div>
-            <div class="highlight-ipynb hl-python "><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">CELLiD_enrichment</span><span class="p">(</span><span class="n">deg_df</span><span class="p">)</span>
+            <div class="highlight-ipynb hl-python "><pre><span></span><span class="c1"># get enrichment analysis result using dt.CELLiD_enrichment</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">CELLiD_enrichment</span><span class="p">(</span><span class="n">deg_df</span><span class="p">)</span>
 </pre></div>
-<div id="cell-3" class="clipboard-copy-txt">results = dt.CELLiD_enrichment(deg_df)</div>
+<div id="cell-3" class="clipboard-copy-txt"># get enrichment analysis result using dt.CELLiD_enrichment
+results = dt.CELLiD_enrichment(deg_df)</div>
         
         </div>
     </div>
@@ -1872,9 +1878,11 @@ deg_df.head()
                     </div>
                 </clipboard-copy>
             </div>
-            <div class="highlight-ipynb hl-python "><pre><span></span><span class="n">results</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+            <div class="highlight-ipynb hl-python "><pre><span></span><span class="c1"># get the top 10 results</span>
+<span class="n">results</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
-<div id="cell-4" class="clipboard-copy-txt">results.head(10)</div>
+<div id="cell-4" class="clipboard-copy-txt"># get the top 10 results
+results.head(10)</div>
         
         </div>
     </div>

@@ -71,7 +71,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#example-of-filtering-and-download-data-using-discotoolkit" class="md-skip">
+        <a href="#download-data" class="md-skip">
           Skip to content
         </a>
       
@@ -199,68 +199,68 @@
     
   
   
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          Tutorial
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Tutorial
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
     <li class="md-nav__item md-nav__item--active">
       
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Download Data
-          <span class="md-nav__icon md-icon"></span>
-        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         Download Data
       </a>
       
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#example-of-filtering-and-download-data-using-discotoolkit" class="md-nav__link">
-    Example of filtering and download data using DISCOtoolkit
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
-    
-      
-      
-      
-
+            
+          
+            
+              
   
   
   
     <li class="md-nav__item">
       <a href="../CELLiD_celltype_annotation/" class="md-nav__link">
-        Cell Type Annotation
+        Cell Type annotation using CELLiD
       </a>
     </li>
   
 
-    
-      
-      
-      
-
+            
+          
+            
+              
   
   
   
@@ -268,6 +268,13 @@
       <a href="../scEnrichment/" class="md-nav__link">
         scEnrichment
       </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
     </li>
   
 
@@ -289,21 +296,8 @@
   
   
   
+    
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#example-of-filtering-and-download-data-using-discotoolkit" class="md-nav__link">
-    Example of filtering and download data using DISCOtoolkit
-  </a>
-  
-</li>
-      
-    </ul>
   
 </nav>
                   </div>
@@ -317,8 +311,6 @@
                 
                   
 
-
-  <h1>Download Data</h1>
 
 <script>
 (function (global, factory) {
@@ -480,7 +472,7 @@
           notice.hidden = true
         }, 1000)
       })
-</script>
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
 
@@ -1357,7 +1349,7 @@ Licensed under the Apache License, Version 2.0.
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="example-of-filtering-and-download-data-using-discotoolkit">Example of filtering and download data using DISCOtoolkit<a class="anchor-link" href="#example-of-filtering-and-download-data-using-discotoolkit">&#182;</a></h2>
+<h1 id="download-data">Download Data<a class="anchor-link" href="#download-data">&#182;</a></h1>
 </div>
 </div>
 </div>
@@ -1368,13 +1360,13 @@ Licensed under the Apache License, Version 2.0.
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>We recommend the user visit our <a href="http://www.immunesinglecell.org/">DISCO</a> website and filter the sample based on the metadata provided in the website</p>
+<p>We recommend the user visit our <a href="http://www.immunesinglecell.org/">DISCO</a> website and filter the sample based on the metadata provided on the website.</p>
 <p>In this tutorial, we will provide a quick guideline for downloading the data using discotoolkit.
 Steps:</p>
 <ul>
-<li>Visit website to find sample or cell type of interest</li>
-<li>Using <code>dt.filter_disco_metadata</code> function to filter from the database</li>
-<li>Using <code>dt.download_disco_data</code> function to download data in <code>h5ad</code> extention based on the filtered sample.</li>
+<li>Visit the website to find a sample or cell type of interest.</li>
+<li>Utilize the <code>dt.filter_disco_metadata</code> function to filter the data from the database.</li>
+<li>Employ the <code>dt.download_disco_data</code> function to download the data in the <code>h5ad</code> extension based on the filtered sample.</li>
 </ul>
 
 </div>
@@ -1421,7 +1413,7 @@ import discotoolkit as dt</div>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>For this example, we wanted to download LYVE1 macrophage from lung tissue as our cell type of interest. We subset only the highly confidence cell type prediction based on our manual annotation and the minimum 300 cell per sample. Notice that we specify include_cell_type_chidren as true to include all sub celltype if applicable.</p>
+<p>For this example, we wanted to download LYVE1 macrophage from lung tissue as our cell type of interest. We subset only the highly confident cell type prediction based on our manual annotation and the minimum 300 cells per sample. Notice that we specify <code>include_cell_type_children</code> as true to include all sub-cell types if applicable.</p>
 
 </div>
 </div>
@@ -1546,7 +1538,7 @@ INFO:root:8 samples and 3863 cells were found
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>After applying the filter to the database, now we can download the dataset into <code>disco_data</code> directory</p>
+<p>After applying the filter to the database, now we can download the dataset into the <code>disco_data</code> directory.</p>
 
 </div>
 </div>

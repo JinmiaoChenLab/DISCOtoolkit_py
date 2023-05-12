@@ -19,7 +19,7 @@
     
     
       
-        <title>Cell Type Annotation - DISCOtoolkit</title>
+        <title>Cell Type annotation using CELLiD - DISCOtoolkit</title>
       
     
     
@@ -70,6 +70,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#cell-type-annotation-using-cellid" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -100,7 +105,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Cell Type Annotation
+              Cell Type annotation using CELLiD
             
           </span>
         </div>
@@ -191,6 +196,35 @@
 
   
   
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          Tutorial
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Tutorial
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
   
     <li class="md-nav__item">
       <a href="../download_data/" class="md-nav__link">
@@ -199,11 +233,10 @@
     </li>
   
 
-    
-      
-      
-      
-
+            
+          
+            
+              
   
   
     
@@ -214,19 +247,20 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Cell Type Annotation
+        Cell Type annotation using CELLiD
       </a>
       
     </li>
   
 
-    
-      
-      
-      
-
+            
+          
+            
+              
   
   
   
@@ -234,6 +268,13 @@
       <a href="../scEnrichment/" class="md-nav__link">
         scEnrichment
       </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
     </li>
   
 
@@ -255,6 +296,8 @@
   
   
   
+    
+  
   
 </nav>
                   </div>
@@ -268,8 +311,6 @@
                 
                   
 
-
-  <h1>Cell Type Annotation</h1>
 
 <script>
 (function (global, factory) {
@@ -431,7 +472,7 @@
           notice.hidden = true
         }, 1000)
       })
-</script>
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
 
@@ -1301,7 +1342,25 @@ Licensed under the Apache License, Version 2.0.
     }
     init_mathjax();
     </script>
-    <!-- End of mathjax configuration --><div class="jupyter-wrapper"><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+    <!-- End of mathjax configuration --><div class="jupyter-wrapper">
+<div id="cell-id=de699109" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h1 id="cell-type-annotation-using-cellid">Cell Type annotation using CELLiD<a class="anchor-link" href="#cell-type-annotation-using-cellid">&#182;</a></h1><p>In this tutorial, we will provide a quick guideline for conducting cell type annotation using discotoolkit. The following steps outline the process:</p>
+<ol>
+<li>Visit the discotoolkit website to find a sample or cell type of interest.</li>
+<li>Utilize the <code>dt.filter_disco_metadata</code> function to filter the relevant data from the database.</li>
+<li>Employ the <code>dt.download_disco_data</code> function to download the data in the <code>h5ad</code> extension based on the filtered sample.</li>
+<li>Apply preprocessing to the counts matrix and obtain normalized gene expression, which will serve as the input for the <code>dt.CELLiD_cluster</code> function.</li>
+</ol>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div id="cell-id=ea0bd44c-44a6-4761-af8b-115838fb99df" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -1356,7 +1415,7 @@ from scipy.sparse import issparse
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>For the sake of the tutorial, we will first download a sample in h5ad file using the download data funciton and then apply the discotoolkit CELLiD annotation function</p>
+<p>To maintain simplicity, we exclusively employ sample metadata as the filtering criterion to extract a single sample from the <code>bone_marrow tissue</code> category. Subsequently, we proceed to download the pertinent data following the guidelines elucidated in the download data tutorial.</p>
 
 </div>
 </div>
@@ -1432,6 +1491,18 @@ INFO:root:Downloading data of AML003_3p
 </div>
 
 </div>
+</div>
+<div id="cell-id=70269b42" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>We also provide a helper function that enables users to access and view the strings associated with the atlases</p>
+
+</div>
+</div>
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div id="cell-id=628ab047" class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
@@ -1453,10 +1524,10 @@ INFO:root:Downloading data of AML003_3p
                     </div>
                 </clipboard-copy>
             </div>
-            <div class="highlight-ipynb hl-python "><pre><span></span><span class="c1"># helper function to allow the user to see how many atlas is in disco database</span>
+            <div class="highlight-ipynb hl-python "><pre><span></span><span class="c1"># helper function to allow the user to see how many atlases are in disco database</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">dt</span><span class="o">.</span><span class="n">get_atlas</span><span class="p">())</span>
 </pre></div>
-<div id="cell-3" class="clipboard-copy-txt"># helper function to allow the user to see how many atlas is in disco database
+<div id="cell-3" class="clipboard-copy-txt"># helper function to allow the user to see how many atlases are in disco database
 print(dt.get_atlas())</div>
         
         </div>
@@ -1496,6 +1567,20 @@ print(dt.get_atlas())</div>
 
 </div>
 
+</div>
+</div>
+<div id="cell-id=766bb0c9" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>The downloaded data is in h5ad format, and we need to import <code>scanpy</code> to read the data.</p>
+<p><strong>Note</strong>: The input data for the cell type annotation function needs to be normalized and in non-log space. In the example below, the downloaded gene expression represents a count matrix, so we only need to normalize the data using <code>sc.pp.normalize_total</code>. If the data is in log space, please exponentiate it to convert it into non-log space.</p>
+<p>The required format for the input data is (gene, cluster).</p>
+
+</div>
+</div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div id="cell-id=4f8e4ef6" class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -1738,6 +1823,18 @@ This is where adjacency matrices should go now.
 </div>
 
 </div>
+</div>
+<div id="cell-id=c55aae67" class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Now that the data is ready, we can then apply the <code>dt.CELLiD_cluster</code> function. Specify the <code>n_predict</code> parameter to obtain predictions for <code>n</code> number of cell types.</p>
+
+</div>
+</div>
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div id="cell-id=71e8417a" class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
@@ -1828,9 +1925,11 @@ INFO: Pandarallel will use Memory file system to transfer data between the main 
                     </div>
                 </clipboard-copy>
             </div>
-            <div class="highlight-ipynb hl-python "><pre><span></span><span class="n">cell_type</span>
+            <div class="highlight-ipynb hl-python "><pre><span></span><span class="c1"># the result is return as in Pandas DataFrame</span>
+<span class="n">cell_type</span>
 </pre></div>
-<div id="cell-6" class="clipboard-copy-txt">cell_type</div>
+<div id="cell-6" class="clipboard-copy-txt"># the result is return as in Pandas DataFrame
+cell_type</div>
         
         </div>
     </div>
@@ -2106,38 +2205,6 @@ INFO: Pandarallel will use Memory file system to transfer data between the main 
 
 </div>
 
-</div>
-
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div id="cell-id=4d9b53b3" class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-        
-        
-        <div class="CodeMirror cm-s-jupyter">
-            <div class="zeroclipboard-container">
-                <clipboard-copy for="cell-7">
-                <div>
-                    <span class="notice" hidden>Copied!</span>
-                    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 16 16" version="1.1"  data-view-component="true" class="clipboard-copy-icon">
-                        <path fill="currentColor" fill-rule="evenodd" d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"></path>
-                        <path fill="currentColor" fill-rule="evenodd" d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z"></path>
-                    </svg>
-                    </div>
-                </clipboard-copy>
-            </div>
-            <div class="highlight-ipynb hl-python "><pre><span></span>
-</pre></div>
-<div id="cell-7" class="clipboard-copy-txt"></div>
-        
-        </div>
-    </div>
-
-</div>
 </div>
 
 </div>
