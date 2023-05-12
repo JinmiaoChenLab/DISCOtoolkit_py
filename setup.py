@@ -6,7 +6,7 @@ with open("requirements.txt", "r") as f:
 
 setup(
     name='discotoolkit',
-    version='1.0.4',
+    version='1.0.5',
     url='http://www.immunesinglecell.org/',
     author='Li Mengwei, Rom Uddamvathanak',
     author_email='uddamvathanak_rom@immunol.a-star.edu.sg',
@@ -22,5 +22,4 @@ setup(
     \nCELLiD: cell type annotation
     \nscEnrichment: geneset enrichment using DISCO DEGs
     """,
-    long_description_content_type = 'text/markdown',
 )

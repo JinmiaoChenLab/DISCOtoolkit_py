@@ -6,7 +6,7 @@
  * @LastEditors: Mengwei Li
  * @LastEditTime: 2023-04-16 21:22:03
 -->
-# DISCOtoolkit 1.0.4
+# DISCOtoolkit 1.0.5
 
 DISCOtoolkit is an python package that allows users to access data and use the tools provided by the [DISCO database](https://www.immunesinglecell.org/). It provides the following functions:
 
