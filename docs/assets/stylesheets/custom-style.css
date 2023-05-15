@@ -75,3 +75,29 @@ h1.md-title {
  .md-typeset table:not([class]) td:first-child{
     width: 20%;
  }
+
+ .badge-container {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-right: 8px;
+  }
+
+  .badge-link {
+    text-decoration: none;
+    color: #333;
+  }
+
+  .badge-icon {
+    margin-right: 4px;
+  }
+
+  .badge-count {
+    font-weight: bold;
+  }
+
+  /* .md-nav {
+    background-color: #F7F9F3;
+  } */

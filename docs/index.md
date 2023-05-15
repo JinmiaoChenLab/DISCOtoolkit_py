@@ -13,15 +13,110 @@
 Deeply Integrated human Single-Cell Omics data
 </h1></center></b>
 
-[![GitHub stars](https://img.shields.io/github/stars/JinmiaoChenLab/DISCOtoolkit_py?style=social&logo=github&label=Star)](https://github.com/JinmiaoChenLab/DISCOtoolkit_py/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/JinmiaoChenLab/DISCOtoolkit_py?style=social&logo=github&label=Fork)](https://github.com/JinmiaoChenLab/DISCOtoolkit_py/network)
-[![GitHub watchers](https://img.shields.io/github/watchers/JinmiaoChenLab/DISCOtoolkit_py?style=social&logo=github&label=Watchers)](https://github.com/JinmiaoChenLab/DISCOtoolkit_py/watchers)
-[![GitHub issues](https://img.shields.io/github/issues/JinmiaoChenLab/DISCOtoolkit_py?style=social&logo=github&label=Issues)](https://github.com/JinmiaoChenLab/DISCOtoolkit_py/issues)
-[![GitHub pull requests](https://img.shields.io/github/issues-pr/JinmiaoChenLab/DISCOtoolkit_py?style=social&logo=github&label=Pull%20Requests)](https://github.com/JinmiaoChenLab/DISCOtoolkit_py/pulls)
+<!-- [![Star](https://img.shields.io/badge/★-Star-yellow?style=flat&logo=github)](https://github.com/JinmiaoChenLab/DISCOtoolkit_py/stargazers)
+[![Fork](https://img.shields.io/badge/↳-Fork-blue?style=flat&logo=github)](https://github.com/JinmiaoChenLab/DISCOtoolkit_py/network)
+[![Watch](https://img.shields.io/badge/👁-Watchers-green?style=flat&logo=github)](https://github.com/JinmiaoChenLab/DISCOtoolkit_py/watchers)
+[![Issue](https://img.shields.io/badge/⚠-Issues-red?style=flat&logo=github)](https://github.com/JinmiaoChenLab/DISCOtoolkit_py/issues)
+[![Pull Request](https://img.shields.io/badge/⇪-Pull%20Requests-purple?style=flat&logo=github)](https://github.com/JinmiaoChenLab/DISCOtoolkit_py/pulls)
 
-[![GitHub repository](https://img.shields.io/badge/GitHub%20repository-DISCOtoolkit_py-2088FF?style=flat-square&logo=github)](https://github.com/JinmiaoChenLab/DISCOtoolkit_py)
+[![GitHub repository](https://img.shields.io/badge/GitHub%20repository-DISCOtoolkit_py-2088FF?style=flat-square&logo=github)](https://github.com/JinmiaoChenLab/DISCOtoolkit_py) -->
 
-DISCOtoolkit is an python package that allows users to access data and use the tools provided by the [DISCO database](https://www.immunesinglecell.org/). It provides the following functions:
+
+
+<script>
+  // Fetch the version number from a file
+    fetch('version.txt')
+    .then(response => response.text())
+    .then(version => {
+      const versionCountElement = document.getElementById('version-count');
+      versionCountElement.textContent = version;
+    })
+    .catch(error => {
+      console.error('Error fetching version number:', error);
+    });
+
+    // Fetch the stars count using GitHub API
+    fetch('https://api.github.com/repos/JinmiaoChenLab/DISCOtoolkit_py')
+    .then(response => response.json())
+    .then(data => {
+      const starsCount = data.stargazers_count;
+      const starsCountElement = document.getElementById('stars-count');
+      starsCountElement.textContent = starsCount;
+    })
+    .catch(error => {
+      console.error('Error fetching stars count:', error);
+    });
+
+    // Fetch the forks count using GitHub API
+    fetch('https://api.github.com/repos/JinmiaoChenLab/DISCOtoolkit_py')
+    .then(response => response.json())
+    .then(data => {
+      const forksCount = data.forks_count;
+      const forksCountElement = document.getElementById('forks-count');
+      forksCountElement.textContent = forksCount;
+    })
+    .catch(error => {
+      console.error('Error fetching forks count:', error);
+    });
+    
+    // Fetch the watchers count using GitHub API
+    fetch('https://api.github.com/repos/JinmiaoChenLab/DISCOtoolkit_py')
+    .then(response => response.json())
+    .then(data => {
+      const watchersCount = data.subscribers_count;
+      const watchersCountElement = document.getElementById('watchers-count');
+      watchersCountElement.textContent = watchersCount;
+    })
+    .catch(error => {
+      console.error('Error fetching watchers count:', error);
+    });
+
+    // Fetch the issues count using GitHub API
+    fetch('https://api.github.com/repos/JinmiaoChenLab/DISCOtoolkit_py')
+    .then(response => response.json())
+    .then(data => {
+      const issuesCount = data.open_issues_count;
+      const issuesCountElement = document.getElementById('issues-count');
+      issuesCountElement.textContent = issuesCount;
+    })
+    .catch(error => {
+      console.error('Error fetching issues count:', error);
+    });
+
+
+</script>
+
+<span class="badge-container">
+<a href="https://github.com/JinmiaoChenLab/DISCOtoolkit_py" class="badge-link">
+  <span class="badge-icon">📦</span>
+  <span class="badge-count" id="version-count">Loading...</span>
+</a>
+</span> <span class="badge-container">
+  <a href="https://github.com/JinmiaoChenLab/DISCOtoolkit_py/stargazers" class="badge-link">
+    <span class="badge-icon">⭐</span>
+    <span class="badge-count" id="stars-count">Loading...</span>
+  </a>
+</span><span class="badge-container">
+  <a href="https://github.com/JinmiaoChenLab/DISCOtoolkit_py/network" class="badge-link">
+    <span class="badge-icon">🍴</span>
+    <span class="badge-count" id="forks-count">Loading...</span>
+  </a>
+</span><span class="badge-container">
+  <a href="https://github.com/JinmiaoChenLab/DISCOtoolkit_py/watchers" class="badge-link">
+    <span class="badge-icon">👀</span>
+    <span class="badge-count" id="watchers-count">Loading...</span>
+  </a>
+</span><span class="badge-container">
+  <a href="https://github.com/JinmiaoChenLab/DISCOtoolkit_py/issues" class="badge-link">
+    <span class="badge-icon">❗</span>
+    <span class="badge-count" id="issues-count">Loading...</span>
+  </a>
+</span>
+
+[![Downloads](https://static.pepy.tech/personalized-badge/discotoolkit?period=total&units=international_system&left_color=black&right_color=orange&left_text=Downloads)](https://pepy.tech/project/discotoolkit)
+
+
+**DISCOtoolkit** is an python package that allows users to access data and use the tools provided by the [DISCO database](https://www.immunesinglecell.org/). It provides the following functions:
 
 - Filter and download DISCO data based on sample metadata and cell type information
 - CELLiD: cell type annotation
@@ -51,11 +146,14 @@ Installation using pip:
 ``` 
 python -m pip install discotoolkit
 ```
+!!! Note
+    Please add -U parameter to pip to install the latest version. `pip install -U discotoolkit`
 
 ## Basic Usage
 Example in Jupyter notebook.
 
-<em>please select disco as the kernel for running the jupyter notebook</em>
+!!! Note
+    Please select disco as the kernel for running the jupyter notebook
 
 ### [Filter and download DISCO data](download_data.ipynb)
 
@@ -67,6 +165,6 @@ Example in Jupyter notebook.
 1. [Li, Mengwei, et al. "DISCO: a database of Deeply Integrated human Single-Cell Omics data." Nucleic acids research 50.D1 (2022): D596-D602.](https://academic.oup.com/nar/article/50/D1/D596/6430491)
 
 ## Follow us on our social media!
-:fontawesome-brands-twitter:    [HSCRM2](https://twitter.com/HSCRM2) 
+:fontawesome-brands-twitter:    [HSCRM2](https://twitter.com/HSCRM2)
 
-:simple-github:     [JinmiaoChenLab Github repo](https://github.com/JinmiaoChenLab) 
+:simple-github:     [JinmiaoChenLab Github repo](https://github.com/JinmiaoChenLab/DISCOtoolkit_py)

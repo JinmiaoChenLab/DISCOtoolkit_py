@@ -10,6 +10,8 @@ nav:
 
 plugins:
   - search:
+  - git-revision-date-localized:
+      enable_creation_date: true
   - mkdocs-jupyter:
       include_source: True
       include_requirejs: true
@@ -28,7 +30,7 @@ theme:
   palette:
     # Palette toggle for light mode
     - scheme: default
-      primary: white
+      primary: white # F7F9F3 change to this later
       toggle:
         icon: material/weather-sunny
         name: Switch to dark mode
