@@ -35,10 +35,6 @@
     font-style: italic;
 }
 
-[data-md-color-scheme="default"] {
-  --md-primary-fg-color: #f9f7f3;
-}
-
 [data-md-color-scheme="slate"] .parameter-font {
     color: var(--border-color);
     font-style: italic;

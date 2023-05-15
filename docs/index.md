@@ -13,16 +13,6 @@
 Deeply Integrated human Single-Cell Omics data
 </h1></center></b>
 
-<!-- [![Star](https://img.shields.io/badge/★-Star-yellow?style=flat&logo=github)](https://github.com/JinmiaoChenLab/DISCOtoolkit_py/stargazers)
-[![Fork](https://img.shields.io/badge/↳-Fork-blue?style=flat&logo=github)](https://github.com/JinmiaoChenLab/DISCOtoolkit_py/network)
-[![Watch](https://img.shields.io/badge/👁-Watchers-green?style=flat&logo=github)](https://github.com/JinmiaoChenLab/DISCOtoolkit_py/watchers)
-[![Issue](https://img.shields.io/badge/⚠-Issues-red?style=flat&logo=github)](https://github.com/JinmiaoChenLab/DISCOtoolkit_py/issues)
-[![Pull Request](https://img.shields.io/badge/⇪-Pull%20Requests-purple?style=flat&logo=github)](https://github.com/JinmiaoChenLab/DISCOtoolkit_py/pulls)
-
-[![GitHub repository](https://img.shields.io/badge/GitHub%20repository-DISCOtoolkit_py-2088FF?style=flat-square&logo=github)](https://github.com/JinmiaoChenLab/DISCOtoolkit_py) -->
-
-
-
 <script>
   // Fetch the version number from a file
     fetch('version.txt')
@@ -124,12 +114,12 @@ Deeply Integrated human Single-Cell Omics data
 
 Dependency Requirements:
 
-- Numpy 1.21.6
-- Pandas 1.4.2
-- Scanpy 1.9.3
-- Scipy 1.8.0
-- joblib 1.1.0
-- pandarallel 1.6.5
+- Numpy >= 1.21.6
+- Pandas >= 1.4.2
+- Scanpy >= 1.9.3
+- Scipy >= 1.8.0
+- joblib >= 1.1.0
+- pandarallel >= 1.6.5
 
 ## Installation guide:
 

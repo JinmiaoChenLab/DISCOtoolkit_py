@@ -8,7 +8,7 @@
 -->
 [![Documentation Status](https://readthedocs.org/projects/discotoolkit-py/badge/?version=latest)](https://discotoolkit-py.readthedocs.io/en/latest/?badge=latest) [![Downloads](https://static.pepy.tech/personalized-badge/discotoolkit?period=total&units=international_system&left_color=black&right_color=orange&left_text=Downloads)](https://pepy.tech/project/discotoolkit)
 
-# DISCOtoolkit 1.0.6
+# DISCOtoolkit 1.0.7
 
 DISCOtoolkit is an python package that allows users to access data and use the tools provided by the [DISCO database](https://www.immunesinglecell.org/). Read the documentation [DISCOtoolkit](https://discotoolkit-py.readthedocs.io/en/latest/). It provides the following functions:
 
@@ -18,12 +18,12 @@ DISCOtoolkit is an python package that allows users to access data and use the t
 
 Dependency Requirements:
 
-- Numpy 1.21.6
-- Pandas 1.4.2
-- Scanpy 1.9.3
-- Scipy 1.8.0
-- joblib 1.1.0
-- pandarallel 1.6.5
+- Numpy >= 1.21.6
+- Pandas >= 1.4.2
+- Scanpy >= 1.9.3
+- Scipy >= 1.8.0
+- joblib >= 1.1.0
+- pandarallel >= 1.6.5
 
 ## Installation guide:
 

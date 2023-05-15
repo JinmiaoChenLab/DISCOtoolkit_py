@@ -23,6 +23,7 @@ theme:
   name: material
   favicon: assets/images/Discologo_1.png
   logo: assets/images/LOGO_WITH_title.745f2743.svg  # Customize to our own logo
+  
   features:
     - search.highlight
     - content.code.copy
@@ -41,6 +42,7 @@ theme:
       toggle:
         icon: material/weather-night
         name: Switch to light mode
+  custom_dir: overrides
 
 markdown_extensions:
   - attr_list
