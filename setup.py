@@ -4,9 +4,12 @@ from setuptools import setup, find_packages
 with open("requirements.txt", "r") as f:
     requirements = f.read().splitlines()
 
+with open('docs/version.txt', 'r') as f:
+    version = f.read().strip()
+
 setup(
     name='discotoolkit',
-    version='1.0.5',
+    version=version,
     url='http://www.immunesinglecell.org/',
     author='Li Mengwei, Rom Uddamvathanak',
     author_email='uddamvathanak_rom@immunol.a-star.edu.sg',

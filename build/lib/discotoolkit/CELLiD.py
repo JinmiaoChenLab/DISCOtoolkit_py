@@ -61,11 +61,11 @@ def CELLiD_cluster(rna, ref_data : pd.DataFrame = None, ref_deg : pd.DataFrame =
     Args:
         rna (Pandas DataFrame | Numpy array): user define dataframe. Need to transpose so that the index is the genes
         ref_data (Pandas DataFrame, optional): Reference dataframe used to compute for the cell type annotation. Defaults to None.
-        ref_deg (Pandas, DataFrame): reference DEG database. Defaults to None.
+        ref_deg (Pandas DataFrame): reference DEG database. Defaults to None.
         atlas (String, optional): String of atlas that the user want to use as the reference. Defaults to None.
         n_predict (Integer, optional): number of predicted celltype. Defaults to 1.
         ref_path (string, optional): path string to the reference data. Defaults to None.
-        ncores (int, optional): number of CPU cores used to run the data. Defaults to 10.
+        ncores (Integer, optional): number of CPU cores used to run the data. Defaults to 10.
 
     Returns:
         Pandas DataFrame: return the Pandas DataFrame along with the correlation score.
@@ -214,7 +214,18 @@ def CELLiD_cluster(rna, ref_data : pd.DataFrame = None, ref_deg : pd.DataFrame =
 Geneset enrichment analysis using DISCO data
 """
 
-def CELLiD_enrichment(input, reference = None, ref_path : str = None, ncores = 10):
+def CELLiD_enrichment(input : pd.DataFrame, reference : pd.DataFrame = None, ref_path : str = None, ncores : int = 10):
+    """Function to generate enrichment analysis based on the reference gene sets and following the DISCO pipeline.
+
+    Args:
+        input (Pandas DataFrame): User defined Dataframe in the format of `(gene, fc)`. `gene` refer to gene name and `fc` refer to log fold change.
+        reference (Pandas DataFrame, optional): Reference datasets from DISCO. Recommend to put as None as the function will automatically retrieve the dataset from the server. Defaults to None.
+        ref_path (String, optional): Path to the reference dataset or reading the file if it is existed. Defaults to None.
+        ncores (Integer, optional): Number of CPU cores to run the function. Defaults to 10.
+
+    Returns:
+        Pandas DataFrame: return the significant gene sets that is over-represented in a large set of genes.
+    """
 
     # check input data
     # check if the input type is a DataFrame
@@ -246,12 +257,15 @@ def CELLiD_enrichment(input, reference = None, ref_path : str = None, ncores = 1
         if not os.path.exists(ref_path):
             os.mkdir(ref_path)
         
-        # downloading the geneset data from disco database
-        response = requests.get(url=prefix_disco_url +"/getGeneSetPkl", timeout=timeout)
-        open(ref_path + "/ref_geneset.pkl", "wb").write(response.content)
+        # check if the file does not exist
+        if not (os.path.exists(ref_path + "/ref_geneset.pkl")):
+            # downloading the geneset data from disco database
+            response = requests.get(url=prefix_disco_url +"/getGeneSetPkl", timeout=timeout)
+            open(ref_path + "/ref_geneset.pkl", "wb").write(response.content)
 
-        # read the data into pandas dataframe for subsequent analysis
-        reference = pd.read_pickle(ref_path + "/ref_geneset.pkl", compression = {'method':'gzip','compresslevel':6})
+        else:
+            # read the data into pandas dataframe for subsequent analysis
+            reference = pd.read_pickle(ref_path + "/ref_geneset.pkl", compression = {'method':'gzip','compresslevel':6})
 
     # rename the name data to include the reference atlas
     reference["name"] = reference["name"] + " in " + reference["atlas"]
