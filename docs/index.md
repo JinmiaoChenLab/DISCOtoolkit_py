@@ -14,17 +14,6 @@ Deeply Integrated human Single-Cell Omics data
 </h1></center></b>
 
 <script>
-  // Fetch the version number from a file
-    fetch('version.txt')
-    .then(response => response.text())
-    .then(version => {
-      const versionCountElement = document.getElementById('version-count');
-      versionCountElement.textContent = version;
-    })
-    .catch(error => {
-      console.error('Error fetching version number:', error);
-    });
-
     // Fetch the stars count using GitHub API
     fetch('https://api.github.com/repos/JinmiaoChenLab/DISCOtoolkit_py')
     .then(response => response.json())
@@ -79,7 +68,7 @@ Deeply Integrated human Single-Cell Omics data
 <span class="badge-container">
 <a href="https://github.com/JinmiaoChenLab/DISCOtoolkit_py" class="badge-link">
   <span class="badge-icon">📦</span>
-  <span class="badge-count" id="version-count">Loading...</span>
+  <span class="badge-count">1.0.7</span>
 </a>
 </span> <span class="badge-container">
   <a href="https://github.com/JinmiaoChenLab/DISCOtoolkit_py/stargazers" class="badge-link">
