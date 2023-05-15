@@ -36,10 +36,9 @@ Filter class object to save the attributes for filtering the dataset from DISCO
 | `min_cell_per_sample`                  | `Int`                                               |
 |                                        | Minimum number of cells per sample                    |
 
-| Return                                 |                                                     |
+| Returns                                 |                                                     |
 | -------------------------------------- | --------------------------------------------------- |
-| `return`                               | `Class`                                             |
-|                                        | Object representing the result of the function        |
+| `Filter Class`                         | Object representing the result of the function      |
 
 <!-- Separator Line or Section Divider -->
 <hr>
