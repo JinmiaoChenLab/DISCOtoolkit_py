@@ -1,0 +1,62 @@
+/* custom-style.css */
+.coding-font {
+    font-family: 'Consolas', 'Menlo', 'Roboto Mono', monospace;
+    font-size: 14px;
+    padding: 10px;
+    border-top: 6px solid var(--border-color);
+    border-left: 1px solid transparent;
+    border-right: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+    border-radius: 4px;
+}
+
+[data-md-color-scheme="default"] {
+    --background-color: #f3f7fb;
+    --text-color: #000;
+    --border-color: #0367cc;
+    --header-color: #000; /* Set the desired header color for the default theme */
+}
+
+[data-md-color-scheme="slate"] {
+    --background-color: #333;
+    --text-color: #fff;
+    --border-color: #f0cc01;
+    --header-color: #fff; /* Set the desired header color for the slate theme */
+}
+
+[data-md-color-scheme="default"] .coding-font {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+
+[data-md-color-scheme="default"] .parameter-font {
+    color: var(--border-color);
+    font-style: italic;
+}
+
+[data-md-color-scheme="slate"] .parameter-font {
+    color: var(--border-color);
+    font-style: italic;
+}
+
+[data-md-color-scheme="slate"] .coding-font {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+
+h1.md-title {
+    color: var(--header-color); /* Set the desired color for the h1 tag */
+}
+
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3 {
+  color: var(--header-color);
+  font-weight: bold;
+}
+
+.md-nav__title {
+    color: var(--header-color); /* Set the desired header color */
+}

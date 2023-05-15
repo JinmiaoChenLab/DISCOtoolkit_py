@@ -58,5 +58,3 @@ Example in Jupyter notebook.
 ## Follow us on our social media!
 - [HSCRM2](https://twitter.com/HSCRM2)
 - [JinmiaoChenLab Github repo](https://github.com/JinmiaoChenLab)
-
-## Debugging:

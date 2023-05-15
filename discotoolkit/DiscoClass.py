@@ -21,7 +21,7 @@ class Filter:
     """
 
     def __init__(self, sample = None, project = None, tissue = None, disease = None, platform = None, sample_type = None,
-                 cell_type = None, cell_type_confidence = "medium", include_cell_type_children = True, min_cell_per_sample = 100):
+                 cell_type = None, cell_type_confidence : str = "medium", include_cell_type_children : bool = True, min_cell_per_sample : int = 100):
         
         # handling for string and list input
         self.sample = self.convert_to_list(sample) # sample id

@@ -6,8 +6,10 @@ nav:
     - Download Data: download_data.ipynb
     - Cell Type Annotation: CELLiD_celltype_annotation.ipynb
     - scEnrichment: scEnrichment.ipynb
+  - API: API.md
 
 plugins:
+  - search:
   - mkdocs-jupyter:
       include_source: True
       include_requirejs: true
@@ -19,23 +21,51 @@ theme:
   name: material
   favicon: assets/images/Discologo_1.png
   logo: assets/images/LOGO_WITH_title.745f2743.svg  # Customize to our own logo
+  features:
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
   palette:
     # Palette toggle for light mode
     - scheme: default
       primary: white
       toggle:
-        icon: material/brightness-7 
+        icon: material/weather-sunny
         name: Switch to dark mode
 
     # Palette toggle for dark mode
     - scheme: slate
       primary: blue grey
       toggle:
-        icon: material/brightness-4
+        icon: material/weather-night
         name: Switch to light mode
+
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - callouts
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - toc:
+        permalink: "&para;"
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
 
 extra:
   social:
     - icon: material/github
       link: 'https://github.com/JinmiaoChenLab/DISCOtoolkit_py'
+
+extra_css:
+  - assets/stylesheets/custom-style.css
   
