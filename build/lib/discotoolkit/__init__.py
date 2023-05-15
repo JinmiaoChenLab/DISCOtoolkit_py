@@ -3,4 +3,7 @@ from .DiscoClass import *
 from .DownloadDiscoData import *
 from .CELLiD import *
 
-__version__ = "1.0.5"
+with open('docs/version.txt', 'r') as f:
+    version = f.read().strip()
+
+__version__ = version
