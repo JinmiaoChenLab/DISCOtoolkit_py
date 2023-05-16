@@ -46,7 +46,7 @@ Filter class object to save the attributes for filtering the dataset from DISCO
 ### discotoolkit.download_disco_data
 
 <div class="coding-font">
-<span style="font-weight: bold">dt.download_disco_data</span><span class="parameter-font">(metadata, output_dir : str = "DISCOtmp")</span>
+<span style="font-weight: bold">dt.download_disco_data</span><span class="parameter-font">(metadata, output_dir = "DISCOtmp")</span>
 </div>
 
 Function to download the data based on the given filter.

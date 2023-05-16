@@ -5,9 +5,3 @@ scipy>=1.10.1
 joblib>=1.1.0
 pandarallel>=1.6.5
 requests>=2.28.1
-mkdocs==1.4.3
-jinja2<3.1.0
-mkdocs-jupyter
-markdown-callouts==0.3.0
-mkdocs-git-revision-date-localized-plugin==1.2.0
-mkdocs-material==9.1.11

@@ -121,9 +121,6 @@ conda create --name disco python=3.8
 conda activate disco
 ```
 ```
-conda install pip
-```
-```
 conda install ipykernel
 ```
 ```
