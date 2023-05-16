@@ -28,6 +28,9 @@ theme:
     - search.highlight
     - content.code.copy
     - content.code.annotate
+    - navigation.indexes
+    - navigation.top
+
   palette:
     # Palette toggle for light mode
     - scheme: default
@@ -72,4 +75,3 @@ extra:
 
 extra_css:
   - assets/stylesheets/custom-style.css
-  

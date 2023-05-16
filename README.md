@@ -29,10 +29,23 @@ Dependency Requirements:
 
 we recommend to install miniconda first and install discotoolkit in virtual env
 
+## Installation guide:
+
+we recommend to install miniconda first and install discotoolkit in virtual env
+
 ```
 conda create --name disco python=3.8
+```
+```
+conda activate disco
+```
+```
 conda install pip
+```
+```
 conda install ipykernel
+```
+```
 python -m ipykernel install --user --name disco --display-name "disco"
 ```
 
