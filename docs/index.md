@@ -158,4 +158,4 @@ Example in Jupyter notebook.
 ## Follow us on our social media!
 :fontawesome-brands-twitter:    [HSCRM2](https://twitter.com/HSCRM2)
 
-:simple-github:     [JinmiaoChenLab Github repo](https://github.com/JinmiaoChenLab/DISCOtoolkit_py)
+:simple-github:     [JinmiaoChenLab Github repo](https://github.com/JinmiaoChenLab)

@@ -6,7 +6,6 @@ nav:
     - Download Data: download_data.ipynb
     - Cell Type Annotation: CELLiD_celltype_annotation.ipynb
     - scEnrichment: scEnrichment.ipynb
-    - Visualisation: visualisation.ipynb
   - Gene search: gene_search.md
   - API: API.md
 
