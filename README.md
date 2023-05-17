@@ -25,9 +25,13 @@ Dependency Requirements:
 - joblib >= 1.1.0
 - pandarallel >= 1.6.5
 
-## Installation guide:
+## Minimal installation:
 
-we recommend to install miniconda first and install discotoolkit in virtual env
+The DISCOtoolkit can be easily installed in the current Python environment using `pip`:
+
+```
+pip install discotoolkit
+```
 
 ## Installation guide:
 
@@ -45,8 +49,6 @@ conda install ipykernel
 ```
 python -m ipykernel install --user --name disco --display-name "disco"
 ```
-
-Installation using pip:
 ``` 
 python -m pip install discotoolkit # adding -U for installing the latest version
 ```
