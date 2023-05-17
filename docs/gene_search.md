@@ -8,23 +8,3 @@
 -->
 
 ## Gene Expression Violin Plot
-
-``` plotly
-{
-    "data": [
-        {
-            "x": [
-                "giraffes",
-                "orangutans",
-                "monkeys"
-            ],
-            "y": [
-                20,
-                14,
-                23
-            ],
-            "type": "bar"
-        }
-    ]
-}
-```

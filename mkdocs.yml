@@ -69,16 +69,12 @@ markdown_extensions:
       pygments_lang_class: true
   - pymdownx.inlinehilite
   - pymdownx.snippets
-  - pymdownx.superfences:
-      custom_fences:
-        - name: plotly
-          class: mkdocs-plotly
-          format: !!python/name:mkdocs_plotly_plugin.fences.fence_plotly
 
 extra:
   social:
     - icon: material/github
       link: 'https://github.com/JinmiaoChenLab/DISCOtoolkit_py'
+    
 
 repo_url: https://github.com/JinmiaoChenLab/DISCOtoolkit_py
 repo_name: DISCOtoolkit
