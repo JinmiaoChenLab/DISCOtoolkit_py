@@ -6,11 +6,11 @@ nav:
     - Download Data: download_data.ipynb
     - Cell Type Annotation: CELLiD_celltype_annotation.ipynb
     - scEnrichment: scEnrichment.ipynb
-  - Gene search: gene_search.md
   - API: API.md
 
 plugins:
   - search:
+  - mkdocs_matplotlib
   - git-revision-date-localized:
       enable_creation_date: true
   - mkdocs-jupyter:
