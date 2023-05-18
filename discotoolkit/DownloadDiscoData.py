@@ -14,7 +14,6 @@ import pandas as pd
 import re
 import os
 import hashlib
-import requests
 
 # import variable and class from other script
 from .GlobalVariable import logging, prefix_disco_url

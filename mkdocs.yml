@@ -10,7 +10,6 @@ nav:
 
 plugins:
   - search:
-  - mkdocs_matplotlib
   - git-revision-date-localized:
       enable_creation_date: true
   - mkdocs-jupyter:
