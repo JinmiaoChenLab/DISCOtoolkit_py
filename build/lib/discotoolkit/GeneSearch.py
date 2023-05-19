@@ -7,22 +7,19 @@ import numpy as np
 from typing import Union
 import colorcet as cc
 
-# import variable and class from other script
-from .GlobalVariable import logging, prefix_disco_url
-from .DiscoClass import FilterData, Filter
-from .GetMetadata import check_in_list
 
-
-def gene_search(gene : str, atlas : Union[str, list] = None):
+def gene_search(gene : str, atlas : Union[str, list] = None, figsize : tuple = None, dpi : int = 300):
 
     """Function to search for the gene expression level the same as the input gene search bar in DISCO website.
 
     Args:
-        gene (String): name of the gene in capital letter. e.g. LYVE1
-        atlas (String or List of String): User defined atlas for visualisation. Default to None to search for all Atlases.
+        gene (String): name of the gene in capital letter. e.g. LYVE1.
+        atlas (String or List of String, Optional): User defined atlas for visualisation. Default to None to search for all Atlases.
+        figsize (tuple, Optional): Size of the generated figure in tuple. Default to None.
+        dpi (int, Optional): DPI resolution for the figure. Default to 300.
 
     Returns:
-        _type_: _description_
+        None: This function does not return anything beside plotting
     """
 
     # condition to handle both the string and list of string of user input for the atlas
@@ -66,14 +63,19 @@ def gene_search(gene : str, atlas : Union[str, list] = None):
     saturation=0.8
 
     # Set DPI for plotting
-    dpi = 300  # Set the desired DPI value
     sns.set(rc={'figure.dpi': dpi})
 
     # setting plot style
     sns.set_style('whitegrid')  # Set the plot style
 
     # changing the plot size
-    fig = plt.figure(figsize=(19, 8))
+    if figsize is None:
+        fig_len = int(len(set(sample_df["cell types"])))
+        fig_height = 8
+
+        figsize = (fig_len, fig_height)
+
+    fig = plt.figure(figsize=figsize)
 
     # Create the violin plot with different colors based on the 'Category' variable and adding boxplot to assist user with median value
     ax = sns.violinplot(data=sample_df, x='cell types', y='value', hue="atlases", width=0.8, dodge=False, cut=1, saturation = saturation,  plot_kws={'alpha':0.1},

@@ -6,7 +6,7 @@ with open("requirements.txt", "r") as f:
 
 setup(
     name='discotoolkit',
-    version="1.0.9",
+    version="1.1.0",
     url='http://www.immunesinglecell.org/',
     author='Li Mengwei, Rom Uddamvathanak',
     author_email='uddamvathanak_rom@immunol.a-star.edu.sg',

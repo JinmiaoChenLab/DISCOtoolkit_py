@@ -6,6 +6,7 @@ nav:
     - Download Data: download_data.ipynb
     - Cell Type Annotation: CELLiD_celltype_annotation.ipynb
     - scEnrichment: scEnrichment.ipynb
+    - Gene Search: Gene_search.ipynb
   - API: API.md
 
 plugins:
@@ -30,6 +31,7 @@ theme:
     - content.code.annotate
     - navigation.indexes
     - navigation.top
+    - toc.integrate
 
   palette:
     # Palette toggle for light mode
