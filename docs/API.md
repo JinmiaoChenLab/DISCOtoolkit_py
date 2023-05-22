@@ -65,7 +65,8 @@ Function to download the data based on the given filter.
 <!-- Separator Line or Section Divider -->
 <hr>
 
-## Cell Type Annotation using CELLiD
+## Cell Type Annotation API
+### discotoolkit.CELLiD_cluster
 
 <div class="coding-font">
 <span style="font-weight: bold">dt.CELLiD_cluster</span><span class="parameter-font">(rna, ref_data=None, ref_deg=None, atlas=None, n_predict=1, ref_path=None, ncores=10)</span>
@@ -97,7 +98,8 @@ Cell type annotation using reference data and computing the correlation between 
 <!-- Separator Line or Section Divider -->
 <hr>
 
-## discotoolkit.CELLiD_enrichment
+## scEnrichment API
+### discotoolkit.CELLiD_enrichment
 
 <div class="coding-font">
 <span style="font-weight: bold">dt.CELLiD_enrichment</span><span class="parameter-font">(input, reference=None, ref_path=None, ncores=10)</span>
@@ -124,7 +126,8 @@ Function to generate enrichment analysis based on the reference gene sets follow
 <!-- Separator Line or Section Divider -->
 <hr>
 
-## discotoolkit.gene_search
+## Visualisation API
+### discotoolkit.gene_search
 
 <div class="coding-font">
 <span style="font-weight: bold">dt.gene_search</span><span class="parameter-font">(gene, atlas = None, figsize = None, dpi = 300)</span>
