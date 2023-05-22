@@ -31,7 +31,9 @@ theme:
     - content.code.annotate
     - navigation.indexes
     - navigation.top
+    - navigation.footer
     - toc.integrate
+    - header.autohide
 
   palette:
     # Palette toggle for light mode
@@ -73,7 +75,13 @@ extra:
   social:
     - icon: material/github
       link: 'https://github.com/JinmiaoChenLab/DISCOtoolkit_py'
-    
+      name: DISCOtoolkit on GitHub
+  version:
+    provider: mike
+
+  analytics:
+    provider: google
+    property: G-L6ST3F8LYM
 
 repo_url: https://github.com/JinmiaoChenLab/DISCOtoolkit_py
 repo_name: DISCOtoolkit
