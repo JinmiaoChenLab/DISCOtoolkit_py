@@ -97,7 +97,7 @@ Cell type annotation using reference data and computing the correlation between 
 <!-- Separator Line or Section Divider -->
 <hr>
 
-## ScEnrichment
+## discotoolkit.CELLiD_enrichment
 
 <div class="coding-font">
 <span style="font-weight: bold">dt.CELLiD_enrichment</span><span class="parameter-font">(input, reference=None, ref_path=None, ncores=10)</span>
@@ -123,3 +123,26 @@ Function to generate enrichment analysis based on the reference gene sets follow
 
 <!-- Separator Line or Section Divider -->
 <hr>
+
+## discotoolkit.gene_search
+
+<div class="coding-font">
+<span style="font-weight: bold">dt.gene_search</span><span class="parameter-font">(gene, atlas = None, figsize = None, dpi = 300)</span>
+</div>
+
+Function to search for the gene expression level the same as the input gene search bar in DISCO website.
+
+| Parameters                             |                                                     |
+| -------------------------------------- | --------------------------------------------------- |
+| `gene`                                 | `String`                                            |
+|                                        | name of the gene in capital letter. e.g. LYVE1.     |
+| `atlas`                                | `String or List of String`, optional                |
+|                                        | User defined atlas for visualisation. Default to None to search for all Atlases. |
+| `figsize`                              | `tuple`, optional                                   |
+|                                        | Size of the generated figure in tuple. Default to None. |
+| `dpi`                                  | `Integer`, optional                                 |
+|                                        | DPI resolution for the figure. Default to 300.      |
+
+| Returns                                |                                                     |
+| -------------------------------------- | --------------------------------------------------- |
+| `None`                                 | This function does not return anything beside plotting. |
