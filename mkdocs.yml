@@ -76,8 +76,6 @@ extra:
     - icon: material/github
       link: 'https://github.com/JinmiaoChenLab/DISCOtoolkit_py'
       name: DISCOtoolkit on GitHub
-  version:
-    provider: mike
 
   analytics:
     provider: google
