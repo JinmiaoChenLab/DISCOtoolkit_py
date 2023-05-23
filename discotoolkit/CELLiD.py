@@ -288,13 +288,13 @@ def CELLiD_enrichment(input : pd.DataFrame, reference : pd.DataFrame = None, ref
     # now run the enrichment analysis
     logging.info("Comparing the ranked gene list to reference gene sets...")
 
-
+    # optimise the CELLiD_enrichment function
     atlas_dict = {}
     name_dict = {}
-
     reference_atlas = reference['atlas']
     reference_name = reference['name']
 
+    # pre compute the parameters of the fisher exact test for the reference data
     for rownum in range(len(reference)):
         if reference_atlas[rownum] not in atlas_dict.keys():
             atlas_dict[reference_atlas[rownum]] = [rownum]
@@ -305,12 +305,11 @@ def CELLiD_enrichment(input : pd.DataFrame, reference : pd.DataFrame = None, ref
             name_dict[reference_name[rownum]] = [rownum]
         else:
             name_dict[reference_name[rownum]].append(rownum)
-
     
     # apply function to the dataframe
     def process_unique_name(reference_filter, input, atlas_dfs, input_shape, atlas_dict):
         # use the compile`d pattern to search for matches
-        unique_name = reference_filter['name'].head(1).values
+        unique_name = reference_filter['name'].head(1).values[0]
         atlas = reference_filter['atlas'].head(1).values
         # print(unique_name)
         reference_full = atlas_dfs[list(atlas_dict.keys()).index(atlas)]
@@ -340,9 +339,6 @@ def CELLiD_enrichment(input : pd.DataFrame, reference : pd.DataFrame = None, ref
         # pval = pvalue(a, b, c, d).two_tail
         _, pval = stats.fisher_exact(np.array([[a, b], [c, d]]))
         odds = (a * d)/(b * c)
-        # odds = odds_ratio(np.array([[a, b], [c, d]]).astype("int"), kind="conditional").statistic
-        # p_value = fast_fisher_exact(a, b, c, d, alternative='two-sided')
-        # odds = odds_ratio(a, b, c, d)
         # only get the significant p_value
         # we can make changes to the p_value as in like we allow the user to specify it so that they have more control on the result they can obtain
         if pval < 0.01:

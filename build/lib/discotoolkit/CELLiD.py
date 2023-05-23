@@ -214,14 +214,14 @@ def CELLiD_cluster(rna, ref_data : pd.DataFrame = None, ref_deg : pd.DataFrame =
 Geneset enrichment analysis using DISCO data
 """
 
-def CELLiD_enrichment(input : pd.DataFrame, reference : pd.DataFrame = None, ref_path : str = None, ncores : int = 10):
+def CELLiD_enrichment(input : pd.DataFrame, reference : pd.DataFrame = None, ref_path : str = None, ncores : int = 1):
     """Function to generate enrichment analysis based on the reference gene sets and following the DISCO pipeline.
 
     Args:
         input (Pandas DataFrame): User defined Dataframe in the format of `(gene, fc)`. `gene` refer to gene name and `fc` refer to log fold change.
         reference (Pandas DataFrame, optional): Reference datasets from DISCO. Recommend to put as None as the function will automatically retrieve the dataset from the server. Defaults to None.
         ref_path (String, optional): Path to the reference dataset or reading the file if it is existed. Defaults to None.
-        ncores (Integer, optional): Number of CPU cores to run the function. Defaults to 10.
+        ncores (Integer, optional): Number of CPU cores to run the function. Defaults to 1.
 
     Returns:
         Pandas DataFrame: return the significant gene sets that is over-represented in a large set of genes.
@@ -270,39 +270,54 @@ def CELLiD_enrichment(input : pd.DataFrame, reference : pd.DataFrame = None, ref
 
     # rename the name data to include the reference atlas
     reference["name"] = reference["name"] + " in " + reference["atlas"]
-
+    input["gene"] = input["gene"].str.upper() # convert all the gene to upper string as the reference gene name is in uppercase
     # condition when the user provide the fold change for the enrichment analysis
     if input_shape == 2:
-        input["fc"] == 2 ** input["fc"] # 2 to the power of fc
-        input = input.set_index(["gene"]) # set index to the gene
-        input["gene"] = input.index
-        input = input.loc[np.intersect1d(reference["gene"], input["gene"])] # only get the common genes for comparison
+        input["fc"] = 2 ** input["fc"] # 2 to the power of fc
+        input = input.set_index("gene", drop = False) # set index to the gene
+        input = input.loc[list(set(reference["gene"]) & set(input['gene']))] # only get the common genes for comparison
 
     # else we only look at the ranked gene list
     else:
-        input["gene"] = input["gene"].str.upper() # convert all the gene to upper string as the reference gene name is in uppercase
-        input = input.loc[np.intersect1d(input["gene"], reference["gene"])] # get only the common gene by comparing to the reference data
-
+        input = input.set_index("gene", drop = False)
+        input = input.loc[list(set(reference["gene"]) & set(input['gene']))] # only get the common genes for comparison
     # filter to get only the geneset that contain the input genes from the user
     # this might good different result from the website so lets remove it for
     # unique_names = reference[reference["gene"].isin(input["gene"])]["name"].unique()
-    unique_names = reference["name"].unique()
 
     # now run the enrichment analysis
     logging.info("Comparing the ranked gene list to reference gene sets...")
 
-    # compile the regular expression pattern
-    pattern = re.compile(r" in (.*?$)")
+    # optimise the CELLiD_enrichment function
+    atlas_dict = {}
+    name_dict = {}
+    reference_atlas = reference['atlas']
+    reference_name = reference['name']
 
+    # pre compute the parameters of the fisher exact test for the reference data
+    for rownum in range(len(reference)):
+        if reference_atlas[rownum] not in atlas_dict.keys():
+            atlas_dict[reference_atlas[rownum]] = [rownum]
+        else:
+            atlas_dict[reference_atlas[rownum]].append(rownum)
+
+        if reference_name[rownum] not in name_dict.keys():
+            name_dict[reference_name[rownum]] = [rownum]
+        else:
+            name_dict[reference_name[rownum]].append(rownum)
+    
     # apply function to the dataframe
-    def process_unique_name(unique_name, input, reference, input_shape):
-        # use the compiled pattern to search for matches
-        atlas = pattern.search(unique_name).group(1) # getting the atlas string base on the last word in reference name
-        reference_filter = reference[reference["name"] == unique_name].copy() # subset the reference data
-        reference_full = reference[reference["atlas"] == atlas].copy() # full reference to the atlas
-        reference_filter = reference_filter.set_index(["gene"]) # set gene as the index
-        reference_filter["gene"] = reference_filter.index
-        input_filter = input.loc[np.intersect1d(reference_full["gene"], input["gene"])].copy() # subset the input genes
+    def process_unique_name(reference_filter, input, atlas_dfs, input_shape, atlas_dict):
+        # use the compile`d pattern to search for matches
+        unique_name = reference_filter['name'].head(1).values[0]
+        atlas = reference_filter['atlas'].head(1).values
+        # print(unique_name)
+        reference_full = atlas_dfs[list(atlas_dict.keys()).index(atlas)]
+        # reference_filter = reference.iloc[name_dict[unique_name]].copy() # subset the reference data
+        # reference_full = reference.iloc[atlas_dict[atlas]].copy() # full reference to the atlas
+        reference_filter = reference_filter.set_index(["gene"], drop = False) # set gene as the index
+        # reference_filter["gene"] = reference_filter.index
+        input_filter = input.loc[list(set(reference_full["gene"]) & set(input["gene"]))] # subset the input genes
 
         # condition for no passed gene set
         if input_filter.empty:
@@ -319,24 +334,28 @@ def CELLiD_enrichment(input : pd.DataFrame, reference : pd.DataFrame = None, ref
             b = len(np.setdiff1d(input_filter["gene"], reference_filter["gene"])) + 1
             c = len(np.setdiff1d(reference_filter["gene"], input_filter["gene"])) + 1
             d = len(set(reference_full["gene"])) - a - b - c
-
+        
         # get both value from the fisher exact test
-        _, p_value = stats.fisher_exact(np.array([[a, b], [c, d]]))
-        odds = odds_ratio(np.array([[a, b], [c, d]]).astype("int"), kind="conditional").statistic
-        # p_value = fast_fisher_exact(a, b, c, d, alternative='two-sided')
-        # odds = odds_ratio(a, b, c, d)
-
+        # pval = pvalue(a, b, c, d).two_tail
+        _, pval = stats.fisher_exact(np.array([[a, b], [c, d]]))
+        odds = (a * d)/(b * c)
         # only get the significant p_value
         # we can make changes to the p_value as in like we allow the user to specify it so that they have more control on the result they can obtain
-        if p_value < 0.01:
-            return pd.Series({"pval": p_value, "or": odds, "name": unique_name,
+        if pval < 0.01:
+            return pd.Series({"pval": pval, "or": odds, "name": unique_name,
                             "gene": ",".join(reference_filter.loc[reference_filter["gene"].isin(input_filter["gene"]), "gene"]),
                             "background": len(set(reference_full["gene"])), "overlap": len(reference_filter.loc[reference_filter["gene"].isin(input_filter["gene"])]), "geneset": len(reference_filter)})
         else:
             return None
 
+    # Split them into cores
+    unique_name_dfs = [reference.iloc[name_dict[key], :] for key in name_dict.keys()]
+    atlas_dfs = [reference.iloc[atlas_dict[key], :] for key in atlas_dict.keys()]
+    
+    # return unique_name_dfs, atlas_dfs, input, input_shape
+    # return unique_name_dfs, atlas_dfs
     # using joblib to apply multiprocessing
-    results = Parallel(n_jobs=ncores, batch_size=64, verbose = 2)(delayed(process_unique_name)(unique_name, input, reference, input_shape) for unique_name in unique_names)
+    results = Parallel(n_jobs=ncores, verbose = 2, batch_size = 64)(delayed(process_unique_name)(unique_name_df, input, atlas_dfs, input_shape, atlas_dict) for unique_name_df in unique_name_dfs)
     results = [res for res in results if res is not None]
 
     # concatenate the result into the dataframe to the user
