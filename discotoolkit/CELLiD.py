@@ -262,6 +262,7 @@ def CELLiD_enrichment(input : pd.DataFrame, reference : pd.DataFrame = None, ref
             # downloading the geneset data from disco database
             response = requests.get(url=prefix_disco_url +"/getGeneSetPkl", timeout=timeout)
             open(ref_path + "/ref_geneset.pkl", "wb").write(response.content)
+            reference = pd.read_pickle(ref_path + "/ref_geneset.pkl", compression = {'method':'gzip','compresslevel':6})
 
         else:
             # read the data into pandas dataframe for subsequent analysis
