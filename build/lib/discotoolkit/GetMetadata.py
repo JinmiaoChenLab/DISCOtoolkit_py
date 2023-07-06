@@ -7,6 +7,7 @@ import requests
 import json
 import pandas as pd
 import re
+import numpy as np
 from typing import Union
 
 # import variable and class from other script
@@ -224,8 +225,9 @@ def filter_disco_metadata(filter : Filter = Filter()):
         sample_ct_info = sample_ct_info.iloc[check_in_list(sample_ct_info["sampleId"], metadata["sampleId"])]
         sample_cell_count = pd.DataFrame(sample_ct_info.groupby(["sampleId"])["cellNumber"].agg("sum")) # get the total number of cells
         sample_cell_count.columns = ["x"] # assigning different column name
-        
-        metadata["cell_number"] = list(sample_cell_count.loc[list(metadata["sampleId"])]["x"]) # assigning to the metadata
+        filtered_index = np.intersect1d(sample_cell_count.index, list(metadata["sampleId"])) # getting the common sampleId from the ct info and metadata info
+        metadata = metadata.loc[metadata['sampleId'].isin(filtered_index)] # filtering to only the common sampleId
+        metadata["cell_number"] = list(sample_cell_count.loc[filtered_index]["x"]) # assigning to the metadata
         metadata = metadata[metadata["cell_number"] > filter.min_cell_per_sample] # filter by the minimum cell per sample
 
         # condiition for none
