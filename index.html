@@ -40,9 +40,23 @@
       
     
     
+      <link rel="stylesheet" href="assets/stylesheets/custom-style.css">
+    
     <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
+  
+
+
+  
+  
+
+
+  <script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-L6ST3F8LYM"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-L6ST3F8LYM",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-L6ST3F8LYM",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
 
     
     
@@ -69,7 +83,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#discotoolkit-104" class="md-skip">
+        <a href="#minimal-installation" class="md-skip">
           Skip to content
         </a>
       
@@ -119,7 +133,7 @@
             <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
             
               <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
               </label>
             
           
@@ -129,7 +143,7 @@
             <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue-grey" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
             
               <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
               </label>
             
           
@@ -138,6 +152,53 @@
     
     
     
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/JinmiaoChenLab/DISCOtoolkit_py" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    DISCOtoolkit
+  </div>
+</a>
+      </div>
     
   </nav>
   
@@ -161,7 +222,9 @@
                     
 
 
-<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href="." title="DISCOtoolkit" class="md-nav__button md-logo" aria-label="DISCOtoolkit" data-md-component="logo">
       
@@ -170,6 +233,18 @@
     </a>
     DISCOtoolkit
   </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/JinmiaoChenLab/DISCOtoolkit_py" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    DISCOtoolkit
+  </div>
+</a>
+    </div>
   
   <ul class="md-nav__list" data-md-scrollfix>
     
@@ -187,8 +262,6 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
-        
-      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           Home
@@ -205,14 +278,19 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#minimal-installation" class="md-nav__link">
+    Minimal installation:
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#installation-guide" class="md-nav__link">
@@ -293,6 +371,16 @@
       <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
       
       
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
       
         <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
           Tutorial
@@ -327,7 +415,7 @@
   
     <li class="md-nav__item">
       <a href="CELLiD_celltype_annotation/" class="md-nav__link">
-        Cell Type annotation using CELLiD
+        Cell Type Annotation using CELLiD
       </a>
     </li>
   
@@ -348,8 +436,37 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="Gene_search/" class="md-nav__link">
+        Gene Search
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="API/" class="md-nav__link">
+        API
+      </a>
     </li>
   
 
@@ -361,105 +478,114 @@
               </div>
             
             
-              
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#installation-guide" class="md-nav__link">
-    Installation guide:
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#basic-usage" class="md-nav__link">
-    Basic Usage
-  </a>
-  
-    <nav class="md-nav" aria-label="Basic Usage">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#filter-and-download-disco-data" class="md-nav__link">
-    Filter and download DISCO data
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cell-type-annotation-using-cellid" class="md-nav__link">
-    Cell Type Annotation using CELLiD
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#scenrichment" class="md-nav__link">
-    scEnrichment
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#citation" class="md-nav__link">
-    Citation
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#follow-us-on-our-social-media" class="md-nav__link">
-    Follow us on our social media!
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-                  </div>
-                </div>
-              </div>
-            
           
           
             <div class="md-content" data-md-component="content">
               <article class="md-content__inner md-typeset">
                 
+
+
+
                   
+
+  
+  
 
 
 <!--
  * @Descripttion: 
- * @version: 
+ * @version: 1.0.7
  * @Author: Mengwei Li
  * @Date: 2023-04-16 21:20:42
  * @LastEditors: Mengwei Li
  * @LastEditTime: 2023-04-16 21:22:03
 -->
-<h1 id="discotoolkit-104">DISCOtoolkit 1.0.4</h1>
-<p>DISCOtoolkit is an python package that allows users to access data and use the tools provided by the <a href="https://www.immunesinglecell.org/">DISCO database</a>. It provides the following functions:</p>
+
+<p><img style="vertical-align: middle; width: 70px; display:inline; float: left; margin-right: 0.5em; margin-top: 2em;" src = "assets/images/t_cell.93a106b5.svg"></img>
+<img style="vertical-align: middle; width: 70px; display:inline; float: right; margin-top: 2em; margin-left:0.6em" src = "assets/images/monocyte.846676d9.svg"></img>
+<b><center><h1 style="vertical-align: middle; display:inline;" class="h1.md-title"><br />
+Deeply Integrated human Single-Cell Omics data
+</h1></center></b></p>
+<script>
+    // Fetch the stars count using GitHub API
+    fetch('https://api.github.com/repos/JinmiaoChenLab/DISCOtoolkit_py')
+    .then(response => response.json())
+    .then(data => {
+      const starsCount = data.stargazers_count;
+      const starsCountElement = document.getElementById('stars-count');
+      starsCountElement.textContent = starsCount;
+    })
+    .catch(error => {
+      console.error('Error fetching stars count:', error);
+    });
+
+    // Fetch the forks count using GitHub API
+    fetch('https://api.github.com/repos/JinmiaoChenLab/DISCOtoolkit_py')
+    .then(response => response.json())
+    .then(data => {
+      const forksCount = data.forks_count;
+      const forksCountElement = document.getElementById('forks-count');
+      forksCountElement.textContent = forksCount;
+    })
+    .catch(error => {
+      console.error('Error fetching forks count:', error);
+    });
+
+    // Fetch the watchers count using GitHub API
+    fetch('https://api.github.com/repos/JinmiaoChenLab/DISCOtoolkit_py')
+    .then(response => response.json())
+    .then(data => {
+      const watchersCount = data.subscribers_count;
+      const watchersCountElement = document.getElementById('watchers-count');
+      watchersCountElement.textContent = watchersCount;
+    })
+    .catch(error => {
+      console.error('Error fetching watchers count:', error);
+    });
+
+    // Fetch the issues count using GitHub API
+    fetch('https://api.github.com/repos/JinmiaoChenLab/DISCOtoolkit_py')
+    .then(response => response.json())
+    .then(data => {
+      const issuesCount = data.open_issues_count;
+      const issuesCountElement = document.getElementById('issues-count');
+      issuesCountElement.textContent = issuesCount;
+    })
+    .catch(error => {
+      console.error('Error fetching issues count:', error);
+    });
+
+
+</script>
+
+<p><span class="badge-container">
+<a href="https://github.com/JinmiaoChenLab/DISCOtoolkit_py" class="badge-link">
+  <span class="badge-icon">📦</span>
+  <span class="badge-count">1.1.4</span>
+</a>
+</span> <span class="badge-container">
+  <a href="https://github.com/JinmiaoChenLab/DISCOtoolkit_py/stargazers" class="badge-link">
+    <span class="badge-icon">⭐</span>
+    <span class="badge-count" id="stars-count">Loading...</span>
+  </a>
+</span><span class="badge-container">
+  <a href="https://github.com/JinmiaoChenLab/DISCOtoolkit_py/network" class="badge-link">
+    <span class="badge-icon">🍴</span>
+    <span class="badge-count" id="forks-count">Loading...</span>
+  </a>
+</span><span class="badge-container">
+  <a href="https://github.com/JinmiaoChenLab/DISCOtoolkit_py/watchers" class="badge-link">
+    <span class="badge-icon">👀</span>
+    <span class="badge-count" id="watchers-count">Loading...</span>
+  </a>
+</span><span class="badge-container">
+  <a href="https://github.com/JinmiaoChenLab/DISCOtoolkit_py/issues" class="badge-link">
+    <span class="badge-icon">❗</span>
+    <span class="badge-count" id="issues-count">Loading...</span>
+  </a>
+</span></p>
+<p><a href="https://pepy.tech/project/discotoolkit"><img alt="Downloads" src="https://static.pepy.tech/personalized-badge/discotoolkit?period=total&amp;units=international_system&amp;left_color=black&amp;right_color=orange&amp;left_text=Downloads" /></a></p>
+<p><strong>DISCOtoolkit</strong> is an python package that allows users to access data and use the tools provided by the <a href="https://www.immunesinglecell.org/">DISCO database</a>. It provides the following functions:</p>
 <ul>
 <li>Filter and download DISCO data based on sample metadata and cell type information</li>
 <li>CELLiD: cell type annotation</li>
@@ -467,53 +593,110 @@
 </ul>
 <p>Dependency Requirements:</p>
 <ul>
-<li>Numpy 1.21.6</li>
-<li>Pandas 1.4.2</li>
-<li>Scanpy 1.9.3</li>
-<li>Scipy 1.8.0</li>
-<li>joblib 1.1.0</li>
-<li>pandarallel 1.6.5</li>
+<li>Numpy &gt;= 1.21.6</li>
+<li>Pandas &gt;= 1.4.2</li>
+<li>Scanpy &gt;= 1.9.3</li>
+<li>Scipy &gt;= 1.8.0</li>
+<li>joblib &gt;= 1.1.0</li>
+<li>pandarallel &gt;= 1.6.5</li>
 </ul>
-<h2 id="installation-guide">Installation guide:</h2>
+<h2 id="minimal-installation">Minimal installation:<a class="headerlink" href="#minimal-installation" title="Permanent link">&para;</a></h2>
+<p>The DISCOtoolkit can be easily installed in the current Python environment using <code>pip</code>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip install discotoolkit
+</span></code></pre></div>
+<h2 id="installation-guide">Installation guide:<a class="headerlink" href="#installation-guide" title="Permanent link">&para;</a></h2>
 <p>we recommend to install miniconda first and install discotoolkit in virtual env</p>
-<pre><code>conda create --name disco python=3.8
-conda install pip
-conda install ipykernel
-python -m ipykernel install --user --name disco --display-name &quot;disco&quot;
-</code></pre>
-<p>Installation using pip:</p>
-<pre><code>python -m pip install discotoolkit
-</code></pre>
-<h2 id="basic-usage">Basic Usage</h2>
+<p><div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>conda create --name disco python=3.8
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>conda activate disco
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>conda install ipykernel
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>python -m ipykernel install --user --name disco --display-name &quot;disco&quot;
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>python -m pip install discotoolkit
+</span></code></pre></div></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Please add -U parameter to pip to install the latest version. <code>pip install -U discotoolkit</code></p>
+</div>
+<h2 id="basic-usage">Basic Usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h2>
 <p>Example in Jupyter notebook.</p>
-<p><em>please select disco as the kernel for running the jupyter notebook</em></p>
-<h3 id="filter-and-download-disco-data"><a href="https://github.com/JinmiaoChenLab/DISCOtoolkit_py/blob/main/download_data.ipynb">Filter and download DISCO data</a></h3>
-<h3 id="cell-type-annotation-using-cellid"><a href="https://github.com/JinmiaoChenLab/DISCOtoolkit_py/blob/main/CELLiD_celltype_annotation.ipynb">Cell Type Annotation using CELLiD</a></h3>
-<h3 id="scenrichment"><a href="https://github.com/JinmiaoChenLab/DISCOtoolkit_py/blob/main/scEnrichment.ipynb">scEnrichment</a></h3>
-<h2 id="citation">Citation</h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Please select disco as the kernel for running the jupyter notebook</p>
+</div>
+<h3 id="filter-and-download-disco-data"><a href="download_data/">Filter and download DISCO data</a><a class="headerlink" href="#filter-and-download-disco-data" title="Permanent link">&para;</a></h3>
+<h3 id="cell-type-annotation-using-cellid"><a href="CELLiD_celltype_annotation/">Cell Type Annotation using CELLiD</a><a class="headerlink" href="#cell-type-annotation-using-cellid" title="Permanent link">&para;</a></h3>
+<h3 id="scenrichment"><a href="scEnrichment/">scEnrichment</a><a class="headerlink" href="#scenrichment" title="Permanent link">&para;</a></h3>
+<h2 id="citation">Citation<a class="headerlink" href="#citation" title="Permanent link">&para;</a></h2>
 <ol>
 <li><a href="https://academic.oup.com/nar/article/50/D1/D596/6430491">Li, Mengwei, et al. "DISCO: a database of Deeply Integrated human Single-Cell Omics data." Nucleic acids research 50.D1 (2022): D596-D602.</a></li>
 </ol>
-<h2 id="follow-us-on-our-social-media">Follow us on our social media!</h2>
-<ul>
-<li><a href="https://twitter.com/HSCRM2">HSCRM2</a></li>
-<li><a href="https://github.com/JinmiaoChenLab">JinmiaoChenLab Github repo</a></li>
-</ul>
+<h2 id="follow-us-on-our-social-media">Follow us on our social media!<a class="headerlink" href="#follow-us-on-our-social-media" title="Permanent link">&para;</a></h2>
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg></span>    <a href="https://twitter.com/HSCRM2">HSCRM2</a></p>
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></span>     <a href="https://github.com/JinmiaoChenLab">JinmiaoChenLab Github repo</a></p>
 
+  <hr>
+<div class="md-source-file">
+  <small>
+    
+      Last update:
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 24, 2024</span>
+      
+        <br>
+        Created:
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 16, 2023</span>
+      
+    
+  </small>
+</div>
+
+
+  
 
 
 
 
                 
+
               </article>
             </div>
           
           
         </div>
         
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </button>
+        
       </main>
       
         <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+        
+          
+          <a href="download_data/" class="md-footer__link md-footer__link--next" aria-label="Next: Download Data" rel="next">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Download Data
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -533,10 +716,7 @@ python -m ipykernel install --user --name disco --display-name &quot;disco&quot;
     
     
     
-      
-      
-    
-    <a href="https://github.com/JinmiaoChenLab/DISCOtoolkit_py" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+    <a href="https://github.com/JinmiaoChenLab/DISCOtoolkit_py" target="_blank" rel="noopener" title="DISCOtoolkit on GitHub" class="md-social__link">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/></svg>
     </a>
   
@@ -551,10 +731,12 @@ python -m ipykernel install --user --name disco --display-name &quot;disco&quot;
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": ".", "features": [], "search": "assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": ".", "features": ["search.highlight", "search.suggest", "content.code.copy", "content.code.annotate", "navigation.indexes", "navigation.top", "navigation.footer", "toc.integrate", "header.autohide"], "search": "assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
       <script src="assets/javascripts/bundle.fac441b0.min.js"></script>
+      
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
       
     
   </body>
