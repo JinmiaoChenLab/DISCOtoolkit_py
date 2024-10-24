@@ -4,4 +4,4 @@ from .DownloadDiscoData import *
 from .CELLiD import *
 from .GeneSearch import *
 
-__version__ = "1.1.3"
+__version__ = "1.1.4"

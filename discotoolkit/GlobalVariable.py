@@ -1,3 +1,11 @@
+'''
+Descripttion: 
+version: 
+Author: Mengwei Li
+Date: 2023-07-06 16:59:59
+LastEditors: Mengwei Li
+LastEditTime: 2024-10-23 15:52:29
+'''
 """
 Global variable file to import for the subsequent script.
 
@@ -17,9 +25,9 @@ logging.basicConfig(level = logging.INFO)
 timeout = 600
 
 # Define package-level variable
-response = requests.get("http://www.immunesinglecell.org/api/vishuo/getToolkitUrl")
+# response = requests.get("http://www.immunesinglecell.org/api/vishuo/getToolkitUrl")
 
-if response.status_code == 200:
-    prefix_disco_url = json.loads(response.text)["url"]
-else:
-    prefix_disco_url = "http://www.immunesinglecell.org/toolkitapi"
+# if response.status_code == 200:
+#     prefix_disco_url = json.loads(response.text)["url"]
+# else:
+prefix_disco_url = "https://immunesinglecell.org/disco_v3_api/"

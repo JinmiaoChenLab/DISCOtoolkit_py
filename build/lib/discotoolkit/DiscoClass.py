@@ -6,10 +6,10 @@ class Filter:
     """
     Filter class object to save the attributes for filtering the dataset from DISCO
 
-    sample                      String    e.g. GSM3891625_3;
-    project                     String;
-    tissue                      String    e.g. Lung, Bladder;
-    disease                     String    e.g. PDAC;
+    sample_id                      String    e.g. ERX2757110;
+    project_id                     String;
+    tissue                      String    e.g. lung, bladder;
+    disease                     String    e.g. COVID-19;
     platform                    String    e.g. 10x3';
     sample_type                 String;
     cell_type                   String;
@@ -20,12 +20,12 @@ class Filter:
     return Class object
     """
 
-    def __init__(self, sample = None, project = None, tissue = None, disease = None, platform = None, sample_type = None,
+    def __init__(self, sample_id = None, project_id = None, tissue = None, disease = None, platform = None, sample_type = None,
                  cell_type = None, cell_type_confidence : str = "medium", include_cell_type_children : bool = True, min_cell_per_sample : int = 100):
         
         # handling for string and list input
-        self.sample = self.convert_to_list(sample) # sample id
-        self.project = self.convert_to_list(project) # project, lab, or dataset from different author
+        self.sample_id = self.convert_to_list(sample_id) # sample id
+        self.project_id = self.convert_to_list(project_id) # project, lab, or dataset from different author
         self.tissue = self.convert_to_list(tissue) # organ tissue 
         self.disease = self.convert_to_list(disease) # cancer or non cancer, or COVID-1e9 disease
         self.platform = self.convert_to_list(platform) # sequencing platform

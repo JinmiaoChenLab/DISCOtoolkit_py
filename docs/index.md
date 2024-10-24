@@ -68,7 +68,7 @@ Deeply Integrated human Single-Cell Omics data
 <span class="badge-container">
 <a href="https://github.com/JinmiaoChenLab/DISCOtoolkit_py" class="badge-link">
   <span class="badge-icon">📦</span>
-  <span class="badge-count">1.1.3</span>
+  <span class="badge-count">1.1.4</span>
 </a>
 </span> <span class="badge-container">
   <a href="https://github.com/JinmiaoChenLab/DISCOtoolkit_py/stargazers" class="badge-link">
