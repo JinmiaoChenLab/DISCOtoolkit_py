@@ -66,6 +66,7 @@ Example in Jupyter notebook.
 
 ## Citation
 1. [Li, Mengwei, et al. "DISCO: a database of Deeply Integrated human Single-Cell Omics data." Nucleic acids research 50.D1 (2022): D596-D602.](https://academic.oup.com/nar/article/50/D1/D596/6430491)
+2. [Mengwei Li, Kok Siong Ang, Brian Teo, Uddamvathanak Rom, Minh N Nguyen, Sebastian Maurer-Stroh, Jinmiao Chen. "Rediscovering publicly available single-cell data with the DISCO platform." Nucleic Acids Research (2024): gkae1108](https://academic.oup.com/nar/advance-article/doi/10.1093/nar/gkae1108/7899529)
 
 ## Follow us on our social media!
 - [HSCRM2](https://twitter.com/HSCRM2)
