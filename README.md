@@ -10,7 +10,7 @@
 
 # DISCOtoolkit 1.1.4
 
-DISCOtoolkit is an python package that allows users to access data and use the tools provided by the [DISCO database](https://www.immunesinglecell.org/). Read the documentation [DISCOtoolkit](https://discotoolkit-py.readthedocs.io/en/latest/). It provides the following functions:
+DISCOtoolkit is an python package that allows users to access data and use the tools provided by the [DISCO database]([https://www.immunesinglecell.org/](https://disco.bii.a-star.edu.sg/)). Read the documentation [DISCOtoolkit](https://discotoolkit-py.readthedocs.io/en/latest/). It provides the following functions:
 
 - Filter and download DISCO data based on sample metadata and cell type information
 - CELLiD: cell type annotation
