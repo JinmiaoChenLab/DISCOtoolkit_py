@@ -7,6 +7,8 @@ import numpy as np
 from typing import Union
 import colorcet as cc
 
+from .GlobalVariable import api_url
+
 
 def gene_search(gene : str, atlas : Union[str, list] = None, figsize : tuple = None, dpi : int = 300):
 
@@ -27,8 +29,8 @@ def gene_search(gene : str, atlas : Union[str, list] = None, figsize : tuple = N
         atlas = [atlas]
 
     # url to get the API data
-    url = "https://www.immunesinglecell.org/api/vishuo/geneExp/getRefExp?gene=%s" % (gene)
-    response = requests.get(url)
+    response = requests.get(api_url("geneExp/getRefExp"), params={"gene": gene})
+    response.raise_for_status()
     data = response.json()
 
     # Extract relevant information from JSON data

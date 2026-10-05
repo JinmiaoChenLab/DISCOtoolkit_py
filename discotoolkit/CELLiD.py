@@ -18,7 +18,7 @@ from pandarallel import pandarallel  # multiprocessing library
 pd.options.mode.chained_assignment = None
 
 # import variable and class from other script
-from .GlobalVariable import logging, prefix_disco_url, timeout
+from .GlobalVariable import logging, api_url, timeout
 from .DiscoClass import FilterData, Filter
 from .GetMetadata import check_in_list
 
@@ -77,7 +77,7 @@ def get_atlas(ref_data=None, ref_path=None):
             if not (os.path.exists(ref_path + "/ref_data.pkl")):
                 logging.info("Downloading reference dataset...")
                 response = requests.get(
-                    url=prefix_disco_url + "toolkit/getRef?type=pkl", timeout=timeout
+                    url=api_url("toolkit/getRef?type=pkl"), timeout=timeout
                 )
                 open(ref_path + "/ref_data.pkl", "wb").write(response.content)
             ref_data = pd.read_pickle(
@@ -87,6 +87,42 @@ def get_atlas(ref_data=None, ref_path=None):
 
     all_atlas = [each.split("--")[1] for each in ref_data.columns]
     return list(set(all_atlas))
+
+
+def _load_geneset(ref_path: str) -> pd.DataFrame:
+    """Get the gene-set reference (columns logfc, gene, atlas, name), downloading it once.
+
+    DISCO v1 serves it as plain CSV (`toolkit/getGeneSet?format=csv`), which is read with
+    pandas.read_csv. Older servers only offer a pickle (`getGeneSetPkl`); that is used as a
+    fallback, with a warning, because unpickling data from a network is only safe if the
+    server is trusted.
+    """
+    csv_file = ref_path + "/ref_geneset.csv"
+    pkl_file = ref_path + "/ref_geneset.pkl"
+
+    if os.path.exists(csv_file):
+        return pd.read_csv(csv_file)
+    if os.path.exists(pkl_file):
+        return pd.read_pickle(pkl_file, compression={"method": "gzip", "compresslevel": 6})
+
+    logging.info("Downloading gene set reference...")
+    response = requests.get(
+        url=api_url("toolkit/getGeneSet"), params={"format": "csv"}, timeout=timeout
+    )
+    if response.status_code == 200:
+        with open(csv_file, "wb") as handle:
+            handle.write(response.content)
+        return pd.read_csv(csv_file)
+
+    logging.warning(
+        "This server has no CSV gene set (HTTP %s); falling back to the pickle download.",
+        response.status_code,
+    )
+    response = requests.get(url=api_url("getGeneSetPkl"), timeout=timeout)
+    response.raise_for_status()
+    with open(pkl_file, "wb") as handle:
+        handle.write(response.content)
+    return pd.read_pickle(pkl_file, compression={"method": "gzip", "compresslevel": 6})
 
 
 def CELLiD_cluster(
@@ -144,7 +180,7 @@ def CELLiD_cluster(
             if not (os.path.exists(ref_path + "/ref_data.pkl")):
                 logging.info("Downloading reference dataset...")
                 response = requests.get(
-                    url=prefix_disco_url + "toolkit/getRef?type=pkl", timeout=timeout
+                    url=api_url("toolkit/getRef?type=pkl"), timeout=timeout
                 )
                 open(ref_path + "/ref_data.pkl", "wb").write(response.content)
             ref_data = pd.read_pickle(
@@ -157,7 +193,7 @@ def CELLiD_cluster(
             if not (os.path.exists(ref_path + "/ref_deg.pkl")):
                 logging.info("Downloading deg dataset...")
                 response = requests.get(
-                    url=prefix_disco_url + "toolkit/getRefDeg?type=pkl", timeout=timeout
+                    url=api_url("toolkit/getRefDeg?type=pkl"), timeout=timeout
                 )
                 open(ref_path + "/ref_deg.pkl", "wb").write(response.content)
             ref_deg = pd.read_pickle(
@@ -347,24 +383,7 @@ def CELLiD_enrichment(
         if not os.path.exists(ref_path):
             os.mkdir(ref_path)
 
-        # check if the file does not exist
-        if not (os.path.exists(ref_path + "/ref_geneset.pkl")):
-            # downloading the geneset data from disco database
-            response = requests.get(
-                url=prefix_disco_url + "/getGeneSetPkl", timeout=timeout
-            )
-            open(ref_path + "/ref_geneset.pkl", "wb").write(response.content)
-            reference = pd.read_pickle(
-                ref_path + "/ref_geneset.pkl",
-                compression={"method": "gzip", "compresslevel": 6},
-            )
-
-        else:
-            # read the data into pandas dataframe for subsequent analysis
-            reference = pd.read_pickle(
-                ref_path + "/ref_geneset.pkl",
-                compression={"method": "gzip", "compresslevel": 6},
-            )
+        reference = _load_geneset(ref_path)
 
     # rename the name data to include the reference atlas
     reference["name"] = reference["name"] + " in " + reference["atlas"]

@@ -68,7 +68,7 @@ Deeply Integrated human Single-Cell Omics data
 <span class="badge-container">
 <a href="https://github.com/JinmiaoChenLab/DISCOtoolkit_py" class="badge-link">
   <span class="badge-icon">📦</span>
-  <span class="badge-count">1.1.4</span>
+  <span class="badge-count">1.2.0</span>
 </a>
 </span> <span class="badge-container">
   <a href="https://github.com/JinmiaoChenLab/DISCOtoolkit_py/stargazers" class="badge-link">
@@ -94,7 +94,7 @@ Deeply Integrated human Single-Cell Omics data
 
 [![Downloads](https://static.pepy.tech/personalized-badge/discotoolkit?period=total&units=international_system&left_color=black&right_color=orange&left_text=Downloads)](https://pepy.tech/project/discotoolkit)
 
-**DISCOtoolkit** is an python package that allows users to access data and use the tools provided by the [DISCO database](https://www.immunesinglecell.org/). It provides the following functions:
+**DISCOtoolkit** is an python package that allows users to access data and use the tools provided by the [DISCO database](https://disco.bii.a-star.edu.sg/). It provides the following functions:
 
 - Filter and download DISCO data based on sample metadata and cell type information
 - CELLiD: cell type annotation

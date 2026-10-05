@@ -17,7 +17,7 @@ import hashlib
 import scanpy as sc
 
 # import variable and class from other script
-from .GlobalVariable import logging, prefix_disco_url
+from .GlobalVariable import logging, api_url
 from .DiscoClass import FilterData, Filter
 from .GetMetadata import check_in_list
 
@@ -52,11 +52,11 @@ def download_disco_data(metadata, output_dir: str = "DISCOtmp"):
         if os.path.exists(output_file):
             os.remove(output_file)
 
-        url = prefix_disco_url + "download/getRawH5/" + p + "/" + s
+        url = api_url("download/getRawH5/" + p + "/" + s)
         rna = sc.read_10x_h5(filename=output_file, backup_url=url)
 
         cell = pd.read_csv(
-            prefix_disco_url + "toolkit/" + "getCellTypeSample?sampleId=" + s,
+            api_url("toolkit/getCellTypeSample?sampleId=" + s),
             sep="\t",
             header=0,
         )

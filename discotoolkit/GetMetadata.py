@@ -11,7 +11,7 @@ import numpy as np
 from typing import Union
 
 # import variable and class from other script
-from .GlobalVariable import logging, prefix_disco_url
+from .GlobalVariable import logging, api_url
 from .DiscoClass import FilterData, Filter
 
 
@@ -35,7 +35,7 @@ def get_json(url: str, info_msg: str, error_msg: str, prefix: bool = True):
     if not prefix:
         response = requests.get(url)
     else:
-        response = requests.get(prefix_disco_url + url)
+        response = requests.get(api_url(url))
 
     # if the loading of JSON is successful, we get the text
     if response.status_code == 200:
@@ -51,9 +51,7 @@ def get_sample_ct_info():
     Returns:
         Pandas DataFrame: return pandas dataframe to the user
     """
-    temp = pd.read_csv(
-        prefix_disco_url + "toolkit/" + "getCellTypeSummary", sep="\t", header=0
-    )
+    temp = pd.read_csv(api_url("toolkit/getCellTypeSummary"), sep="\t", header=0)
     return temp  # return Dataframe of the JSON data
 
 
@@ -101,7 +99,7 @@ def get_disco_metadata():
     """
 
     metadata = pd.read_csv(
-        "https://immunesinglecell.org/disco_v3_api/toolkit/getSampleMetadata",
+        api_url("toolkit/getSampleMetadata"),
         sep="\t",
         header=0,
     )

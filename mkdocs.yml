@@ -3,6 +3,7 @@ site_name: DISCOtoolkit
 nav:
   - Home: index.md
   - Tutorial:
+    - Quickstart (DISCO v1): quickstart_disco_v1.ipynb
     - Download Data: download_data.ipynb
     - Cell Type Annotation: CELLiD_celltype_annotation.ipynb
     - scEnrichment: scEnrichment.ipynb

@@ -10,3 +10,11 @@ docs/DISCOtmp
 disco_data/
 test_file.py
 test_notebook.ipynb
+
+# Python build / notebook / run artefacts
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+*.egg-info/
+.pytest_cache/
+build/

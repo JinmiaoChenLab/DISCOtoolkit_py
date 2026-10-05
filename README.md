@@ -8,55 +8,89 @@
 -->
 [![Documentation Status](https://readthedocs.org/projects/discotoolkit-py/badge/?version=latest)](https://discotoolkit-py.readthedocs.io/en/latest/?badge=latest) [![Downloads](https://static.pepy.tech/personalized-badge/discotoolkit?period=total&units=international_system&left_color=black&right_color=orange&left_text=Downloads)](https://pepy.tech/project/discotoolkit) [![PyPI version](https://img.shields.io/pypi/v/discotoolkit)](https://pypi.org/project/discotoolkit)
 
-# DISCOtoolkit 1.1.4
+# DISCOtoolkit 1.2.0
 
-DISCOtoolkit is an python package that allows users to access data and use the tools provided by the [DISCO database](https://disco.bii.a-star.edu.sg/). Read the documentation [DISCOtoolkit](https://discotoolkit-py.readthedocs.io/en/latest/). It provides the following functions:
+DISCOtoolkit is a Python package for accessing the data and tools of the [DISCO database](https://disco.bii.a-star.edu.sg/) (DISCO v1). Read the documentation at [discotoolkit-py.readthedocs.io](https://discotoolkit-py.readthedocs.io/en/latest/).
 
 - Filter and download DISCO data based on sample metadata and cell type information
+- Gene search: a gene's expression across cell types and tissues
 - CELLiD: cell type annotation
-- scEnrichment: geneset enrichment using DISCO DEGs
+- scEnrichment: gene set enrichment using DISCO DEGs
 
-Dependency Requirements:
+> **DISCO v1 and v2.** The toolkit talks to **DISCO v1** by default. DISCO v2 has its own R package ([DISCOtoolkit](https://github.com/JinmiaoChenLab/DISCOtoolkit)); the Python package can still be pointed at a v2 server, see [Choosing a server](#choosing-a-server).
 
-- Numpy >= 1.21.6
-- Pandas >= 1.4.2
-- Scanpy >= 1.9.3
-- Scipy >= 1.8.0
-- joblib >= 1.1.0
-- pandarallel >= 1.6.5
+## Quickstart (Google Colab)
 
-## Minimal installation:
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/JinmiaoChenLab/DISCOtoolkit_py/blob/main/docs/quickstart_disco_v1.ipynb)
 
-The DISCOtoolkit can be easily installed in the current Python environment using `pip`:
+Installs, checks the server, filters, downloads and plots in about ten cells, with nothing to set up locally.
+
+## Installation
+
+Python 3.9 or newer. In your current environment:
 
 ```
 pip install discotoolkit
 ```
 
-## Installation guide:
-
-we recommend to install miniconda first and install discotoolkit in virtual env
+To try the latest development version straight from GitHub:
 
 ```
-conda create --name disco python=3.8
+pip install "git+https://github.com/JinmiaoChenLab/DISCOtoolkit_py.git"
 ```
+
+To work on the code, or to test changes before they are released, install from a local clone. `-e` links the install to the folder, so edits take effect without reinstalling:
+
 ```
+git clone https://github.com/JinmiaoChenLab/DISCOtoolkit_py.git
+cd DISCOtoolkit_py
+pip install -e .
+```
+
+`pip install discotoolkit` and a local install give the same code when the versions match. The difference is the source: PyPI delivers a released, packaged copy, while a local install uses the files in your folder.
+
+Dependencies (installed automatically): numpy, pandas, scanpy, scipy, joblib, pandarallel, requests, colorcet, leidenalg, h5py, matplotlib, seaborn.
+
+We recommend a virtual environment, for example with miniconda:
+
+```
+conda create --name disco python=3.10
 conda activate disco
-```
-```
 conda install ipykernel
-```
-```
 python -m ipykernel install --user --name disco --display-name "disco"
+python -m pip install -U discotoolkit
 ```
-``` 
-python -m pip install discotoolkit # adding -U for installing the latest version
+
+## Choosing a server
+
+```python
+import discotoolkit as dt
+
+dt.get_server()                       # 'https://disco.bii.a-star.edu.sg/disco_v3_api/'  (DISCO v1, the default)
+dt.set_server("v2")                   # DISCO v2
+dt.set_server("https://my.server/disco_v3_api/")   # any server with the same API
 ```
+
+or set the `DISCO_API_URL` environment variable before importing the package.
+
+## Testing
+
+Two small test files need nothing beyond `requests`, so they run anywhere, including Colab:
+
+```
+python tests/test_settings.py           # offline: server selection logic
+python tests/test_server_contract.py    # online: does the server answer everything the toolkit needs?
+python tests/test_server_contract.py https://immunesinglecell.org/disco_v3_api/   # check another server
+```
+
+`test_server_contract.py` checks status codes and the shape of each response (the columns and file types the toolkit reads). It only samples the large reference files, it does not download them.
 
 ## Basic Usage
 Example in Jupyter notebook.
 
 <em>please select disco as the kernel for running the jupyter notebook</em>
+
+### [Quickstart for DISCO v1](https://github.com/JinmiaoChenLab/DISCOtoolkit_py/blob/main/docs/quickstart_disco_v1.ipynb)
 
 ### [Filter and download DISCO data](https://github.com/JinmiaoChenLab/DISCOtoolkit_py/blob/main/docs/download_data.ipynb)
 
