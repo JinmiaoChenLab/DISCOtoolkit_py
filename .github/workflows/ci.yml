@@ -1,0 +1,76 @@
+# Installs the package on every supported Python and runs the tests, on GitHub's machines (which
+# can reach PyPI, unlike the DISCO server).
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install the package with its dependencies
+        run: python -m pip install -e .
+
+      - name: It imports, and talks to DISCO v1 by default
+        run: python -c "import discotoolkit as dt; print(dt.__version__, dt.get_server())"
+
+      - run: python tests/test_settings.py
+
+      - run: python tests/test_version.py
+
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: python -m pip install build twine
+
+      - run: python -m build
+
+      - run: twine check dist/*
+
+      - name: The built wheel installs into a clean environment and imports
+        run: |
+          python -m venv /tmp/clean
+          /tmp/clean/bin/pip install dist/*.whl
+          /tmp/clean/bin/python -c "import discotoolkit as dt; print('wheel ok', dt.__version__)"
+
+      - name: The source package installs too (a missing file in it once broke this)
+        run: |
+          python -m venv /tmp/clean-sdist
+          /tmp/clean-sdist/bin/pip install dist/*.tar.gz
+          /tmp/clean-sdist/bin/python -c "import discotoolkit as dt; print('sdist ok', dt.__version__)"
+
+  server-contract:
+    # Informational: it depends on the public DISCO server being up and current, so a failure here
+    # is a message about the server, not about this code.
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: python -m pip install requests
+
+      - run: python tests/test_server_contract.py

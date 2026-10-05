@@ -79,9 +79,12 @@ Two small test files need nothing beyond `requests`, so they run anywhere, inclu
 
 ```
 python tests/test_settings.py           # offline: server selection logic
+python tests/test_version.py            # offline: setup.py and __init__.py agree on the version
 python tests/test_server_contract.py    # online: does the server answer everything the toolkit needs?
 python tests/test_server_contract.py https://immunesinglecell.org/disco_v3_api/   # check another server
 ```
+
+GitHub Actions runs these, and installs the package on Python 3.9-3.12, on every push. Maintainers: see [RELEASING.md](RELEASING.md) for how a release is published.
 
 `test_server_contract.py` checks status codes and the shape of each response (the columns and file types the toolkit reads). It only samples the large reference files, it does not download them.
 
