@@ -6,6 +6,7 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_call:      # the release workflow runs these same checks before it publishes
 
 jobs:
   test:

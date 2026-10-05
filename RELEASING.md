@@ -25,7 +25,8 @@ is no API token to create, store or leak.
 ## Every release
 
 1. Change the version in **both** `setup.py` and `discotoolkit/__init__.py` (a test checks they agree).
-2. Commit and push to `main`; wait for the CI checks to pass.
+2. Commit and push to `main`; wait for the CI checks to pass. (The release re-runs them anyway:
+   if any test fails, nothing is published.)
 3. Tag and push the tag (the tag is the version with a leading `v`):
 
    ```
