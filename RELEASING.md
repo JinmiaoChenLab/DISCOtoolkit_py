@@ -45,3 +45,33 @@ version (1.2.1); do not try to reuse the number.
 - *"invalid-publisher"*: the four values in step 1 do not match this repository and workflow exactly.
 - *"tag ... does not match package version"*: the version in `setup.py` / `__init__.py` was not
   changed to match the tag.
+
+## Documentation
+
+The documentation has one source, this repository, and is built by `.github/workflows/docs.yml`:
+
+| What | Where it comes from |
+|---|---|
+| Tutorials (`docs/*.ipynb`) | Run against the live DISCO V1 server on every build, so every page shows what the current code does. Committed notebooks carry **no output** (`python tools/execute_notebooks.py --clear` before committing; `tests/test_docs.py` checks). |
+| API reference | Generated from the docstrings. Add a function and a `::: discotoolkit.<Module>.<name>` line in `docs/API.md` (a test fails if you forget). |
+| Version | Read from `discotoolkit/__init__.py`; write `{{ version }}` in a page to show it. |
+
+It is published to the `gh-pages` branch with [mike](https://github.com/jimporter/mike):
+
+- every push to `main` that touches the code or the docs, and a weekly run, publish **dev**;
+- a release publishes its version (e.g. **1.2.1**) and moves the **stable** alias to it. The
+  tutorials are run *before* anything is uploaded to PyPI, and a tutorial that fails blocks the
+  release; the docs are published after PyPI has the package.
+
+The DISCO website mirrors `gh-pages` (every 10 minutes) at
+https://disco.bii.a-star.edu.sg/v1/docs/toolkit/guide/, so a change to the package shows up there
+without anyone copying anything. Until the first release built this way, **stable** points at dev.
+
+Build it locally (needs the DISCO server, or `DISCO_API_URL=<your server>`):
+
+```
+pip install -e . -r requirements-docs.txt
+python tools/execute_notebooks.py        # runs every tutorial, in place
+mkdocs serve                             # http://127.0.0.1:8000
+python tools/execute_notebooks.py --clear   # before committing
+```

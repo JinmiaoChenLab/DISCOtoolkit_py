@@ -6,11 +6,11 @@
  * @LastEditors: Mengwei Li
  * @LastEditTime: 2023-04-16 21:22:03
 -->
-[![Documentation Status](https://readthedocs.org/projects/discotoolkit-py/badge/?version=latest)](https://discotoolkit-py.readthedocs.io/en/latest/?badge=latest) [![Downloads](https://static.pepy.tech/personalized-badge/discotoolkit?period=total&units=international_system&left_color=black&right_color=orange&left_text=Downloads)](https://pepy.tech/project/discotoolkit) [![PyPI version](https://img.shields.io/pypi/v/discotoolkit)](https://pypi.org/project/discotoolkit)
+[![Documentation](https://img.shields.io/badge/docs-disco.bii.a--star.edu.sg-blue)](https://disco.bii.a-star.edu.sg/v1/docs/toolkit/guide/) [![Downloads](https://static.pepy.tech/personalized-badge/discotoolkit?period=total&units=international_system&left_color=black&right_color=orange&left_text=Downloads)](https://pepy.tech/project/discotoolkit) [![PyPI version](https://img.shields.io/pypi/v/discotoolkit)](https://pypi.org/project/discotoolkit)
 
 # DISCOtoolkit 1.2.0
 
-DISCOtoolkit is a Python package for accessing the data and tools of the [DISCO database](https://disco.bii.a-star.edu.sg/) (DISCO v1). Read the documentation at [discotoolkit-py.readthedocs.io](https://discotoolkit-py.readthedocs.io/en/latest/).
+DISCOtoolkit is a Python package for accessing the data and tools of the [DISCO database](https://disco.bii.a-star.edu.sg/) (DISCO v1). Read the documentation, with tutorials and the API reference, at [disco.bii.a-star.edu.sg/v1/docs/toolkit/guide](https://disco.bii.a-star.edu.sg/v1/docs/toolkit/guide/).
 
 - Filter and download DISCO data based on sample metadata and cell type information
 - Gene search: a gene's expression across cell types and tissues
@@ -80,11 +80,12 @@ Two small test files need nothing beyond `requests`, so they run anywhere, inclu
 ```
 python tests/test_settings.py           # offline: server selection logic
 python tests/test_version.py            # offline: setup.py and __init__.py agree on the version
+python tests/test_docs.py               # offline: notebooks are clean, every public function is in the API reference
 python tests/test_server_contract.py    # online: does the server answer everything the toolkit needs?
 python tests/test_server_contract.py https://immunesinglecell.org/disco_v3_api/   # check another server
 ```
 
-GitHub Actions runs these, and installs the package on Python 3.9-3.12, on every push. Maintainers: see [RELEASING.md](RELEASING.md) for how a release is published.
+GitHub Actions runs these, and installs the package on Python 3.9-3.12, on every push. Maintainers: see [RELEASING.md](RELEASING.md) for how a release, and its documentation, is published.
 
 `test_server_contract.py` checks status codes and the shape of each response (the columns and file types the toolkit reads). It only samples the large reference files, it does not download them.
 

@@ -103,7 +103,11 @@ jobs:
             mike set-default --push stable
           else
             mike deploy --push --title "dev (main)" dev
-            # until the first release built by this workflow exists, the site root shows dev
-            mike list | grep -q stable || mike set-default --push dev
+            # Until the first release built by this workflow exists there is no "stable", and the
+            # links on the DISCO site would 404, so it points at dev. The first release moves it.
+            if ! mike list | grep -q stable; then
+              mike alias --push dev stable
+              mike set-default --push stable
+            fi
           fi
           mike list
