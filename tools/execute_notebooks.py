@@ -27,6 +27,7 @@ from nbclient import NotebookClient
 from nbclient.exceptions import CellExecutionError
 
 # Output that is true but not worth a reader's attention, and would only show this machine's paths.
+ANSI = re.compile(r"\x1b\[[0-9;]*m")   # colour codes in tracebacks make CI logs unreadable
 NOISE = re.compile(r"^\.\.\. storing '.*' as categorical\s*$")
 
 # The notebooks run in a kernel that inherits this environment: no warnings (they quote file paths
@@ -113,7 +114,7 @@ def main() -> int:
             print("  OK    %-40s %4.0fs" % (os.path.basename(path), time.time() - started), flush=True)
         except CellExecutionError as error:
             failed.append(path)
-            print("  FAIL  %s\n%s" % (os.path.basename(path), str(error)[-1500:]), flush=True)
+            print("  FAIL  %s\n%s" % (os.path.basename(path), ANSI.sub("", str(error))[-2500:]), flush=True)
     print("\n%d/%d notebooks ran" % (len(paths) - len(failed), len(paths)))
     return 1 if failed else 0
 
