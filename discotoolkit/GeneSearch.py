@@ -58,8 +58,8 @@ def gene_search(gene : str, atlas : Union[str, list] = None, figsize : tuple = N
     if atlas is not None:
         sample_df = sample_df[sample_df["atlases"].isin(atlas)].copy()
 
-    # Define the colorcet paletteasdasd
-    custom_palette = cc.glasbey_hv
+    # Define the colorcet palette, one colour per atlas shown
+    custom_palette = cc.glasbey_hv[: max(sample_df["atlases"].nunique(), 1)]
 
     # saturation for the plot color
     saturation=0.8
@@ -80,7 +80,7 @@ def gene_search(gene : str, atlas : Union[str, list] = None, figsize : tuple = N
     fig = plt.figure(figsize=figsize)
 
     # Create the violin plot with different colors based on the 'Category' variable and adding boxplot to assist user with median value
-    ax = sns.violinplot(data=sample_df, x='cell types', y='value', hue="atlases", width=0.8, dodge=False, cut=1, saturation = saturation,  plot_kws={'alpha':0.1},
+    ax = sns.violinplot(data=sample_df, x='cell types', y='value', hue="atlases", width=0.8, dodge=False, cut=1, saturation = saturation,
                         inner=None, linewidth=0.0, palette=custom_palette)
 
     ax_2 = sns.boxplot(x='cell types', y='value', hue="atlases", data=sample_df, palette=custom_palette, dodge=False, width=0.5, saturation = saturation, 
@@ -113,7 +113,7 @@ def gene_search(gene : str, atlas : Union[str, list] = None, figsize : tuple = N
     # Set labels and title
     plt.xlabel('Cell Types')
     plt.ylabel('Expression Value')
-    plt.title(gene, fontweight='bold')
+    plt.title(gene, fontweight='bold', loc='left')  # left: the legend sits above the centre
 
     # Show the plot
     plt.show()
