@@ -1,4 +1,4 @@
-# Builds the documentation site and publishes it to the gh-pages branch, where the DISCO website
+# Builds the documentation site and publishes it to the docs-site branch, where the DISCO website
 # picks it up (see RELEASING.md). One source, built every time something could have changed it:
 #
 #   push to main   the code, a tutorial or a docs page changed   -> "dev" version
@@ -28,16 +28,17 @@ on:
         default: true
 
 permissions:
-  contents: write   # the only thing this workflow writes is the gh-pages branch
+  contents: write   # the only thing this workflow writes is the docs-site branch
 
-# two publishes at once would race on gh-pages
+# two publishes at once would race on the docs-site branch
 concurrency:
-  group: docs-gh-pages
+  group: docs-site
   cancel-in-progress: false
 
 env:
   DISCO_URL: https://disco.bii.a-star.edu.sg/disco_v3_api/
   RELEASE: ${{ inputs.version }}
+  BRANCH: docs-site
   # inputs.publish is empty on push/schedule runs, and in GitHub expressions an empty value equals
   # false, so compare the text
   PUBLISH: ${{ format('{0}', inputs.publish) == 'false' && 'false' || 'true' }}
@@ -49,7 +50,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0     # mike needs the gh-pages history
+          fetch-depth: 0     # mike needs the docs-site history
 
       - uses: actions/setup-python@v5
         with:
@@ -91,23 +92,23 @@ jobs:
         if: steps.server.outputs.up == 'true'
         run: mkdocs build --strict
 
-      - name: Publish to gh-pages
+      - name: Publish to the docs-site branch
         if: steps.server.outputs.up == 'true' && env.PUBLISH == 'true'
         run: |
-          git fetch origin gh-pages:gh-pages || echo "no gh-pages branch yet; mike will create it"
+          git fetch origin docs-site:docs-site || echo "no docs-site branch yet; mike will create it"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           if [ -n "$RELEASE" ]; then
             VERSION="${RELEASE#v}"
-            mike deploy --push --update-aliases "$VERSION" stable
-            mike set-default --push stable
+            mike deploy --branch "$BRANCH" --push --update-aliases "$VERSION" stable
+            mike set-default --branch "$BRANCH" --push stable
           else
-            mike deploy --push --title "dev (main)" dev
+            mike deploy --branch "$BRANCH" --push --title "dev (main)" dev
             # Until the first release built by this workflow exists there is no "stable", and the
             # links on the DISCO site would 404, so it points at dev. The first release moves it.
-            if ! mike list | grep -q stable; then
-              mike alias --push dev stable
-              mike set-default --push stable
+            if ! mike list --branch "$BRANCH" | grep -q stable; then
+              mike alias --branch "$BRANCH" --push dev stable
+              mike set-default --branch "$BRANCH" --push stable
             fi
           fi
-          mike list
+          mike list --branch "$BRANCH"
