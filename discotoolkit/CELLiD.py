@@ -72,21 +72,54 @@ def get_atlas(ref_data=None, ref_path=None):
         if not os.path.exists(ref_path):
             os.mkdir(ref_path)
 
-        # download reference data from the server in pickle extension and read as pandas dataframe
+        # download the reference data from the server (once) and read it as a pandas dataframe
         if ref_data is None:
-            if not (os.path.exists(ref_path + "/ref_data.pkl")):
-                logging.info("Downloading reference dataset...")
-                response = requests.get(
-                    url=api_url("toolkit/getRef?type=pkl"), timeout=timeout
-                )
-                open(ref_path + "/ref_data.pkl", "wb").write(response.content)
-            ref_data = pd.read_pickle(
-                ref_path + "/ref_data.pkl",
-                compression={"method": "gzip", "compresslevel": 6},
-            )
+            ref_data = _load_reference(ref_path, "ref_data", "getRef", index_col=0)
 
     all_atlas = [each.split("--")[1] for each in ref_data.columns]
     return list(set(all_atlas))
+
+
+def _load_reference(ref_path: str, name: str, endpoint: str, **csv_options) -> pd.DataFrame:
+    """Get a CELLiD reference table (`name` is "ref_data" or "ref_deg"), downloading it once.
+
+    DISCO v1 serves it as plain CSV (`toolkit/<endpoint>?type=csv`, gzip-compressed on the wire),
+    read with pandas.read_csv. A copy already in `ref_path` is used as it is (a CSV, or the
+    pickle that earlier versions saved). Older servers only offer a pickle; that is the fallback,
+    with a warning, because unpickling data from a network is only safe if the server is trusted.
+    """
+    csv_file = "%s/%s.csv" % (ref_path, name)
+    pkl_file = "%s/%s.pkl" % (ref_path, name)
+
+    if os.path.exists(csv_file):
+        return pd.read_csv(csv_file, **csv_options)
+    if os.path.exists(pkl_file):
+        return pd.read_pickle(pkl_file, compression={"method": "gzip", "compresslevel": 6})
+
+    logging.info("Downloading reference dataset (%s)...", name)
+    with requests.get(
+        url=api_url("toolkit/" + endpoint), params={"type": "csv"}, stream=True, timeout=timeout
+    ) as response:
+        if response.status_code == 200:
+            # write to a temporary name so an interrupted download is not mistaken for the file
+            with open(csv_file + ".part", "wb") as handle:
+                for chunk in response.iter_content(chunk_size=1 << 20):
+                    handle.write(chunk)
+            os.replace(csv_file + ".part", csv_file)
+            return pd.read_csv(csv_file, **csv_options)
+
+    logging.warning(
+        "This server has no CSV for %s (HTTP %s); falling back to the pickle download.",
+        name,
+        response.status_code,
+    )
+    response = requests.get(
+        url=api_url("toolkit/" + endpoint), params={"type": "pkl"}, timeout=timeout
+    )
+    response.raise_for_status()
+    with open(pkl_file, "wb") as handle:
+        handle.write(response.content)
+    return pd.read_pickle(pkl_file, compression={"method": "gzip", "compresslevel": 6})
 
 
 def _load_geneset(ref_path: str) -> pd.DataFrame:
@@ -175,31 +208,13 @@ def CELLiD_cluster(
         if not os.path.exists(ref_path):
             os.mkdir(ref_path)
 
-        # download reference data from the server in pickle extension and read as pandas dataframe
+        # download the reference data from the server (once) and read it as a pandas dataframe
         if ref_data is None:
-            if not (os.path.exists(ref_path + "/ref_data.pkl")):
-                logging.info("Downloading reference dataset...")
-                response = requests.get(
-                    url=api_url("toolkit/getRef?type=pkl"), timeout=timeout
-                )
-                open(ref_path + "/ref_data.pkl", "wb").write(response.content)
-            ref_data = pd.read_pickle(
-                ref_path + "/ref_data.pkl",
-                compression={"method": "gzip", "compresslevel": 6},
-            )
+            ref_data = _load_reference(ref_path, "ref_data", "getRef", index_col=0)
 
         # similarly do the same for the DEG reference
         if ref_deg is None:
-            if not (os.path.exists(ref_path + "/ref_deg.pkl")):
-                logging.info("Downloading deg dataset...")
-                response = requests.get(
-                    url=api_url("toolkit/getRefDeg?type=pkl"), timeout=timeout
-                )
-                open(ref_path + "/ref_deg.pkl", "wb").write(response.content)
-            ref_deg = pd.read_pickle(
-                ref_path + "/ref_deg.pkl",
-                compression={"method": "gzip", "compresslevel": 6},
-            )
+            ref_deg = _load_reference(ref_path, "ref_deg", "getRefDeg")
 
     ####
     # write list of atlas function

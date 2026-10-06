@@ -114,6 +114,19 @@ def test_cellid_deg_reference_is_a_gzip_pickle():
     assert head[:2] == b"\x1f\x8b", "getRefDeg is not gzip data: %r" % head
 
 
+def test_cellid_reference_is_available_as_plain_csv():
+    header, row = first_lines("toolkit/getRef", 2, type="csv")
+    cols = [c.strip('"') for c in header.split(",")]
+    assert cols[0] == "" and len(cols) > 1000, "expected genes x (cell type--atlas) columns"
+    assert all("--" in c for c in cols[1:5]), cols[1:5]
+    assert row.split(",")[0].strip('"'), "rows should start with a gene name"
+
+
+def test_cellid_deg_reference_is_available_as_plain_csv():
+    header, row = first_lines("toolkit/getRefDeg", 2, type="csv")
+    assert [c.strip('"') for c in header.split(",")] == ["gene", "group"], header
+
+
 def test_gene_set_reference_is_available_as_plain_csv():
     header, row = first_lines("toolkit/getGeneSet", 2, format="csv")
     cols = [c.strip('"') for c in header.split(",")]
