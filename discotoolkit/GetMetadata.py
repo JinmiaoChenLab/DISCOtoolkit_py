@@ -55,15 +55,15 @@ def get_sample_ct_info():
     return temp  # return Dataframe of the JSON data
 
 
-def find_celltype(term: str = "", cell_ontology: dict = None):
+def find_celltype(term: str = "", cell_ontology: dict = None) -> list:
     """find the celltype within the disco dataset
 
     Args:
         term (String): term refer to string of the cell type
-        cell_ontology (Dict) = cell_ontology can be provided by the user in the format of dictionary datatype in python. Defaults to None.
+        cell_ontology (dict, optional): cell_ontology can be provided by the user in the format of dictionary datatype in python. Defaults to None.
 
     Returns:
-        Celltype List: List of matched celltype
+        list: the cell types that match the term
     """
 
     # when the user do not have cell ontology, we get the default one from disco database
@@ -113,7 +113,7 @@ def get_disco_metadata():
     return metadata
 
 
-def get_celltype_children(cell_type: Union[str, list], cell_ontology: dict = None):
+def get_celltype_children(cell_type: Union[str, list], cell_ontology: dict = None) -> list:
     """get the children of the input celltype from the user
 
     Args:
@@ -121,7 +121,7 @@ def get_celltype_children(cell_type: Union[str, list], cell_ontology: dict = Non
         cell_ontology (dict, optional): cell_ontology can be provided by the user in the format of dictionary datatype in python. Defaults to None.
 
     Returns:
-        List of String: return the children of the defined celltype in list of String
+        list: the children of the defined cell type, as a list of strings
     """
     if cell_ontology is None:
         cell_ontology = pd.DataFrame(
@@ -159,14 +159,14 @@ def get_celltype_children(cell_type: Union[str, list], cell_ontology: dict = Non
     return children
 
 
-def list_metadata_item(field: str):
+def list_metadata_item(field: str) -> list:
     """List element inside the metadata columns
 
     Args:
         field (str): metadata columns or field from the disco database
 
     Returns:
-        List: return the list of unique element in the metadata columns to the users as reference
+        list: the unique elements of the metadata column, as a reference for filtering
     """
 
     # first get the disco metadata
@@ -182,11 +182,11 @@ def list_metadata_item(field: str):
         return None
 
 
-def list_all_columns():
+def list_all_columns() -> list:
     """list all the columns found in the metadata of the disco database
 
     Returns:
-        List: return the name of the metadata in the form of list of string
+        list: the names of the metadata columns, as a list of strings
     """
 
     # get the disco metadata
@@ -194,14 +194,14 @@ def list_all_columns():
     return list(metadata.columns)
 
 
-def filter_disco_metadata(filter: Filter = Filter()):
-    """filter function option for the disco data
+def filter_disco_metadata(filter: Filter = Filter()) -> FilterData:
+    """Find the DISCO samples and cells that match a filter.
+
     Args:
-        Filter (Class): predefined Filter class with default attribute to filter data for the user
-        FilterData.filter.cell_type_confidence (String): requires string to be in ["high", "medium", "all"]
+        filter (Filter): what to look for. With no argument, everything matches.
 
     Returns:
-        FilterData (Class): return the FilterData object which will then be used to filter and download data
+        FilterData: the matching samples and counts, to pass to `download_disco_data`.
     """
 
     # starting with defining variable

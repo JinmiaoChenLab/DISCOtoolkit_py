@@ -1,0 +1,109 @@
+# Builds the documentation site and publishes it to the gh-pages branch, where the DISCO website
+# picks it up (see RELEASING.md). One source, built every time something could have changed it:
+#
+#   push to main   the code, a tutorial or a docs page changed   -> "dev" version
+#   weekly         the DISCO database moved under the tutorials   -> "dev" version
+#   release        called by publish.yml                          -> "1.2.0" + the "stable" alias
+#
+# Every tutorial notebook is RUN against the live DISCO V1 server first, so each page shows what
+# the current code really does, and a notebook that no longer works fails the build.
+name: Docs
+
+on:
+  push:
+    branches: [main]
+    paths: ["docs/**", "discotoolkit/**", "mkdocs.yml", "tools/**", "requirements-docs.txt", "overrides/**", ".github/workflows/docs.yml"]
+  schedule:
+    - cron: "17 3 * * 1"
+  workflow_dispatch:
+  workflow_call:
+    inputs:
+      version:
+        description: "release tag such as v1.2.0; empty builds the dev version"
+        type: string
+        default: ""
+      publish:
+        description: "false: build and test only (the pre-release gate)"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write   # the only thing this workflow writes is the gh-pages branch
+
+# two publishes at once would race on gh-pages
+concurrency:
+  group: docs-gh-pages
+  cancel-in-progress: false
+
+env:
+  DISCO_URL: https://disco.bii.a-star.edu.sg/disco_v3_api/
+  RELEASE: ${{ inputs.version }}
+  # inputs.publish is empty on push/schedule runs, and in GitHub expressions an empty value equals
+  # false, so compare the text
+  PUBLISH: ${{ format('{0}', inputs.publish) == 'false' && 'false' || 'true' }}
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0     # mike needs the gh-pages history
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: |
+            requirements.txt
+            requirements-docs.txt
+
+      - name: Install the package and the docs tools
+        run: python -m pip install -e . -r requirements-docs.txt
+
+      - name: The docs checks (no network)
+        run: python tests/test_docs.py
+
+      - name: Is DISCO V1 reachable from here?
+        id: server
+        run: |
+          if curl -fsS --max-time 60 "${DISCO_URL}getToolkitVersion"; then
+            echo "up=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "up=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::DISCO V1 did not answer, so the tutorials cannot be run"
+          fi
+
+      # A release must never ship tutorials that were not run; a dev build without the server is
+      # skipped rather than published with empty outputs.
+      - name: A release needs the server
+        if: steps.server.outputs.up != 'true' && env.RELEASE != ''
+        run: |
+          echo "::error::${RELEASE} cannot be documented: the tutorials could not be run against DISCO"
+          exit 1
+
+      - name: Run every tutorial notebook against DISCO V1
+        if: steps.server.outputs.up == 'true'
+        run: python tools/execute_notebooks.py
+
+      - name: Build the site (any broken link or docstring fails)
+        if: steps.server.outputs.up == 'true'
+        run: mkdocs build --strict
+
+      - name: Publish to gh-pages
+        if: steps.server.outputs.up == 'true' && env.PUBLISH == 'true'
+        run: |
+          git fetch origin gh-pages:gh-pages || echo "no gh-pages branch yet; mike will create it"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ -n "$RELEASE" ]; then
+            VERSION="${RELEASE#v}"
+            mike deploy --push --update-aliases "$VERSION" stable
+            mike set-default --push stable
+          else
+            mike deploy --push --title "dev (main)" dev
+            # until the first release built by this workflow exists, the site root shows dev
+            mike list | grep -q stable || mike set-default --push dev
+          fi
+          mike list

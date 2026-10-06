@@ -1,0 +1,12 @@
+# Everything needed to build the documentation site (see RELEASING.md and .github/workflows/docs.yml).
+# The package itself must be installed too: pip install -e . -r requirements-docs.txt
+mkdocs>=1.6
+mkdocs-material>=9.5
+mkdocs-jupyter>=0.25
+mkdocstrings[python]>=0.26
+mike>=2.1
+# to run the tutorial notebooks (tools/execute_notebooks.py)
+nbclient>=0.10
+nbformat>=5.9
+ipykernel>=6.29
+ruff

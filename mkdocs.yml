@@ -1,56 +1,75 @@
 site_name: DISCOtoolkit
+site_description: Python package for the DISCO single-cell database
+# Hosted by the DISCO website itself. mike publishes one folder per release (1.2.0/, ...), plus
+# stable/ (the newest release) and dev/ (the main branch); see RELEASING.md.
+site_url: https://disco.bii.a-star.edu.sg/v1/docs/toolkit/guide/
+repo_url: https://github.com/JinmiaoChenLab/DISCOtoolkit_py
+repo_name: DISCOtoolkit_py
+
+hooks:
+  - tools/docs_hooks.py
 
 nav:
   - Home: index.md
-  - Tutorial:
-    - Quickstart (DISCO v1): quickstart_disco_v1.ipynb
-    - Download Data: download_data.ipynb
-    - Cell Type Annotation: CELLiD_celltype_annotation.ipynb
-    - scEnrichment: scEnrichment.ipynb
-    - Gene Search: Gene_search.ipynb
-  - API: API.md
+  - Tutorials:
+    - Quickstart: quickstart_disco_v1.ipynb
+    - Download data: download_data.ipynb
+    - Cell type annotation (CELLiD): CELLiD_celltype_annotation.ipynb
+    - Enrichment (scEnrichment): scEnrichment.ipynb
+    - Gene search: Gene_search.ipynb
+  - API reference: API.md
+  - DISCO V1 website: https://disco.bii.a-star.edu.sg/v1/
 
 plugins:
-  - search:
-  - git-revision-date-localized:
-      enable_creation_date: true
+  - search
+  # The tutorials are executed by tools/execute_notebooks.py before the build, so the pages show
+  # what the current code does against the current server; this plugin only renders them.
   - mkdocs-jupyter:
+      execute: false
       include_source: true
-      include_requirejs: true
+      ignore_h1_titles: true
       remove_tag_config:
         remove_input_tags:
           - hide_code
+  # The API reference is generated from the docstrings, so it cannot drift from the code.
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_style: google
+            show_source: false
+            show_root_heading: true
+            show_root_full_path: false
+            members_order: source
+            heading_level: 3
+            separate_signature: true
+            show_signature_annotations: true
 
 theme:
   name: material
+  custom_dir: overrides
   favicon: assets/images/Discologo_1.png
-  logo: assets/images/LOGO_WITH_title.745f2743.svg  # Customize to our own logo
+  logo: assets/images/LOGO_WITH_title.745f2743.svg
+  font: false            # no Google Fonts: the page must render with third parties unreachable
   features:
     - search.highlight
     - search.suggest
     - content.code.copy
-    - content.code.annotate
     - navigation.indexes
     - navigation.top
     - navigation.footer
     - toc.integrate
-    - header.autohide
-
   palette:
-    # Palette toggle for light mode
     - scheme: default
-      primary: white # F7F9F3 change to this later
+      primary: white
       toggle:
         icon: material/weather-sunny
         name: Switch to dark mode
-
-    # Palette toggle for dark mode
     - scheme: slate
       primary: blue grey
       toggle:
         icon: material/weather-night
         name: Switch to light mode
-  custom_dir: overrides
 
 markdown_extensions:
   - attr_list
@@ -59,33 +78,21 @@ markdown_extensions:
   - pymdownx.details
   - pymdownx.superfences
   - toc:
-        permalink: "&para;"
-  - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
-
+      permalink: "¶"
   - pymdownx.highlight:
       anchor_linenums: true
-      line_spans: __span
       pygments_lang_class: true
   - pymdownx.inlinehilite
   - pymdownx.snippets
 
 extra:
+  version:
+    provider: mike
+    default: stable
   social:
     - icon: material/github
-      link: 'https://github.com/JinmiaoChenLab/DISCOtoolkit_py'
+      link: https://github.com/JinmiaoChenLab/DISCOtoolkit_py
       name: DISCOtoolkit on GitHub
-
-  analytics:
-    provider: google
-    property: G-L6ST3F8LYM
-
-repo_url: https://github.com/JinmiaoChenLab/DISCOtoolkit_py
-repo_name: DISCOtoolkit
 
 extra_css:
   - assets/stylesheets/custom-style.css
-
-extra_javascript:
-  - 'https://cdn.plot.ly/plotly-latest.min.js'

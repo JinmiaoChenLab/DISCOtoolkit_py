@@ -56,11 +56,11 @@ def generate_correlation_map(x, y):
 
 
 # get the total atlas from DISCO website for the user to select which atlas to use
-def get_atlas(ref_data=None, ref_path=None):
+def get_atlas(ref_data=None, ref_path=None) -> list:
     """get the all the atlas string from the DISCO website and return to the user
 
     Returns:
-        List: return list of string
+        list: the atlas names, as a list of strings
     """
     # Download reference data and ref_deg if missing
     if ref_data is None:
@@ -166,7 +166,7 @@ def CELLiD_cluster(
     n_predict: int = 1,
     ref_path: str = None,
     ncores: int = 10,
-):
+) -> pd.DataFrame:
     """Cell type annotation using reference data and compute the correlation between the user cell gene expression as compare
         to the reference data. The celltype with highest correlation will be concluded as the celltype
 
@@ -305,7 +305,7 @@ def CELLiD_cluster(
         predict.columns = ["cor"]
         predict = predict.sort_values(["cor"], ascending=False)
         res = [
-            [each.split("--")[0], each.split("--")[1], predict["cor"][index], i]
+            [each.split("--")[0], each.split("--")[1], predict["cor"].iloc[index], i]
             for index, each in enumerate(predict.index)
             if index < n_predict
         ]
@@ -356,7 +356,7 @@ def CELLiD_enrichment(
     reference: pd.DataFrame = None,
     ref_path: str = None,
     ncores: int = 1,
-):
+) -> pd.DataFrame:
     """Function to generate enrichment analysis based on the reference gene sets and following the DISCO pipeline.
 
     Args:

@@ -1,6 +1,8 @@
 # Publishes to PyPI when a version tag (v1.2.0, ...) is pushed -- but only after the same checks
 # CI runs on every push (tests on Python 3.9-3.12, wheel and sdist install into a clean env) pass,
 # and only if the tagged commit is on main. A failing test means nothing is published.
+# The tutorials are also run against the live DISCO server first: one that no longer works blocks
+# the release. After PyPI has the package, the documentation for this version is published.
 #
 # Uses PyPI "Trusted Publishing": GitHub proves its identity to PyPI directly, so there is no
 # API token to create, store, rotate or leak. One-time setup is in RELEASING.md.
@@ -14,8 +16,16 @@ jobs:
   checks:
     uses: ./.github/workflows/ci.yml
 
+  docs-gate:
+    permissions:
+      contents: write
+    uses: ./.github/workflows/docs.yml
+    with:
+      version: ${{ github.ref_name }}
+      publish: false
+
   build:
-    needs: checks
+    needs: [checks, docs-gate]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -61,3 +71,12 @@ jobs:
           path: dist/
 
       - uses: pypa/gh-action-pypi-publish@release/v1
+
+  docs:
+    needs: publish
+    permissions:
+      contents: write
+    uses: ./.github/workflows/docs.yml
+    with:
+      version: ${{ github.ref_name }}
+      publish: true

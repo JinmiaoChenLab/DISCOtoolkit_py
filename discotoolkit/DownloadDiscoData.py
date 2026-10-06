@@ -22,14 +22,18 @@ from .DiscoClass import FilterData, Filter
 from .GetMetadata import check_in_list
 
 
-def download_disco_data(metadata, output_dir: str = "DISCOtmp"):
-    """function to download the data based on the given filter
+def download_disco_data(metadata, output_dir: str = "DISCOtmp") -> None:
+    """Download the samples of a filter result, one AnnData `.h5ad` file per sample.
+
+    Each file holds only the cells that matched the filter, with DISCO's annotation in
+    `obs["cell_type"]`.
+
     Args:
-        metadata (FilterData) : FilterData class to filters data from DISCO database
-        output_dir (Sting) : directory for storing the downloaded data. Default DISCOtmp
+        metadata (FilterData): the result of `filter_disco_metadata`.
+        output_dir (str): directory to save the files in; created if missing. Defaults to "DISCOtmp".
 
     Returns:
-        None: This function does not return any object and instead download the data for the user
+        None: the files are written to `output_dir`.
     """
 
     # define a list to store the error sample that can not be download

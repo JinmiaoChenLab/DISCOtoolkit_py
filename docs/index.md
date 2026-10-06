@@ -1,161 +1,52 @@
-<!--
- * @Descripttion: 
- * @version: 1.0.7
- * @Author: Mengwei Li
- * @Date: 2023-04-16 21:20:42
- * @LastEditors: Mengwei Li
- * @LastEditTime: 2023-04-16 21:22:03
--->
+<img style="width: 70px; float: left; margin: 1.2em .6em 0 0" src="assets/images/t_cell.93a106b5.svg" alt="">
+<img style="width: 70px; float: right; margin: 1.2em 0 0 .6em" src="assets/images/monocyte.846676d9.svg" alt="">
 
-<img style="vertical-align: middle; width: 70px; display:inline; float: left; margin-right: 0.5em; margin-top: 2em;" src = "assets/images/t_cell.93a106b5.svg"></img>
-<img style="vertical-align: middle; width: 70px; display:inline; float: right; margin-top: 2em; margin-left:0.6em" src = "assets/images/monocyte.846676d9.svg"></img>
-<b><center><h1 style="vertical-align: middle; display:inline;" class="h1.md-title">  
-Deeply Integrated human Single-Cell Omics data
-</h1></center></b>
+# DISCOtoolkit
 
-<script>
-    // Fetch the stars count using GitHub API
-    fetch('https://api.github.com/repos/JinmiaoChenLab/DISCOtoolkit_py')
-    .then(response => response.json())
-    .then(data => {
-      const starsCount = data.stargazers_count;
-      const starsCountElement = document.getElementById('stars-count');
-      starsCountElement.textContent = starsCount;
-    })
-    .catch(error => {
-      console.error('Error fetching stars count:', error);
-    });
+**DISCOtoolkit** is the Python package for the [DISCO database](https://disco.bii.a-star.edu.sg/v1/):
+filter and download single-cell data, annotate your own data with CELLiD, and test gene sets with
+scEnrichment. This documentation describes version **{{ version }}**, and is rebuilt, with every
+tutorial re-run against the live database, whenever the package changes.
 
-    // Fetch the forks count using GitHub API
-    fetch('https://api.github.com/repos/JinmiaoChenLab/DISCOtoolkit_py')
-    .then(response => response.json())
-    .then(data => {
-      const forksCount = data.forks_count;
-      const forksCountElement = document.getElementById('forks-count');
-      forksCountElement.textContent = forksCount;
-    })
-    .catch(error => {
-      console.error('Error fetching forks count:', error);
-    });
-    
-    // Fetch the watchers count using GitHub API
-    fetch('https://api.github.com/repos/JinmiaoChenLab/DISCOtoolkit_py')
-    .then(response => response.json())
-    .then(data => {
-      const watchersCount = data.subscribers_count;
-      const watchersCountElement = document.getElementById('watchers-count');
-      watchersCountElement.textContent = watchersCount;
-    })
-    .catch(error => {
-      console.error('Error fetching watchers count:', error);
-    });
+## Install
 
-    // Fetch the issues count using GitHub API
-    fetch('https://api.github.com/repos/JinmiaoChenLab/DISCOtoolkit_py')
-    .then(response => response.json())
-    .then(data => {
-      const issuesCount = data.open_issues_count;
-      const issuesCountElement = document.getElementById('issues-count');
-      issuesCountElement.textContent = issuesCount;
-    })
-    .catch(error => {
-      console.error('Error fetching issues count:', error);
-    });
-
-
-</script>
-
-<span class="badge-container">
-<a href="https://github.com/JinmiaoChenLab/DISCOtoolkit_py" class="badge-link">
-  <span class="badge-icon">📦</span>
-  <span class="badge-count">1.2.0</span>
-</a>
-</span> <span class="badge-container">
-  <a href="https://github.com/JinmiaoChenLab/DISCOtoolkit_py/stargazers" class="badge-link">
-    <span class="badge-icon">⭐</span>
-    <span class="badge-count" id="stars-count">Loading...</span>
-  </a>
-</span><span class="badge-container">
-  <a href="https://github.com/JinmiaoChenLab/DISCOtoolkit_py/network" class="badge-link">
-    <span class="badge-icon">🍴</span>
-    <span class="badge-count" id="forks-count">Loading...</span>
-  </a>
-</span><span class="badge-container">
-  <a href="https://github.com/JinmiaoChenLab/DISCOtoolkit_py/watchers" class="badge-link">
-    <span class="badge-icon">👀</span>
-    <span class="badge-count" id="watchers-count">Loading...</span>
-  </a>
-</span><span class="badge-container">
-  <a href="https://github.com/JinmiaoChenLab/DISCOtoolkit_py/issues" class="badge-link">
-    <span class="badge-icon">❗</span>
-    <span class="badge-count" id="issues-count">Loading...</span>
-  </a>
-</span>
-
-[![Downloads](https://static.pepy.tech/personalized-badge/discotoolkit?period=total&units=international_system&left_color=black&right_color=orange&left_text=Downloads)](https://pepy.tech/project/discotoolkit)
-
-**DISCOtoolkit** is an python package that allows users to access data and use the tools provided by the [DISCO database](https://disco.bii.a-star.edu.sg/). It provides the following functions:
-
-- Filter and download DISCO data based on sample metadata and cell type information
-- CELLiD: cell type annotation
-- scEnrichment: geneset enrichment using DISCO DEGs
-
-Dependency Requirements:
-
-- Numpy >= 1.21.6
-- Pandas >= 1.4.2
-- Scanpy >= 1.9.3
-- Scipy >= 1.8.0
-- joblib >= 1.1.0
-- pandarallel >= 1.6.5
-
-## Minimal installation:
-
-The DISCOtoolkit can be easily installed in the current Python environment using `pip`:
+Python 3.9 or newer.
 
 ```
-pip install discotoolkit
+pip install -U discotoolkit
 ```
 
-## Installation guide:
+The dependencies (scanpy, pandas, numpy and others) are installed with it. For the development
+version: `pip install "git+https://github.com/JinmiaoChenLab/DISCOtoolkit_py.git"`.
 
-we recommend to install miniconda first and install discotoolkit in virtual env
+## Start here
 
-```
-conda create --name disco python=3.8
-```
-```
-conda activate disco
-```
-```
-conda install ipykernel
-```
-```
-python -m ipykernel install --user --name disco --display-name "disco"
-```
-``` 
-python -m pip install discotoolkit
+| Page | What it shows |
+|---|---|
+| [Quickstart](quickstart_disco_v1.ipynb) | From a query to a UMAP: filter, download, cluster, plot. |
+| [Download data](download_data.ipynb) | Filters, cell type confidence and downloading in depth. |
+| [Cell type annotation](CELLiD_celltype_annotation.ipynb) | Annotate your own clusters against the DISCO reference. |
+| [Enrichment](scEnrichment.ipynb) | Test a gene list against DISCO differential-expression gene sets. |
+| [Gene search](Gene_search.ipynb) | A gene's expression across every annotated cell type. |
+| [API reference](API.md) | Every function and its arguments. |
+
+Each tutorial can be opened in Google Colab, and the notebook downloaded, from its page.
+
+## Which server
+
+The toolkit talks to DISCO V1 unless you tell it otherwise:
+
+```python
+import discotoolkit as dt
+dt.get_server()                                    # DISCO V1 (the default)
+dt.set_server("v2")                                # DISCO V2
+dt.set_server("https://my.server/disco_v3_api/")   # any server with the same API
 ```
 
-!!! Note
-    Please add -U parameter to pip to install the latest version. `pip install -U discotoolkit`
-
-## Basic Usage
-Example in Jupyter notebook.
-
-!!! Note
-    Please select disco as the kernel for running the jupyter notebook
-
-### [Filter and download DISCO data](download_data.ipynb)
-
-### [Cell Type Annotation using CELLiD](CELLiD_celltype_annotation.ipynb)
-
-### [scEnrichment](scEnrichment.ipynb)
+DISCO V2 also has an R package, [DISCOtoolkit](https://github.com/JinmiaoChenLab/DISCOtoolkit).
 
 ## Citation
-1. [Li, Mengwei, et al. "DISCO: a database of Deeply Integrated human Single-Cell Omics data." Nucleic acids research 50.D1 (2022): D596-D602.](https://academic.oup.com/nar/article/50/D1/D596/6430491)
 
-## Follow us on our social media!
-:fontawesome-brands-twitter:    [HSCRM2](https://twitter.com/HSCRM2)
-
-:simple-github:     [JinmiaoChenLab Github repo](https://github.com/JinmiaoChenLab)
+If you use DISCO in your work, please cite: Li M. et al., *DISCO: a database of Deeply Integrated
+human Single-Cell Omics data*, Nucleic Acids Research 2022; and Li M. et al., *Rediscovering
+publicly available single-cell data with the DISCO platform*, Nucleic Acids Research 2025.

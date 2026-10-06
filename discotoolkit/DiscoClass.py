@@ -3,21 +3,25 @@ Class for filtering dataset
 """
 
 class Filter:
-    """
-    Filter class object to save the attributes for filtering the dataset from DISCO
+    """Which DISCO samples and cells to look for.
 
-    sample_id                      String    e.g. ERX2757110;
-    project_id                     String;
-    tissue                      String    e.g. lung, bladder;
-    disease                     String    e.g. COVID-19;
-    platform                    String    e.g. 10x3';
-    sample_type                 String;
-    cell_type                   String;
-    cell_type_confidence        String    e.g. high;
-    include_cell_type_children  Bool      e.g. True;
-    min_cell_per_sample         Int       e.g. 300;
+    Every argument is optional; a filter with none of them matches everything. Give a string or a
+    list of strings. The list of values each field accepts is `list_metadata_item(field)`.
 
-    return Class object
+    Args:
+        sample_id (str or list, optional): sample identifier, e.g. "ERX2757110".
+        project_id (str or list, optional): project (a study or dataset), e.g. "GSE147520".
+        tissue (str or list, optional): e.g. "lung", "bladder".
+        disease (str or list, optional): e.g. "COVID-19".
+        platform (str or list, optional): sequencing platform, e.g. "10x3'".
+        sample_type (str or list, optional): e.g. "control".
+        cell_type (str or list, optional): keep samples that contain these cell types, and download
+            only those cells.
+        cell_type_confidence (str): how sure DISCO's annotation must be: "high", "medium" or "all".
+            Defaults to "medium".
+        include_cell_type_children (bool): also match the more specific cell types under
+            `cell_type`. Defaults to True.
+        min_cell_per_sample (int): drop samples with fewer matching cells than this. Defaults to 100.
     """
 
     def __init__(self, sample_id = None, project_id = None, tissue = None, disease = None, platform = None, sample_type = None,
@@ -43,8 +47,16 @@ class Filter:
 
 class FilterData:    
 
-    """
-    Wrapper class on top of the Filter object to get dataset's summary such as cell count and sample count and the metadata
+    """The result of a filter: the matching samples, with their counts.
+
+    Returned by `filter_disco_metadata` and passed to `download_disco_data`.
+
+    Attributes:
+        sample_metadata (pandas.DataFrame): one row per matching sample.
+        cell_type_metadata (pandas.DataFrame): the cell types found in each sample.
+        sample_count (int): number of matching samples.
+        cell_count (int): number of matching cells.
+        filter (Filter): the filter that produced this result.
     """
     def __init__(self, sample_metadata = None, cell_type_metadata = None, sample_count = None, cell_count = None, filter = Filter()):
         self.sample_metadata = sample_metadata

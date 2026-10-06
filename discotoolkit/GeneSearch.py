@@ -10,7 +10,7 @@ import colorcet as cc
 from .GlobalVariable import api_url
 
 
-def gene_search(gene : str, atlas : Union[str, list] = None, figsize : tuple = None, dpi : int = 300):
+def gene_search(gene : str, atlas : Union[str, list] = None, figsize : tuple = None, dpi : int = 300) -> None:
 
     """Function to search for the gene expression level the same as the input gene search bar in DISCO website.
 

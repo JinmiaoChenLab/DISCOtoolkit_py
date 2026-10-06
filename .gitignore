@@ -18,3 +18,7 @@ __pycache__/
 *.egg-info/
 .pytest_cache/
 build/
+
+# mkdocs-jupyter render cache and local docs build
+.cache/
+site/
