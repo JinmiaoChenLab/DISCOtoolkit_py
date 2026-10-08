@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.2.2 (2026-10-08)
+
+Documentation and release housekeeping; no change to how the package behaves.
+
+- **Docs** recommend DISCO V1 as the supported server: the toolkit is developed and tested against
+  it. Pointing it at DISCO V2 is possible but untested (`set_server` docstring, README, docs).
+- **Docs** fixed three dead links in the quickstart, and the tutorials no longer send readers to the
+  DISCO V2 website.
+- **Docs** the old Read the Docs site now redirects every page to the new documentation.
+- **Releases** each version tag now also gets a GitHub Release, with its notes from this changelog.
+
 ## 1.2.1 (2026-10-08)
 
 Fixes for installs on current library versions, and safer reference downloads.

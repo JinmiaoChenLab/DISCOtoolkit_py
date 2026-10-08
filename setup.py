@@ -6,7 +6,7 @@ with open("requirements.txt", "r") as f:
 
 setup(
     name='discotoolkit',
-    version="1.2.1",
+    version="1.2.2",
     url='https://disco.bii.a-star.edu.sg/',
     author='Li Mengwei, Rom Uddamvathanak',
     author_email='uddamvathanak_rom@immunol.a-star.edu.sg',

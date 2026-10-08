@@ -8,7 +8,7 @@
 -->
 [![Documentation](https://img.shields.io/badge/docs-disco.bii.a--star.edu.sg-blue)](https://disco.bii.a-star.edu.sg/v1/docs/toolkit/guide/) [![Downloads](https://static.pepy.tech/personalized-badge/discotoolkit?period=total&units=international_system&left_color=black&right_color=orange&left_text=Downloads)](https://pepy.tech/project/discotoolkit) [![PyPI version](https://img.shields.io/pypi/v/discotoolkit)](https://pypi.org/project/discotoolkit)
 
-# DISCOtoolkit 1.2.1
+# DISCOtoolkit 1.2.2
 
 DISCOtoolkit is a Python package for accessing the data and tools of the [DISCO database](https://disco.bii.a-star.edu.sg/) (DISCO v1). Read the documentation, with tutorials and the API reference, at [disco.bii.a-star.edu.sg/v1/docs/toolkit/guide](https://disco.bii.a-star.edu.sg/v1/docs/toolkit/guide/).
 
