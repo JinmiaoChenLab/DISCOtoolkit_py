@@ -2,7 +2,8 @@
 # CI runs on every push (tests on Python 3.9-3.12, wheel and sdist install into a clean env) pass,
 # and only if the tagged commit is on main. A failing test means nothing is published.
 # The tutorials are also run against the live DISCO server first: one that no longer works blocks
-# the release. After PyPI has the package, the documentation for this version is published.
+# the release. After PyPI has the package, the documentation for this version is published and
+# the GitHub Release is created.
 #
 # Uses PyPI "Trusted Publishing": GitHub proves its identity to PyPI directly, so there is no
 # API token to create, store, rotate or leak. One-time setup is in RELEASING.md.
@@ -80,3 +81,11 @@ jobs:
     with:
       version: ${{ github.ref_name }}
       publish: true
+
+  github-release:
+    needs: publish
+    permissions:
+      contents: write
+    uses: ./.github/workflows/github-release.yml
+    with:
+      tag: ${{ github.ref_name }}

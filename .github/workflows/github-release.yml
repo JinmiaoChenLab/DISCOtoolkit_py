@@ -1,0 +1,53 @@
+# Creates (or updates) the GitHub Release for a version tag, with the notes from CHANGELOG.md.
+#
+# Why: publishing to PyPI does not create a GitHub Release, and the repository page, the badge on the
+# documentation site and the "Releases" sidebar all show the newest *Release*, not the newest tag --
+# so they kept saying v1.1.4 after 1.2.1 was on PyPI. publish.yml calls this after a release.
+# To make the Release for an older tag, run it by hand: Actions -> GitHub Release -> Run workflow.
+name: GitHub Release
+
+on:
+  workflow_call:
+    inputs:
+      tag:
+        description: "version tag, e.g. v1.2.1"
+        type: string
+        required: true
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "version tag, e.g. v1.2.1"
+        type: string
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      # the default branch, not the tag: its CHANGELOG describes every version, including old ones
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Notes for this version
+        env:
+          TAG: ${{ inputs.tag }}
+        run: python tools/release_notes.py "${TAG#v}" > notes.md
+
+      - name: Create or update the Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ inputs.tag }}
+        run: |
+          git fetch --tags --force
+          git rev-parse --verify --quiet "refs/tags/$TAG" > /dev/null || { echo "::error::no tag $TAG"; exit 1; }
+          # only the newest version is "latest", so backfilling an old tag does not take the badge back
+          if [ "$TAG" = "$(git tag -l 'v*' --sort=-v:refname | head -1)" ]; then LATEST="--latest"; else LATEST="--latest=false"; fi
+          if gh release view "$TAG" > /dev/null 2>&1; then
+            gh release edit "$TAG" --title "DISCOtoolkit ${TAG#v}" --notes-file notes.md $LATEST
+          else
+            gh release create "$TAG" --verify-tag --title "DISCOtoolkit ${TAG#v}" --notes-file notes.md $LATEST
+          fi

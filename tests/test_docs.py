@@ -86,6 +86,14 @@ def test_tutorials_link_to_pages_not_to_notebook_files_and_not_to_the_v2_site():
     assert not problems, "; ".join(problems)
 
 
+def test_the_changelog_has_notes_for_the_current_version():
+    # the release workflow builds the GitHub Release text from it, and refuses a version without notes
+    version = re.search(r'__version__\s*=\s*"([^"]+)"', read("discotoolkit/__init__.py")).group(1)
+    assert re.search(r"^## %s\b" % re.escape(version), read("CHANGELOG.md"), re.M), (
+        "add a '## %s' section to CHANGELOG.md before releasing" % version
+    )
+
+
 def _run_all():
     tests = [(n, f) for n, f in sorted(globals().items()) if n.startswith("test_") and callable(f)]
     failed = 0
