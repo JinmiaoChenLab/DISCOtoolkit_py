@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.3.0 (2026-10-08)
+
+The toolkit is for DISCO V1 only.
+
+- **Removed** the `"v2"` server preset. The toolkit was never tested against DISCO V2, which has its
+  own R package (DISCOtoolkit). `set_server("v2")`, or `DISCO_API_URL=v2`, now stops with an error
+  that points there instead of quietly using an untested server. A URL can still be given for a
+  mirror or a test copy of DISCO V1.
+- **Tests** `list_all_columns`, the last public function nothing exercised, has a test and a step in
+  the download tutorial.
+- **Checks** a new "User check" installs the PyPI release inside the quickstart notebook on a clean
+  machine and runs every cell against the public site, as a Colab user would: weekly and after each
+  release.
+
 ## 1.2.2 (2026-10-08)
 
 Documentation and release housekeeping; no change to how the package behaves.
