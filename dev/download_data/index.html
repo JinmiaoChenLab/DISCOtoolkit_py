@@ -1441,6 +1441,72 @@ sc.settings.plotting_backend = 'umap-learn'</div>
 </div>
 </div>
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=004c0c10">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Before filtering, see which metadata fields DISCO has, and which values one of them takes. Any of these fields' values can be used in <code>dt.Filter</code>.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=01acf74f">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="zeroclipboard-container">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-3">
+<div>
+<span class="notice" hidden="">Copied!</span>
+<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
+<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+</clipboard-copy>
+</div>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># every metadata field of the DISCO samples</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dt</span><span class="o">.</span><span class="n">list_all_columns</span><span class="p">())</span>
+
+<span class="c1"># the values one field takes, e.g. the sequencing platforms</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">dt</span><span class="o">.</span><span class="n">list_metadata_item</span><span class="p">(</span><span class="s2">"platform"</span><span class="p">))))</span>
+</pre></div>
+<div class="clipboard-copy-txt" id="cell-3"># every metadata field of the DISCO samples
+print(dt.list_all_columns())
+
+# the values one field takes, e.g. the sequencing platforms
+print(sorted(map(str, dt.list_metadata_item("platform"))))</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>['sample_id', 'project_id', 'sample_type', 'tissue', 'anatomical_site', 'disease', 'platform', 'age_group', 'cell_sorting', 'disease_subtype', 'treatment', 'time_point', 'subject_id', 'age', 'gender', 'race', 'infection', 'batch', 'disease_stage', 'genotype', 'rna_source', 'other_metadata', 'disease_grade', 'cell_number', 'median_umi', 'rds_md5', 'rds_size', 'source_cell_line', 'source_tissue', 'source_disease', 'source_cell_type', 'induced_cell_tissue', 'collect_time']
+</pre>
+</div>
+</div>
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>["10x'3", "10x3'", "10x5'", '10xATAC+RNA', 'BD Rhapsody', 'CEL-Seq2', "Crohn's disease", 'Drop-Seq', 'Drop-seq', 'FocuSCOPE', 'GEXSCOPE', 'ICELL8', 'InDrop', 'MARS-Seq', 'Microwell-seq', 'Organoid', 'QUARTZ-SEQ2', 'SORTseq', 'STRT-Seq', 'Seq-Well', 'Seq-Well/Drop-seq', 'Split-Seq', 'SureCell', 'inDrop', 'nan', 'sc-FTDseq', 'unknown']
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=638e2e74">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -1457,10 +1523,10 @@ sc.settings.plotting_backend = 'umap-learn'</div>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [4]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="CodeMirror cm-s-jupyter">
 <div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-3">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-4">
 <div>
 <span class="notice" hidden="">Copied!</span>
 <svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
@@ -1483,7 +1549,7 @@ sc.settings.plotting_backend = 'umap-learn'</div>
     <span class="n">min_cell_per_sample</span> <span class="o">=</span> <span class="mi">300</span>
 <span class="p">)</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-3"># filtering the sample based on the metadata
+<div class="clipboard-copy-txt" id="cell-4"># filtering the sample based on the metadata
 filter = dt.Filter(
     sample_id = None,
     project_id = None,
@@ -1506,10 +1572,10 @@ filter = dt.Filter(
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [4]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="CodeMirror cm-s-jupyter">
 <div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-4">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-5">
 <div>
 <span class="notice" hidden="">Copied!</span>
 <svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
@@ -1522,7 +1588,7 @@ filter = dt.Filter(
 <div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># apply the filter of interest</span>
 <span class="n">metadata</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">filter_disco_metadata</span><span class="p">(</span><span class="nb">filter</span><span class="p">)</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-4"># apply the filter of interest
+<div class="clipboard-copy-txt" id="cell-5"># apply the filter of interest
 metadata = dt.filter_disco_metadata(filter)</div>
 </div>
 </div>
@@ -1573,10 +1639,10 @@ metadata = dt.filter_disco_metadata(filter)</div>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="CodeMirror cm-s-jupyter">
 <div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-5">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-6">
 <div>
 <span class="notice" hidden="">Copied!</span>
 <svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
@@ -1590,7 +1656,7 @@ metadata = dt.filter_disco_metadata(filter)</div>
 <span class="n">dir_path</span> <span class="o">=</span> <span class="s2">"disco_data"</span>
 <span class="n">download_log</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">download_disco_data</span><span class="p">(</span><span class="n">metadata</span><span class="p">,</span> <span class="n">output_dir</span> <span class="o">=</span> <span class="n">dir_path</span><span class="p">)</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-5"># download data to the local directory
+<div class="clipboard-copy-txt" id="cell-6"># download data to the local directory
 dir_path = "disco_data"
 download_log = dt.download_disco_data(metadata, output_dir = dir_path)</div>
 </div>
@@ -1615,10 +1681,10 @@ download_log = dt.download_disco_data(metadata, output_dir = dir_path)</div>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="CodeMirror cm-s-jupyter">
 <div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-6">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-7">
 <div>
 <span class="notice" hidden="">Copied!</span>
 <svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
@@ -1631,7 +1697,7 @@ download_log = dt.download_disco_data(metadata, output_dir = dir_path)</div>
 <div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># double checking to see if the files have been download successf</span>
 <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">dir_path</span><span class="p">)</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-6"># double checking to see if the files have been download successf
+<div class="clipboard-copy-txt" id="cell-7"># double checking to see if the files have been download successf
 os.listdir(dir_path)</div>
 </div>
 </div>
@@ -1642,7 +1708,7 @@ os.listdir(dir_path)</div>
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[6]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[7]:</div>
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
 <pre>['GSM5068929.h5ad',
  'GSM5068936.h5ad',
@@ -1679,10 +1745,10 @@ os.listdir(dir_path)</div>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="CodeMirror cm-s-jupyter">
 <div class="zeroclipboard-container">
-<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-7">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-8">
 <div>
 <span class="notice" hidden="">Copied!</span>
 <svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
@@ -1724,7 +1790,7 @@ os.listdir(dir_path)</div>
 <span class="c1"># Print the concatenated dataset</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">combined_adata</span><span class="p">)</span>
 </pre></div>
-<div class="clipboard-copy-txt" id="cell-7">directory = 'disco_data'
+<div class="clipboard-copy-txt" id="cell-8">directory = 'disco_data'
 adata_list = []
 
 # Read and store datasets
