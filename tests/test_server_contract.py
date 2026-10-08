@@ -5,7 +5,7 @@ Needs only `requests`, so it runs anywhere -- including a fresh Colab notebook:
 
     !pip install requests
     !python tests/test_server_contract.py                                # DISCO v1 (default)
-    !python tests/test_server_contract.py https://immunesinglecell.org/disco_v3_api/   # another server
+    !python tests/test_server_contract.py <api root>                                   # another server
 
 or with pytest:  DISCO_API_URL=<api root> pytest tests/test_server_contract.py
 

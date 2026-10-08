@@ -72,6 +72,20 @@ def test_api_reference_names_only_things_that_exist():
         assert re.search(r"^(def|class)\s+%s\b" % name, source, re.M), "%s.%s is gone" % (module, name)
 
 
+def test_tutorials_link_to_pages_not_to_notebook_files_and_not_to_the_v2_site():
+    problems = []
+    for path in sorted(glob.glob(os.path.join(ROOT, "docs", "*.ipynb"))):
+        text = "\n".join("".join(c["source"]) for c in json.load(open(path, encoding="utf-8"))["cells"])
+        name = os.path.basename(path)
+        # a relative link to another .ipynb works on GitHub but is a dead link on the site
+        for target in re.findall(r"\]\(([^)\s]+)\)", text):
+            if target.endswith(".ipynb") and not target.startswith("http"):
+                problems.append("%s links to the file %s; link to the page on the docs site" % (name, target))
+        if "immunesinglecell.org" in text:
+            problems.append("%s sends readers to the DISCO V2 site; V1 is the supported server" % name)
+    assert not problems, "; ".join(problems)
+
+
 def _run_all():
     tests = [(n, f) for n, f in sorted(globals().items()) if n.startswith("test_") and callable(f)]
     failed = 0
