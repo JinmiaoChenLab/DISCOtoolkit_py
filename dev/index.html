@@ -706,13 +706,14 @@ version: <code>pip install "git+https://github.com/JinmiaoChenLab/DISCOtoolkit_p
 </table>
 <p>Each tutorial can be opened in Google Colab, and the notebook downloaded, from its page.</p>
 <h2 id="which-server">Which server<a class="headerlink" href="#which-server" title="Permanent link">¶</a></h2>
-<p>The toolkit talks to DISCO V1 unless you tell it otherwise:</p>
+<p>The toolkit is developed and tested against <strong>DISCO V1</strong>, which is the default and the server we
+recommend. Other servers can be chosen, but they are not tested:</p>
 <div class="language-python highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">discotoolkit</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">dt</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">dt</span><span class="o">.</span><span class="n">get_server</span><span class="p">()</span>                                    <span class="c1"># DISCO V1 (the default)</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">dt</span><span class="o">.</span><span class="n">set_server</span><span class="p">(</span><span class="s2">"v2"</span><span class="p">)</span>                                <span class="c1"># DISCO V2</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">dt</span><span class="o">.</span><span class="n">set_server</span><span class="p">(</span><span class="s2">"v2"</span><span class="p">)</span>                                <span class="c1"># DISCO V2 (not tested)</span>
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">dt</span><span class="o">.</span><span class="n">set_server</span><span class="p">(</span><span class="s2">"https://my.server/disco_v3_api/"</span><span class="p">)</span>   <span class="c1"># any server with the same API</span>
 </code></pre></div>
-<p>DISCO V2 also has an R package, <a href="https://github.com/JinmiaoChenLab/DISCOtoolkit">DISCOtoolkit</a>.</p>
+<p>DISCO V2 has its own R package, <a href="https://github.com/JinmiaoChenLab/DISCOtoolkit">DISCOtoolkit</a>.</p>
 <h2 id="citation">Citation<a class="headerlink" href="#citation" title="Permanent link">¶</a></h2>
 <p>If you use DISCO in your work, please cite: Li M. et al., <em>DISCO: a database of Deeply Integrated
 human Single-Cell Omics data</em>, Nucleic Acids Research 2022; and Li M. et al., <em>Rediscovering
