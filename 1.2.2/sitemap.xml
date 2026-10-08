@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://disco.bii.a-star.edu.sg/v1/docs/toolkit/guide/1.2.2/</loc>
+         <lastmod>2026-10-08</lastmod>
+    </url>
+    <url>
+         <loc>https://disco.bii.a-star.edu.sg/v1/docs/toolkit/guide/1.2.2/API/</loc>
+         <lastmod>2026-10-08</lastmod>
+    </url>
+    <url>
+         <loc>https://disco.bii.a-star.edu.sg/v1/docs/toolkit/guide/1.2.2/CELLiD_celltype_annotation/</loc>
+         <lastmod>2026-10-08</lastmod>
+    </url>
+    <url>
+         <loc>https://disco.bii.a-star.edu.sg/v1/docs/toolkit/guide/1.2.2/Gene_search/</loc>
+         <lastmod>2026-10-08</lastmod>
+    </url>
+    <url>
+         <loc>https://disco.bii.a-star.edu.sg/v1/docs/toolkit/guide/1.2.2/download_data/</loc>
+         <lastmod>2026-10-08</lastmod>
+    </url>
+    <url>
+         <loc>https://disco.bii.a-star.edu.sg/v1/docs/toolkit/guide/1.2.2/quickstart_disco_v1/</loc>
+         <lastmod>2026-10-08</lastmod>
+    </url>
+    <url>
+         <loc>https://disco.bii.a-star.edu.sg/v1/docs/toolkit/guide/1.2.2/scEnrichment/</loc>
+         <lastmod>2026-10-08</lastmod>
+    </url>
+</urlset>
