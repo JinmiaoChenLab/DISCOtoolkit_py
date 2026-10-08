@@ -41,13 +41,27 @@ def test_api_url_joins_paths_with_exactly_one_slash():
     assert g.api_url("/toolkit/getSampleMetadata") == g.get_server() + "toolkit/getSampleMetadata"
 
 
-def test_named_presets_and_urls():
+def test_v1_preset_and_urls_of_a_mirror():
     g = load()
-    assert g.set_server("v2") == "https://immunesinglecell.org/disco_v3_api/"
-    assert g.api_url("x") == "https://immunesinglecell.org/disco_v3_api/x"      # takes effect at once
+    assert g.set_server("http://127.0.0.1:8889/disco_v3_api") == "http://127.0.0.1:8889/disco_v3_api/"
+    assert g.api_url("x") == "http://127.0.0.1:8889/disco_v3_api/x"             # takes effect at once
     assert g.set_server("V1") == g.SERVERS["v1"]                                 # preset names are case-insensitive
     assert g.set_server("https://example.org/api") == "https://example.org/api/"  # trailing slash added
     assert g.set_server("http://localhost:8889/disco_v3_api///") == "http://localhost:8889/disco_v3_api/"
+
+
+def test_disco_v2_is_refused_with_a_pointer_to_the_r_package():
+    g = load()
+    before = g.get_server()
+    for name in ("v2", "V2"):
+        try:
+            g.set_server(name)
+        except ValueError as error:
+            assert "R package" in str(error) and "DISCOtoolkit" in str(error), error
+        else:
+            raise AssertionError("set_server(%r) was accepted" % name)
+    assert g.get_server() == before
+    assert list(g.SERVERS) == ["v1"]
 
 
 def test_bad_servers_are_rejected_without_changing_the_current_one():
@@ -64,14 +78,20 @@ def test_bad_servers_are_rejected_without_changing_the_current_one():
 
 
 def test_environment_variable_sets_the_starting_server():
-    assert load("v2").get_server() == "https://immunesinglecell.org/disco_v3_api/"
     assert load("https://example.org/disco_v3_api").get_server() == "https://example.org/disco_v3_api/"
+    # asking for v2 through the environment fails loudly rather than quietly using v1
+    try:
+        load("v2")
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("DISCO_API_URL=v2 was accepted")
 
 
 def test_old_prefix_variable_still_readable():
     g = load()
-    g.set_server("v2")
-    assert g.prefix_disco_url == "https://immunesinglecell.org/disco_v3_api/"
+    g.set_server("https://example.org/disco_v3_api/")
+    assert g.prefix_disco_url == "https://example.org/disco_v3_api/"
 
 
 def _run_all():

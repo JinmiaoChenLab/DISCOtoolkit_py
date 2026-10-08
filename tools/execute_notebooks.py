@@ -70,7 +70,7 @@ def clear(path: str) -> None:
         nbformat.write(nb, handle)
 
 
-def execute(path: str, timeout: int) -> None:
+def execute(path: str, timeout: int, include_skipped: bool = False) -> None:
     with open(path, encoding="utf-8") as handle:
         nb = nbformat.read(handle, as_version=4)
     with tempfile.TemporaryDirectory(prefix="disco-nb-") as workdir:
@@ -79,7 +79,8 @@ def execute(path: str, timeout: int) -> None:
             timeout=timeout,
             kernel_name="python3",
             resources={"metadata": {"path": workdir}},
-            skip_cells_with_tag="skip-execution",
+            # --as-user runs every cell, the Colab install cell included, as a reader would
+            skip_cells_with_tag="no-such-tag" if include_skipped else "skip-execution",
             allow_errors=False,
         )
         client.execute()
@@ -96,6 +97,8 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawTextHelpFormatter)
     parser.add_argument("notebooks", nargs="*", help="default: every .ipynb in docs/")
     parser.add_argument("--clear", action="store_true", help="remove the outputs instead of running")
+    parser.add_argument("--as-user", action="store_true",
+                        help="run every cell, including the Colab-only install cell (tests the PyPI release)")
     parser.add_argument("--timeout", type=int, default=900, help="seconds allowed per cell")
     args = parser.parse_args()
 
@@ -110,7 +113,7 @@ def main() -> int:
     for path in paths:
         started = time.time()
         try:
-            execute(path, args.timeout)
+            execute(path, args.timeout, args.as_user)
             print("  OK    %-40s %4.0fs" % (os.path.basename(path), time.time() - started), flush=True)
         except CellExecutionError as error:
             failed.append(path)

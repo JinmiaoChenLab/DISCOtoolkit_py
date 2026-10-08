@@ -17,7 +17,7 @@ DISCOtoolkit is a Python package for accessing the data and tools of the [DISCO 
 - CELLiD: cell type annotation
 - scEnrichment: gene set enrichment using DISCO DEGs
 
-> **Use DISCO v1.** The toolkit is developed and tested against **DISCO v1**, which is the default, and that is the server we recommend. DISCO v2 has its own R package ([DISCOtoolkit](https://github.com/JinmiaoChenLab/DISCOtoolkit)). The Python package can be pointed at a v2 server, but that is not tested; see [Choosing a server](#choosing-a-server).
+> **For DISCO v1.** The toolkit is built for and tested against **DISCO v1**, which it uses by default. DISCO v2 is not supported; it has its own R package, [DISCOtoolkit](https://github.com/JinmiaoChenLab/DISCOtoolkit).
 
 ## Quickstart (Google Colab)
 
@@ -61,17 +61,17 @@ python -m ipykernel install --user --name disco --display-name "disco"
 python -m pip install -U discotoolkit
 ```
 
-## Choosing a server
+## Server
 
 ```python
 import discotoolkit as dt
 
-dt.get_server()                       # 'https://disco.bii.a-star.edu.sg/disco_v3_api/'  (DISCO v1, the default)
-dt.set_server("v2")                   # DISCO v2 (not tested; DISCO v1 is the supported server)
-dt.set_server("https://my.server/disco_v3_api/")   # any server with the same API
+dt.get_server()                       # 'https://disco.bii.a-star.edu.sg/disco_v3_api/'  (DISCO v1)
+dt.set_server("https://my.mirror/disco_v3_api/")   # a mirror or test copy of DISCO v1
 ```
 
-or set the `DISCO_API_URL` environment variable before importing the package.
+or set the `DISCO_API_URL` environment variable before importing the package. The tests use this
+to run against a local copy of DISCO v1.
 
 ## Testing
 

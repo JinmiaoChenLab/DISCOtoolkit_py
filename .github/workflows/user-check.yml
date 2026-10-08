@@ -1,0 +1,36 @@
+# What a new user does, on a clean cloud machine: install discotoolkit from PyPI (not this
+# repository) inside the quickstart notebook, exactly as its first cell does in Google Colab, and run
+# every cell against the public DISCO V1 site. The docs build tests the code on main; this tests the
+# release people actually get.
+#   weekly        the site or a dependency moved under the published package
+#   after release called by publish.yml once PyPI has the new version
+#   by hand       Actions -> User check -> Run workflow
+name: User check
+
+on:
+  schedule:
+    - cron: "43 4 * * 3"
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  quickstart-from-pypi:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4      # only for the notebook and the runner script
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"       # what Colab runs
+      - name: Only the notebook runner; discotoolkit comes from PyPI inside the notebook
+        run: python -m pip install nbclient nbformat ipykernel
+      - name: Give PyPI a moment to list a release published seconds ago
+        if: github.event_name == 'push'
+        run: sleep 90
+      - name: Run the quickstart as a user would (every cell, the install cell included)
+        run: |
+          mkdir run && cp docs/quickstart_disco_v1.ipynb run/
+          cd run && python ../tools/execute_notebooks.py --as-user quickstart_disco_v1.ipynb
+      - name: Which version the notebook installed
+        if: always()
+        run: python -c "import discotoolkit as d; print('discotoolkit', d.__version__)"

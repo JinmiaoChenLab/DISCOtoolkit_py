@@ -2,13 +2,13 @@
 Settings shared by the rest of the package: logging, the request timeout and --
 most importantly -- which DISCO server the toolkit talks to.
 
-By default the toolkit talks to DISCO v1 (https://disco.bii.a-star.edu.sg). DISCO v1 is the
-server the toolkit is developed and tested against, and the one we recommend. Other servers
-are possible but untested (the "v2" preset in particular):
+The toolkit is built for, and tested against, DISCO v1 (https://disco.bii.a-star.edu.sg), and
+talks to it by default. DISCO v2 is not supported: it has its own R package (DISCOtoolkit).
+
+For a mirror or a test copy of DISCO v1 there is still a way to point it elsewhere:
 
     import discotoolkit as dt
-    dt.set_server("v2")                          # a named preset
-    dt.set_server("https://my.server/disco_v3_api/")   # any server with the same API
+    dt.set_server("https://my.mirror/disco_v3_api/")
 
 or set the DISCO_API_URL environment variable before importing the package.
 """
@@ -21,12 +21,17 @@ logging.basicConfig(level=logging.INFO)
 # seconds to wait for the server; the reference downloads are tens of MB
 timeout = 600
 
-# The API roots the toolkit knows by name. Both serve the same `toolkit/...` endpoints.
+# The API roots the toolkit knows by name.
 SERVERS = {
     "v1": "https://disco.bii.a-star.edu.sg/disco_v3_api/",
-    "v2": "https://immunesinglecell.org/disco_v3_api/",
 }
 DEFAULT_SERVER = "v1"
+
+# Removed in 1.3.0: the toolkit was never tested against DISCO v2, which has its own R package.
+_UNSUPPORTED = {
+    "v2": "DISCO v2 is not supported by the Python toolkit, which is built and tested for DISCO v1 "
+          "(the default). For DISCO v2 use its R package: https://github.com/JinmiaoChenLab/DISCOtoolkit",
+}
 
 
 def _normalise(server: str) -> str:
@@ -34,6 +39,8 @@ def _normalise(server: str) -> str:
     if not isinstance(server, str) or not server.strip():
         raise ValueError("server must be a preset name (%s) or a URL" % ", ".join(SERVERS))
     server = server.strip()
+    if server.lower() in _UNSUPPORTED:
+        raise ValueError(_UNSUPPORTED[server.lower()])
     if server.lower() in SERVERS:
         return SERVERS[server.lower()]
     if not server.lower().startswith(("http://", "https://")):
@@ -50,8 +57,8 @@ def set_server(server: str) -> str:
     """Choose which DISCO server the toolkit uses for the rest of the session.
 
     Args:
-        server (str): "v1", "v2", or the full URL of an API root such as
-            "https://disco.bii.a-star.edu.sg/disco_v3_api/".
+        server (str): "v1" (DISCO v1, the default), or the full URL of the API root of a mirror
+            or test copy of DISCO v1, such as "http://127.0.0.1:8889/disco_v3_api/".
 
     Returns:
         str: the API root now in use.

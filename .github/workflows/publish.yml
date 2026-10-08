@@ -89,3 +89,7 @@ jobs:
     uses: ./.github/workflows/github-release.yml
     with:
       tag: ${{ github.ref_name }}
+
+  user-check:
+    needs: publish
+    uses: ./.github/workflows/user-check.yml
