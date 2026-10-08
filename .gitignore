@@ -22,3 +22,4 @@ build/
 # mkdocs-jupyter render cache and local docs build
 .cache/
 site/
+site-redirect/

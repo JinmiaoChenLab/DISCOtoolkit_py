@@ -1,0 +1,16 @@
+site_name: DISCOtoolkit (moved)
+# Read the Docs builds this tiny site instead of the real documentation. Every old page is a
+# redirect to the same page on the DISCO website, so old links keep working. The real
+# documentation is built by .github/workflows/docs.yml; see RELEASING.md.
+docs_dir: pages
+site_dir: ../../site-redirect
+theme:
+  name: readthedocs
+nav:
+  - Home: index.md
+  - API: API.md
+  - Download data: download_data.md
+  - Cell type annotation: CELLiD_celltype_annotation.md
+  - Enrichment: scEnrichment.md
+  - Gene search: Gene_search.md
+  - Quickstart: quickstart_disco_v1.md

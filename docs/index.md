@@ -34,16 +34,17 @@ Each tutorial can be opened in Google Colab, and the notebook downloaded, from i
 
 ## Which server
 
-The toolkit talks to DISCO V1 unless you tell it otherwise:
+The toolkit is developed and tested against **DISCO V1**, which is the default and the server we
+recommend. Other servers can be chosen, but they are not tested:
 
 ```python
 import discotoolkit as dt
 dt.get_server()                                    # DISCO V1 (the default)
-dt.set_server("v2")                                # DISCO V2
+dt.set_server("v2")                                # DISCO V2 (not tested)
 dt.set_server("https://my.server/disco_v3_api/")   # any server with the same API
 ```
 
-DISCO V2 also has an R package, [DISCOtoolkit](https://github.com/JinmiaoChenLab/DISCOtoolkit).
+DISCO V2 has its own R package, [DISCOtoolkit](https://github.com/JinmiaoChenLab/DISCOtoolkit).
 
 ## Citation
 

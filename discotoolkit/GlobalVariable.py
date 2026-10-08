@@ -2,8 +2,9 @@
 Settings shared by the rest of the package: logging, the request timeout and --
 most importantly -- which DISCO server the toolkit talks to.
 
-By default the toolkit talks to DISCO v1 (https://disco.bii.a-star.edu.sg). To use
-another server:
+By default the toolkit talks to DISCO v1 (https://disco.bii.a-star.edu.sg). DISCO v1 is the
+server the toolkit is developed and tested against, and the one we recommend. Other servers
+are possible but untested (the "v2" preset in particular):
 
     import discotoolkit as dt
     dt.set_server("v2")                          # a named preset

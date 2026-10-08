@@ -17,7 +17,7 @@ DISCOtoolkit is a Python package for accessing the data and tools of the [DISCO 
 - CELLiD: cell type annotation
 - scEnrichment: gene set enrichment using DISCO DEGs
 
-> **DISCO v1 and v2.** The toolkit talks to **DISCO v1** by default. DISCO v2 has its own R package ([DISCOtoolkit](https://github.com/JinmiaoChenLab/DISCOtoolkit)); the Python package can still be pointed at a v2 server, see [Choosing a server](#choosing-a-server).
+> **Use DISCO v1.** The toolkit is developed and tested against **DISCO v1**, which is the default, and that is the server we recommend. DISCO v2 has its own R package ([DISCOtoolkit](https://github.com/JinmiaoChenLab/DISCOtoolkit)). The Python package can be pointed at a v2 server, but that is not tested; see [Choosing a server](#choosing-a-server).
 
 ## Quickstart (Google Colab)
 
@@ -67,7 +67,7 @@ python -m pip install -U discotoolkit
 import discotoolkit as dt
 
 dt.get_server()                       # 'https://disco.bii.a-star.edu.sg/disco_v3_api/'  (DISCO v1, the default)
-dt.set_server("v2")                   # DISCO v2
+dt.set_server("v2")                   # DISCO v2 (not tested; DISCO v1 is the supported server)
 dt.set_server("https://my.server/disco_v3_api/")   # any server with the same API
 ```
 
@@ -82,7 +82,7 @@ python tests/test_settings.py           # offline: server selection logic
 python tests/test_version.py            # offline: setup.py and __init__.py agree on the version
 python tests/test_docs.py               # offline: notebooks are clean, every public function is in the API reference
 python tests/test_server_contract.py    # online: does the server answer everything the toolkit needs?
-python tests/test_server_contract.py https://immunesinglecell.org/disco_v3_api/   # check another server
+python tests/test_server_contract.py <api root>   # check another server
 ```
 
 GitHub Actions runs these, and installs the package on Python 3.9-3.12, on every push. Maintainers: see [RELEASING.md](RELEASING.md) for how a release, and its documentation, is published.
