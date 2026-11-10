@@ -40,6 +40,24 @@ is no API token to create, store or leak.
 PyPI never accepts the same version twice. If a release goes wrong, fix it and publish the next
 version (1.2.1); do not try to reuse the number.
 
+## Dependency limits
+
+Every line in `requirements.txt` has an upper limit: the next major version (the next minor for 0.x
+packages such as seaborn). A new major release of pandas, numpy, scanpy and the rest therefore cannot
+break `pip install discotoolkit`; the package keeps installing the versions it was tested with. This is why
+nothing needs doing when a library ships a new major. `tests/test_requirements.py` fails if a dependency is
+added without a limit.
+
+When a new major is wanted (or users ask for it):
+
+1. Raise the limit in `requirements.txt` and run the tests and tutorials against the new version
+   (`pip install -e . -r requirements-docs.txt`, `python tests/test_*.py`, `python tools/execute_notebooks.py`).
+2. Fix what breaks, push, and let CI and the Docs workflow pass.
+3. Release as above. Users upgrade with `pip install -U discotoolkit`; those on the old version are unaffected.
+
+The limits only cover the packages named in `requirements.txt`; what those packages need in turn (anndata,
+numba, ...) is up to them. The weekly Docs and User check runs would show it if one of those breaks.
+
 ## If the publish step fails
 
 - *"invalid-publisher"*: the four values in step 1 do not match this repository and workflow exactly.

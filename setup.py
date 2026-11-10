@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 # Read the contents of the requirements.txt file
 with open("requirements.txt", "r") as f:
-    requirements = f.read().splitlines()
+    requirements = [line.strip() for line in f if line.strip() and not line.lstrip().startswith("#")]
 
 setup(
     name='discotoolkit',

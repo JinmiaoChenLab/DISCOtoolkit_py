@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- **Changed** every dependency now has an upper limit at the next major version (next minor for 0.x
+  packages), so a new major release of pandas, numpy or scanpy cannot break a fresh install. The versions
+  installed today are unchanged. A test keeps new dependencies from being added without one; the policy is in
+  RELEASING.md.
+
 ## 1.3.2 (2026-11-10)
 
 pandas 3 is supported.
