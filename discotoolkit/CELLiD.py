@@ -13,9 +13,42 @@ from scipy import stats
 # from fast_fisher import fast_fisher_exact, odds_ratio
 from scipy.stats.contingency import odds_ratio
 from joblib import Parallel, delayed  # multiprocessing library
-from pandarallel import pandarallel  # multiprocessing library
 
 pd.options.mode.chained_assignment = None
+
+
+def _spearman_matrix(ref_data: pd.DataFrame, rna) -> np.ndarray:
+    """Spearman correlation of every reference column with every user column (reference x user).
+
+    Spearman is Pearson on ranks, so with no missing values the whole table is one matrix product and needs no
+    process pool. Columns with a missing value fall back to pandas' own pairwise-complete Series.corr, which
+    gives the same numbers as before for them. A constant column has no defined correlation and gives NaN.
+    """
+    ref = pd.DataFrame(ref_data)
+    user = pd.DataFrame(rna)
+    ref_values = ref.to_numpy(dtype=float)
+    user_values = user.to_numpy(dtype=float)
+    result = np.full((ref_values.shape[1], user_values.shape[1]), np.nan)
+
+    ref_ok = ~np.isnan(ref_values).any(axis=0)
+    user_ok = ~np.isnan(user_values).any(axis=0)
+
+    def standardised_ranks(frame: pd.DataFrame, columns: np.ndarray) -> np.ndarray:
+        ranks = frame.iloc[:, np.flatnonzero(columns)].rank(axis=0, method="average").to_numpy(dtype=float)
+        ranks = ranks - ranks.mean(axis=0)
+        with np.errstate(divide="ignore", invalid="ignore"):
+            return ranks / np.sqrt((ranks**2).sum(axis=0))
+
+    if ref_ok.any() and user_ok.any():
+        block = standardised_ranks(ref, ref_ok).T @ standardised_ranks(user, user_ok)
+        result[np.ix_(np.flatnonzero(ref_ok), np.flatnonzero(user_ok))] = np.clip(block, -1.0, 1.0)
+
+    # Anything touching a missing value is done pair by pair, as pandas always did.
+    for j in range(user_values.shape[1]):
+        for i in range(ref_values.shape[1]):
+            if not (ref_ok[i] and user_ok[j]):
+                result[i, j] = pd.Series(ref_values[:, i]).corr(pd.Series(user_values[:, j]), method="spearman")
+    return result
 
 # import variable and class from other script
 from .GlobalVariable import logging, api_url, timeout
@@ -183,9 +216,6 @@ def CELLiD_cluster(
         Pandas DataFrame: return the Pandas DataFrame along with the correlation score.
     """
 
-    # initialize the pandarallel for parallel processing
-    pandarallel.initialize(nb_workers=ncores)
-
     # check for the input data
     if not (isinstance(rna, pd.DataFrame) or isinstance(rna, np.ndarray)):
         logging.error("the rna must be a pandas DataFrame or Numpy Array")
@@ -247,30 +277,8 @@ def CELLiD_cluster(
     rna = rna.loc[list(genes)]
     ref_data = ref_data.loc[list(genes)]
 
-    # nested apply function to compute correlation for each cell type between the user and reference database
-    def each_ref_correlation(input, ref_data):
-        input = list(input)
-        res = ref_data.parallel_apply(basic_correlation, input=input, axis=0)
-        return res
-
-    # apply the correlation to all the columns in user data
-    def basic_correlation(ref, input):
-        # predicted = stats.spearmanr(
-        #     np.asarray(ref), np.asarray(input), alternative = "two-sided", nan_policy='omit'
-        # )[0]
-        predicted = pd.Series(list(ref)).corr(pd.Series(list(input)), method="spearman")
-
-        return predicted
-
-    # get the predicted correlation as in pandas DataFrame
-    # predicted_cell = pd.DataFrame(
-    #     generate_correlation_map(ref_data.to_numpy().T, rna.to_numpy().T)
-    # )
-    predicted_cell = rna.apply(
-        each_ref_correlation, result_type="expand", axis=0, ref_data=ref_data
-    )
-    predicted_cell = pd.DataFrame(predicted_cell)
-
+    # correlation of every user column with every reference cell type (rows: cell types, columns: user clusters)
+    predicted_cell = pd.DataFrame(_spearman_matrix(ref_data, rna), columns=rna.columns)
     # set the index to be the celltype based on the reference_data
     predicted_cell.index = ref_data.columns
 

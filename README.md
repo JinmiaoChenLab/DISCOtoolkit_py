@@ -49,7 +49,7 @@ pip install -e .
 
 `pip install discotoolkit` and a local install give the same code when the versions match. The difference is the source: PyPI delivers a released, packaged copy, while a local install uses the files in your folder.
 
-Dependencies (installed automatically): numpy, pandas, scanpy, scipy, joblib, pandarallel, requests, colorcet, leidenalg, h5py, matplotlib, seaborn.
+Dependencies (installed automatically): numpy, pandas, scanpy, scipy, joblib, requests, colorcet, leidenalg, h5py, matplotlib, seaborn.
 
 We recommend a virtual environment, for example with miniconda:
 

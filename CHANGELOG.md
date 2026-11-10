@@ -1,5 +1,17 @@
 # Changelog
 
+## Unreleased
+
+pandas 3 is supported again.
+
+- **Changed** `CELLiD_cluster` no longer uses `pandarallel`, which cannot load with pandas 3 and has had
+  no release since 1.6.5. The correlation of each cluster with every reference cell type is now one matrix
+  calculation (Spearman is Pearson on ranks); it gives the same numbers as before, including for ties and
+  missing values, and is faster. `ncores` still sets the workers for the second, per-cluster step.
+- **Removed** the `pandarallel` dependency and the `pandas<3` limit from 1.3.1.
+- **Tests** the new calculation is compared with pandas' own pairwise Spearman, and `CELLiD_cluster`
+  annotates a small made-up reference.
+
 ## 1.3.1 (2026-11-10)
 
 - **Fixed** `import discotoolkit` failed on a fresh install since pandas 3 came out: `pandarallel`
