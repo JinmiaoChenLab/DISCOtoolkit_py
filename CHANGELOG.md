@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- **Fixed** `import discotoolkit` failed on a fresh install since pandas 3 came out: `pandarallel`
+  (used by `CELLiD_cluster`) has had no release since 1.6.5 and cannot load with pandas 3. The
+  requirements now keep pandas below 3. This also broke the weekly Docs and User check workflows.
+  Moving off `pandarallel` (joblib is already a dependency) is the way to support pandas 3.
+
 ## 1.3.0 (2026-10-08)
 
 The toolkit is for DISCO V1 only.
