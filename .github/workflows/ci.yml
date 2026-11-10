@@ -10,7 +10,9 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    # Not ubuntu-latest: that is Ubuntu 26.04 now, which has no Python 3.9 build for setup-python, and 3.9
+    # is still a supported version (python_requires in setup.py). Move this when 3.9 is dropped.
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
