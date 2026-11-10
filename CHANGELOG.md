@@ -1,8 +1,15 @@
 # Changelog
 
-## Unreleased
+## 1.3.2 (2026-11-10)
 
-pandas 3 is supported again.
+pandas 3 is supported.
+
+**Please upgrade:** `pip install -U discotoolkit`
+
+- If `import discotoolkit` failed for you with `cannot import name 'ExpandingGroupby'`, this is the fix.
+  Version 1.3.0 and earlier break on a fresh install since pandas 3 came out, and 1.3.1 only worked around it
+  by holding pandas back. 1.3.2 has no such limit: it works with pandas 2 and pandas 3.
+- Nothing changes in how you use the toolkit.
 
 - **Changed** `CELLiD_cluster` no longer uses `pandarallel`, which cannot load with pandas 3 and has had
   no release since 1.6.5. The correlation of each cluster with every reference cell type is now one matrix
