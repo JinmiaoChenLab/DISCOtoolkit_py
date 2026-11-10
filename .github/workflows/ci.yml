@@ -95,6 +95,9 @@ jobs:
     # is a message about the server, not about this code.
     runs-on: ubuntu-latest
     continue-on-error: true
+    # It waits on the public server, which can be slow or unreachable from GitHub. Without a limit one hung
+    # request held up the whole run, and the release workflow reuses this one, for hours.
+    timeout-minutes: 6
     steps:
       - uses: actions/checkout@v4
 
