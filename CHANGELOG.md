@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.3.1 (2026-11-10)
 
 - **Fixed** `import discotoolkit` failed on a fresh install since pandas 3 came out: `pandarallel`
   (used by `CELLiD_cluster`) has had no release since 1.6.5 and cannot load with pandas 3. The
