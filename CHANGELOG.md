@@ -1,6 +1,8 @@
 # Changelog
 
-## Unreleased
+## 1.3.3 (2026-11-10)
+
+No change in how the toolkit works: this release only protects future installs.
 
 - **Changed** every dependency now has an upper limit at the next major version (next minor for 0.x
   packages), so a new major release of pandas, numpy or scanpy cannot break a fresh install. The versions

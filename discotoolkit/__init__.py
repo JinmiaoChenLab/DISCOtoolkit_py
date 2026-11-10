@@ -5,4 +5,4 @@ from .CELLiD import *
 from .GeneSearch import *
 from .GlobalVariable import set_server, get_server
 
-__version__ = "1.3.2"
+__version__ = "1.3.3"
