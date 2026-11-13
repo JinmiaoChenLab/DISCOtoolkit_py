@@ -57,6 +57,9 @@ When a new major is wanted (or users ask for it):
 
 The limits only cover the packages named in `requirements.txt`; what those packages need in turn (anndata,
 numba, ...) is up to them. The weekly Docs and User check runs would show it if one of those breaks.
+When that happens, constrain the affected transitive dependency here too. For example, `umap-learn`
+is held below 0.6 because that release fails on Scanpy's strided float32 neighbor distances. Run
+`python tests/test_embedding.py` when evaluating a newer UMAP release before lifting this limit.
 
 ## If the publish step fails
 

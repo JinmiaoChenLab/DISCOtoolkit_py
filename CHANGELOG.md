@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+- **Fixed** fresh installs could fail in the quickstart's neighbor graph calculation with a Numba
+  `TypingError` after UMAP 0.6 was released. Keep `umap-learn` below 0.6 until it supports the
+  strided float32 neighbor distances supplied by Scanpy again.
+- **Tests** regular CI now exercises neighbor graph construction with strided distances and a small
+  offline Scanpy preprocessing/UMAP workflow.
+
 ## 1.3.3 (2026-11-10)
 
 No change in how the toolkit works: this release only protects future installs.

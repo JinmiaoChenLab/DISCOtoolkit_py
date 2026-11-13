@@ -4,6 +4,9 @@
 pandas>=1.4.2,<4
 numpy>=1.21.6,<3
 scanpy>=1.9.3,<2
+# UMAP 0.6 keeps strided float32 neighbor distances that its Numba kernel requires contiguous.
+# Scanpy can supply these views; keep the working 0.5 series until that path is fixed upstream.
+umap-learn>=0.5,<0.6
 scipy>=1.10.1,<2
 joblib>=1.1.0,<2
 requests>=2.28.1,<3
