@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.3.4 (2026-11-13)
 
 - **Fixed** fresh installs could fail in the quickstart's neighbor graph calculation with a Numba
   `TypingError` after UMAP 0.6 was released. Keep `umap-learn` below 0.6 until it supports the
