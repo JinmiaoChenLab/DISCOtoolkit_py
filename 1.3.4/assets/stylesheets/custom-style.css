@@ -1,0 +1,98 @@
+/* custom-style.css */
+.coding-font {
+    font-family: 'Consolas', 'Menlo', 'Roboto Mono', monospace;
+    font-size: 14px;
+    padding: 10px;
+    border-top: 6px solid var(--border-color);
+    border-left: 1px solid transparent;
+    border-right: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+    border-radius: 4px;
+}
+
+[data-md-color-scheme="default"] {
+  --background-color: #f3f7fb;
+  --text-color: #000;
+  --border-color: #0367cc;
+  --header-color: #000; /* Set the desired header color for the default theme */
+}
+
+[data-md-color-scheme="slate"] {
+  --background-color: #333;
+  --text-color: #fff;
+  --border-color: #f0cc01;
+  --header-color: #fff; /* Set the desired header color for the slate theme */
+}
+
+[data-md-color-scheme="default"] .coding-font {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+[data-md-color-scheme="default"] .parameter-font {
+  color: var(--border-color);
+  font-style: italic;
+}
+
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color: #f9f7f3;
+}
+
+[data-md-color-scheme="slate"] .parameter-font {
+    color: var(--border-color);
+    font-style: italic;
+}
+
+[data-md-color-scheme="slate"] .coding-font {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3 {
+  color: var(--header-color);
+  font-weight: bold;
+}
+
+.md-nav__title {
+  color: var(--header-color);
+}
+
+/* customisation for the table to look nice */
+.md-typeset__table {
+  min-width: 100%;
+ }
+ 
+.md-typeset table:not([class]) {
+  display: table;
+  font-size: 14px;
+ }
+
+ .md-typeset table:not([class]) td:first-child{
+  width: 20%;
+ }
+
+.badge-container {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-right: 8px;
+}
+
+.badge-link {
+  text-decoration: none;
+  color: #333;
+}
+
+.badge-icon {
+  margin-right: 4px;
+}
+
+.badge-count {
+  font-weight: bold;
+}
